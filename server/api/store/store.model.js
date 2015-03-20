@@ -5,7 +5,20 @@ var mongoose = require('mongoose'),
 
 var StoreSchema = new Schema({
   name: String,
-  info: String,
+  category: Array,
+  hours: Object, 
+  address: String,
+  addressLineTwo: String,
+  lon: Number,
+  lat: Number,
+  avatar: String,
+  photos: Array,
+  zip5: Number,
+  zip4: Number,
+  county: String,
+  state: String,
+  city: String,
+  reviews: [{type: mongoose.Types.ObjectId, ref: 'Review'}],
   active: Boolean
 });
 
