@@ -6,7 +6,10 @@ var crypto = require('crypto');
 var authTypes = ['github', 'twitter', 'facebook', 'google'];
 
 var UserSchema = new Schema({
-  name: String,
+  firstName: String,
+  lastName: String,
+  avatar: String,
+  reviews: [{type : mongoose.Types.ObjectId, ref: 'User' }],
   email: { type: String, lowercase: true },
   role: {
     type: String,
