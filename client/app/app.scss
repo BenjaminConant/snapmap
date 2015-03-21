@@ -3,6 +3,7 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 
 @import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
 @import 'font-awesome/scss/font-awesome';
+@import url(http://fonts.googleapis.com/css?family=Muli);
 
 /**
  * App-wide Styles
@@ -34,6 +35,28 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 			a { background-color: #F9BD9B !important; color: black !important }
 		}
 	}
+}
+
+.btn-primary {
+	background-color: #C56A51 !important;
+	border: none !important;
+}
+
+rating {
+	background-color: #C56A51 !important;
+}
+
+.glyphicon-star:before {
+	color: #C56A51 !important;
+}
+
+.full {
+  background: url('/assets/images/snapmap_bg.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: Muli;
 }
 
 // Component styles are injected through grunt

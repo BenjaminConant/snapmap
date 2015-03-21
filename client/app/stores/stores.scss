@@ -11,13 +11,19 @@
 	min-height: 200px;
 }
   #foo{
-   	width:100px;
-   	height:100px;
+   	width:105px;
+   	height:105px;
+   	border-radius: 10px;
+   	border: 3px solid #C56A51;
   }
 
 .thumb-sample{
   background: blue;
   background-size:cover;
+}
+
+.panel-description {
+	color: #C56A51 !important;
 }
 
 .margin-top {
@@ -48,6 +54,14 @@
 	}
 }
 
+.panel-primary {
+	.panel-heading {
+		background-color: #D3B184 !important;
+		border: none !important;
+		outline: none !important;
+	}
+}
+
 .align-center {
 	text-align: center;
 }
@@ -73,7 +87,6 @@
 .review{
 	background: white;
 	border-radius: 8px;
-	border: 3px solid black;
 	opacity: 80%;
 	margin-bottom:30px;
 	padding-bottom: 20px;
