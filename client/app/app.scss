@@ -28,6 +28,12 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 
 .navbar-default {
 	background-color: #C56A51;
+	.navbar-nav {
+		a { color: white !important };
+		.active {
+			a { background-color: #F9BD9B !important; color: black !important }
+		}
+	}
 }
 
 // Component styles are injected through grunt
