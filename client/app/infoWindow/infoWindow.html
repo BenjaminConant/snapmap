@@ -1,0 +1,7 @@
+<div>
+	<span><b>{{location.name}}</b></span><br>
+	<span>{{location.address}}</span><br>
+	<span ng-show="location.addressLineTwo">{{location.addressLineTwo}}</span><br>
+	<span>{{location.city}}, {{location.state}} {{location.zip5}}</span><br>
+	<a ui-sref="stores({ id: location._id })">See more info</a>
+</div>

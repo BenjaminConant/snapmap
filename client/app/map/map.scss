@@ -1,1 +1,8 @@
 .angular-google-map-container { height: 550px };
+
+ui-gmap-window {
+	div {
+		background-color: blue;
+		height: 250px;
+	}
+}

@@ -20,8 +20,9 @@ angular.module('snapmapApp')
 	    	scope.locations = data;
 	    });
 	    scope.hitMarker = function (id){
-	    	console.log(id);
+	    	scope.showWindow = !scope.showWindow;
 	    };
+	    scope.showWindow = false;
       }
     };
   });
