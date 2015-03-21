@@ -17,7 +17,13 @@ angular.module('snapmapApp')
 	      }
 	    });
 	    store.someMethod().then(function (data){
-	    	scope.locations = data;
+	    	scope.locations = [];
+	    	scope.groceries = [];
+	    	var regex = /grocery/;
+	    	data.forEach(function (location){
+	    		if (regex.test(location.name.toLowerCase())) scope.groceries.push(location);
+	    		else scope.locations.push(location);
+	    	});
 	    });
       }
     };

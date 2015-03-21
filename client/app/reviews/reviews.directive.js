@@ -12,23 +12,16 @@ angular.module('snapmapApp')
       	{user: 'John Sample', date: '10-12-14', text: 'Great stuff, this place was awesome!'},
       	{user: 'Jin Critic', date: '2-15-15', text: 'I was treated terribly, never coming back!!'}];
       	//by id
-      	ReviewFactory.getReviews().then(function(response, err){
-      		if(err) console.log(err);
-      		scope.reviews=response;
-      	})
-      	Auth.getCurrentUser().then(function(user){
-      		if(user){
-      			scope.user = user;
-      		}
-      	})
-      	scope.submit = function(){
-      		Auth.getCurrentUser().then(function(user){
-
-      			ReviewFactory.createReview(scope.newReview, user).then(function(response){
-      				scope.reviews.push(response);
-      		});
-      		
-      	});
-      }
+      	scope.submitReview = function (review){
+          var obj = {
+            stars: review.rating,
+            text: review.text,
+            store: scope.store._id,
+            date: new Date(),
+            user: 'New User'
+          }
+          scope.reviews.unshift(obj);
+        }
+    }
   }
-}});
+});
