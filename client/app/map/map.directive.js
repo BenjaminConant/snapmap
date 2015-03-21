@@ -19,10 +19,6 @@ angular.module('snapmapApp')
 	    store.someMethod().then(function (data){
 	    	scope.locations = data;
 	    });
-	    scope.hitMarker = function (id){
-	    	scope.showWindow = !scope.showWindow;
-	    };
-	    scope.showWindow = false;
       }
     };
   });
