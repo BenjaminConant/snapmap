@@ -30,6 +30,19 @@ angular.module('snapmapApp')
     return {
       someMethod: function () {
         return $http.get('/api/stores').then(function success(stores) {
+          return stores.data;
+        }, function failed (err){
+          console.log(err);
+          return err;
+        });
+      },
+      getStore: function (routeId) {
+        return $http.get('/api/stores/'+routeId).then(function success(stores) {
+          console.log(stores.data);
+          return stores.data;
+        }, function failed (err){
+          console.log(err);
+          return err;
           console.log('response:',  stores.data);
           return stores.data;
         }, function failed (err){

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('snapmapApp')
-  .controller('MainCtrl', function ($scope, $http) {
+  .controller('MainCtrl', function ($scope, $http, GeolocationFactory) {
     $scope.awesomeThings = [];
 
     $http.get('/api/things').success(function(awesomeThings) {
@@ -19,4 +19,5 @@ angular.module('snapmapApp')
     $scope.deleteThing = function(thing) {
       $http.delete('/api/things/' + thing._id);
     };
+
   });

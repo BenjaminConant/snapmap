@@ -16,6 +16,7 @@ exports.index = function(req, res) {
 
 // Get a single store
 exports.show = function(req, res) {
+  console.log(req.params.id);
   Store.findById(req.params.id, function (err, store) {
     if(err) { return handleError(res, err); }
     if(!store) { return res.send(404); }

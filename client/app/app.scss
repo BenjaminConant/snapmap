@@ -15,11 +15,36 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
     padding: 0.2em 0;
 }
 
+.navbar-brand {
+	img {
+		height: 110%;
+		width: auto;
+	}
+}
+
+.navbar {
+	margin-bottom: 0%;
+}
+
+.navbar-default {
+	background-color: #C56A51;
+	.navbar-nav {
+		a { color: white !important };
+		.active {
+			a { background-color: #F9BD9B !important; color: black !important }
+		}
+	}
+}
+
 // Component styles are injected through grunt
 // injector
 @import 'account/login/login.scss';
 @import 'admin/admin.scss';
 @import 'hello/hello.scss';
+@import 'infoWindow/infoWindow.scss';
 @import 'main/main.scss';
+@import 'map/map.scss';
+@import 'reviews/reviews.scss';
+@import 'stores/stores.scss';
 @import 'modal/modal.scss';
 // endinjector

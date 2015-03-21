@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "main": "server/app.js",
   "dependencies": {
+    "angular-google-maps": "^2.0.17",
     "bluebird": "^2.9.14",
     "body-parser": "~1.5.0",
     "composable-middleware": "^0.3.0",
