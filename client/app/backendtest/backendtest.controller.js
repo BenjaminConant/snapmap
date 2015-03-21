@@ -5,7 +5,23 @@ angular.module('snapmapApp')
     $scope.message = 'Hello';
 
 
-    var stores = store.someMethod();
+    store.someMethod().then(function success(stores){
+    	console.log('stores here: ', stores)
+    });
 
-    console.log('stores here: ', stores)
+	// store.foursquare().then(function success(dataArray){
+	//     console.log('foursquare: ', dataArray)
+		
+	// });
+
+
+    // for (var i = 0; i < foursquare.response.venues.length; i++){
+    // 	console.log( i + foursquare.response.venues[i])
+    // }
+
+    // foursquare.response.venues.forEach(function(store){
+
+    // })
+
+
   });
