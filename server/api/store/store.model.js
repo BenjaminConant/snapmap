@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
 var StoreSchema = new Schema({
   name: String,
   category: Array,
+  description: String,
   hours: Object, 
   address: String,
   addressLineTwo: String,
