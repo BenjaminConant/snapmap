@@ -15,6 +15,21 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
     padding: 0.2em 0;
 }
 
+.navbar-brand {
+	img {
+		height: 110%;
+		width: auto;
+	}
+}
+
+.navbar {
+	margin-bottom: 0%;
+}
+
+.navbar-default {
+	background-color: #C56A51;
+}
+
 // Component styles are injected through grunt
 // injector
 @import 'account/login/login.scss';
