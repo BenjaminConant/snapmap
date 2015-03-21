@@ -1,16 +1,10 @@
 'use strict';
 
 angular.module('snapmapApp')
-  .factory('WindowSizeFactory', function () {
-    // Service logic
-    // ...
-
-    var meaningOfLife = 42;
-
-    // Public API here
-    return {
-      someMethod: function () {
-        return meaningOfLife;
-      }
-    };
+  .factory('WindowSizeFactory', function ($window) {
+      var factory = {};
+        factory.getWindowSize = function(){
+          return $window.innerHeight;
+        };
+      return factory;
   });

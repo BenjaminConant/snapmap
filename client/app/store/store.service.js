@@ -11,7 +11,7 @@ angular.module('snapmapApp')
     return {
       someMethod: function () {
         return $http.get('/api/stores').then(function success(stores) {
-          console.log(stores.data);
+          return stores.data;
         }, function failed (err){
           console.log(err);
         });

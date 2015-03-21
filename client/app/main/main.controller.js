@@ -20,10 +20,4 @@ angular.module('snapmapApp')
       $http.delete('/api/things/' + thing._id);
     };
 
-    GeolocationFactory.getGeo().then(function (){
-      if (GeolocationFactory.latitude && GeolocationFactory.longitude){
-        $scope.geo = { lat: GeolocationFactory.latitude, lon: GeolocationFactory.longitude };
-      }
-    });
-
   });

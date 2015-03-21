@@ -1,1 +1,7 @@
-<div>this is the map directive</div>
+<ui-gmap-google-map center="map.center" zoom="map.zoom">
+	<ui-gmap-marker ng-repeat="location in locations"
+	click="{ click: hitMarker(location._id) }"
+	idKey = "{ id: location._id }" 
+	coords="{ latitude: location.lat, longitude: location.lon }">
+	</ui-gmap-marker>
+</ui-gmap-google-map>
