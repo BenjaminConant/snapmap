@@ -20,6 +20,44 @@
   background-size:cover;
 }
 
+.margin-top {
+	margin-top: 20px;
+}
+
+@media (min-width: 1200px){
+	.center-box {
+		margin: auto 15% auto 15%;
+	}
+}
+
+@media (max-width: 1200px){
+	.center-box {
+		margin: auto 20% auto 20%;
+	}
+}
+
+@media (max-width: 600px){
+	.center-box {
+		margin: auto 15% auto 15%;
+	}
+}
+
+@media (max-width: 500px){
+	.center-box {
+		margin: auto 10% auto 10%;
+	}
+}
+
+.align-center {
+	text-align: center;
+}
+.align-left {
+	text-align: left;
+}
+.align-right {
+	text-align: right;
+}
+
 .block {
 	display: block;
 }
@@ -35,10 +73,11 @@
 .review{
 	background: white;
 	border-radius: 8px;
-	padding-left:40px;
-	padding-right:40px;
 	border: 3px solid black;
 	opacity: 80%;
 	margin-bottom:30px;
 	padding-bottom: 20px;
+	.panel-content {
+		padding-left: 2.5%;
+	}
 }
