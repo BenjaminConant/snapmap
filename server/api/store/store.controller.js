@@ -7,7 +7,8 @@ var Store = require('./store.model');
 
 // Get list of stores
 exports.index = function(req, res) {
-  Store.find(function (err, stores) {
+  var zipcodes = [10027, 10025, 10026, 10030, 10031]; 
+  Store.find({zip5: {$in: zipcodes}}, function (err, stores) {
     if(err) { return handleError(res, err); }
     return res.json(200, stores);
   });
