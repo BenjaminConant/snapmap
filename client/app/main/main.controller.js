@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('snapmapApp')
-  .controller('MainCtrl', function ($scope, $http) {
+  .controller('MainCtrl', function ($scope, $http, GeolocationFactory) {
     $scope.awesomeThings = [];
 
     $http.get('/api/things').success(function(awesomeThings) {
@@ -19,4 +19,11 @@ angular.module('snapmapApp')
     $scope.deleteThing = function(thing) {
       $http.delete('/api/things/' + thing._id);
     };
+
+    GeolocationFactory.getGeo().then(function (){
+      if (GeolocationFactory.latitude && GeolocationFactory.longitude){
+        $scope.geo = { lat: GeolocationFactory.latitude, lon: GeolocationFactory.longitude };
+      }
+    });
+
   });
