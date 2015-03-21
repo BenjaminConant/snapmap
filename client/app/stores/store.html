@@ -1,15 +1,22 @@
 <div ng-include="'components/navbar/navbar.html'" class="ng-scope"></div>
 
-<div>
-	<div class='col-md-2 col-md-offset-1'>
-	<h3>{{store.name}}</h3>
-	<h4>{{store.address}}</h4>
-	<h4>{{store.addressLineTwo}}</h4>
-
-	<!-- review + stars -->
-	 <img ng-img='{{store.avatar}}'/>
-
+<div class='tan main-box col-md-offset-1 row'>
+	<div class='thumb'>
+		<!-- <img ng-src='http://i.telegraph.co.uk/multimedia/archive/02591/Albert-Parade_2591589b.jpg' alt='Business image thumbnail'> -->
+		<div class='thumb-sample'></div>
+	</div>
+	<div class='col-md-2'>
+		<h3>{{store.name}}</h3>
+		<h4>{{store.address}}</h4>
+		<h4>{{store.addressLineTwo}}</h4>
 	</div>
 </div>
+<div class='col-md-4 row'>
+	<h5>{{store.review}}</h5>
+</div>
+	 	
+	 	<!-- review + stars -->
 
-<div>this is the stores directive</div>
+	 <reviews class='clearfix'></reviews>
+	</div>
+</div>

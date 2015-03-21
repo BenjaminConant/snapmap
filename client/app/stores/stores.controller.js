@@ -10,6 +10,7 @@ angular.module('snapmapApp')
     	if(store){
     		console.log('store', store);
     		$scope.store=store; //maybe make explicit
+    		$scope.store.review = 'Here is a very informed description about the location, this should be populated by a foursquare query and be awesome';
     	}
     })
 

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('snapmapApp')
-  .factory('ReviewFactory', function () {
+  .factory('ReviewFactory', function ($http) {
     // Service logic
     // ...
 
