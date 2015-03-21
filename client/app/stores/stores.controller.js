@@ -1,13 +1,15 @@
 'use strict';
 
 angular.module('snapmapApp')
-  .controller('StoresCtrl', function ($scope, $stateParams, StoreFactory) {
+  .controller('StoresCtrl', function ($scope, $stateParams, store) {
     $scope.message = 'Hello';
-
-    StoreFactory.getStore($stateParams.name).then(function(store, err){
-    	if (err) console.log(err);
+    console.log($stateParams);
+    store.getStore($stateParams.storeId).then(function(store, err){
+    	console.log('store', store, 'err', err);
+    	if (err) console.log('err', err);
     	if(store){
-    		$scope.store=store;
+    		console.log('store', store);
+    		$scope.store=store; //maybe make explicit
     	}
     })
 

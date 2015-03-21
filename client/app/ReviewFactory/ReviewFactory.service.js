@@ -9,8 +9,11 @@ angular.module('snapmapApp')
 
     // Public API here
     return {
-      getReviews: function () {
-        return meaningOfLife;
+      getReviews: function(storeId){
+        return $http.get('/api/reviews/:'+storeId, function(response){ //need to create a route
+          return response.data;
+        });
       }
+
     };
   });

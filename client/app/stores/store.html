@@ -1,11 +1,15 @@
+<div ng-include="'components/navbar/navbar.html'" class="ng-scope"></div>
+
 <div>
-	<h2>Stores go here</h2>
+	<div class='col-md-2 col-md-offset-1'>
 	<h3>{{store.name}}</h3>
+	<h4>{{store.address}}</h4>
+	<h4>{{store.addressLineTwo}}</h4>
 
 	<!-- review + stars -->
 	 <img ng-img='{{store.avatar}}'/>
 
-
+	</div>
 </div>
 
 <div>this is the stores directive</div>
