@@ -7,15 +7,21 @@
 	</form>
 	<h2 class='bump'>Reviews</h2>
 	<div ng-repeat='review in reviews'>
-		<div class='container review'>
-			<!-- render stars -->
-			<div class='row'>
+		<div class='review'>
 				<h3>{{review.user}}</h3>
-				<h4>{{review.date}}</h4>
-			</div>
-			<div class='row'>
+				<h5>{{review.date}}</h5>
 				<h4>{{review.text}}</h4>
-			</div>
 		</div>
 	<div>
+
+<!-- 		<div>
+				<h3>{{reviews[0].user}}</h3>
+				<h4>{{reviews[0].date}}</h4>
+				<h4>{{reviews[0].text}}</h4>
+		</div>
+		<div >
+				<h3>{{reviews[1].user}}</h3>
+				<h4>{{reviews[1].date}}</h4>
+				<h4>{{reviews[1].text}}</h4>
+		</div> -->
 </div>
