@@ -7,6 +7,57 @@
 
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
+var Store = require('../api/store/store.model');
+var fs = require('fs');
+var csv = require('csv');
+
+
+
+Store.find({}).remove(function(){
+  fs.readFile(__dirname+"/../nydata.csv", function(err, data){
+    console.log(err);
+    var storeString = data.toString();
+    csv.parse(storeString, function(err, stores){
+        console.log(err);
+      stores.forEach(function(store, index) { 
+        if (index !== 0 && store[5] === "New York") {
+          console.log(index + " thing");
+          Store.create({
+              name: store[0],
+              address: store[3],
+              addressLineTwo: store[4],
+              lon: store[1],
+              lat: store[2],
+              zip5: store[7],
+              zip4: store[8],
+              county: store[9],
+              state: store[6],
+              city: store[5]
+          }, function(err, data){
+            console.log("fdsafdsafdsaf");
+            console.log(err);
+            console.log(data);
+          });
+
+        } else {
+          console.log("not creating " + index);
+        }
+      });
+    });
+  });
+})
+
+
+
+
+
+
+
+
+
+
+
+
 
 Thing.find({}).remove(function() {
   Thing.create({

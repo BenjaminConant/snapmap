@@ -3,6 +3,8 @@
 var _ = require('lodash');
 var Store = require('./store.model');
 
+
+
 // Get list of stores
 exports.index = function(req, res) {
   Store.find(function (err, stores) {
