@@ -40,18 +40,6 @@ angular.module('snapmapApp')
     			})
 	    	});
       })
-      // console.log('store: ', store.someMethod())
-	   		
-	    	// console.log('data: ', data)
-    	
-
-    	
-    	// store.someMethod().then(function (location){
-    	// 	console.log('location: ', location)
-    	// 	if (regex.test(location.name.toLowerCase())) scope.groceries.push(location);
-    	// 	else scope.locations.push(location);
-	    // });
-
     }
 	}
 
