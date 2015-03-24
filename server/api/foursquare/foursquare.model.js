@@ -29,9 +29,8 @@ var FoursquareSchema = new Schema({
   	url: String
   },
   storeUrl: String
-
-
-});
+  
+}, {strict: false});
 
 
 

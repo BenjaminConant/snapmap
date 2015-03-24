@@ -1,11 +1,9 @@
 'use strict';
 
 angular.module('snapmapApp')
-  .factory('store', function ($http) {
+  .factory('store', function ($http, GeolocationFactory) {
     // Service logic
     // ...
-
-    var meaningOfLife = 42;
 
     // Public API here
 
@@ -28,13 +26,15 @@ angular.module('snapmapApp')
 
 
     return {
-      someMethod: function () {
-        return $http.get('/api/stores').then(function success(stores) {
-          return stores.data;
-        }, function failed (err){
-          console.log(err);
-          return err;
-        });
+
+      someMethod: function (data) {
+        return $http.get('/api/stores', {params: data})
+          .then(function success(stores) {
+            return stores.data;
+          }, function failed (err){
+              console.log('err: ', err);
+              return err;
+          })
       },
       getStore: function (routeId) {
         return $http.get('/api/stores/'+routeId).then(function success(stores) {

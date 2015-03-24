@@ -7,9 +7,17 @@ var Store = require('./store.model');
 
 // Get list of stores
 exports.index = function(req, res) {
-  var zipcodes = [10027, 10025, 10026, 10030, 10031]; 
-  Store.find({zip5: {$in: zipcodes}}, function (err, stores) {
+  //req.query  = {lng, lang}
+  // var zipcodes = [10027, 10025, 10026, 10030, 10031]; 
+  console.log('req:', req.query)
+  var lng, lat, dist;
+  lng = Number(req.query.coords[0])
+  lat = Number(req.query.coords[1])
+  dist = Number(req.query.dist)
+  console.log('lng: ', lng, 'lat: ', lat, 'dist: ', dist)
+  Store.find({location: {$near: [lng, lat], $maxDistance: dist/68.91}}, function (err, stores) {
     if(err) { return handleError(res, err); }
+    console.log('stores: ', stores)
     return res.json(200, stores);
   });
 };
@@ -59,5 +67,6 @@ exports.destroy = function(req, res) {
 };
 
 function handleError(res, err) {
+  console.log('err: ', err)
   return res.send(500, err);
 }
