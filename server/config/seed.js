@@ -41,87 +41,87 @@ var requestP = Promise.promisify(require('request'));
 
 /////////////////////////////////////// GET DATA FROM FOURSQUARE /////////////////////////////////////////////////////
 
-var resArray = []; 
-var url1 = 'https://api.foursquare.com/v2/venues/search?categoryId=4d4b7105d754a06374d81259&intent=browse&ne=40.827292,-73.935042&sw=40.809104,-73.965598&limit=50&v=20150321&oauth_token=ASYR2H1AHNFDD2TUHKJXCPUOKQ3SFKNTZUGOBQCAMBATHGA5'; 
-var url2 = 'https://api.foursquare.com/v2/venues/search?categoryId=4d4b7105d754a06374d81259&intent=browse&ne=40.827292,-73.935042&sw=40.809104,-73.965598&limit=50&offset=50&v=20150321&oauth_token=ASYR2H1AHNFDD2TUHKJXCPUOKQ3SFKNTZUGOBQCAMBATHGA5'; 
-var url3 = 'https://api.foursquare.com/v2/venues/search?categoryId=4d4b7105d754a06374d81259&intent=browse&ne=40.827292,-73.935042&sw=40.809104,-73.965598&limit=50&offset=100&v=20150321&oauth_token=ASYR2H1AHNFDD2TUHKJXCPUOKQ3SFKNTZUGOBQCAMBATHGA5'; 
-var url4 = 'https://api.foursquare.com/v2/venues/search?categoryId=4d4b7105d754a06374d81259&intent=browse&ne=40.827292,-73.935042&sw=40.809104,-73.965598&limit=50&offset=150&v=20150321&oauth_token=ASYR2H1AHNFDD2TUHKJXCPUOKQ3SFKNTZUGOBQCAMBATHGA5'; 
-var url5 = 'https://api.foursquare.com/v2/venues/search?categoryId=4d4b7105d754a06374d81259&intent=browse&ne=40.827292,-73.935042&sw=40.809104,-73.965598&limit=50&offset=200&v=20150321&oauth_token=ASYR2H1AHNFDD2TUHKJXCPUOKQ3SFKNTZUGOBQCAMBATHGA5'; 
-var url6 = 'https://api.foursquare.com/v2/venues/search?categoryId=4d4b7105d754a06374d81259&intent=browse&ne=40.827292,-73.935042&sw=40.809104,-73.965598&limit=50&offset=250&v=20150321&oauth_token=ASYR2H1AHNFDD2TUHKJXCPUOKQ3SFKNTZUGOBQCAMBATHGA5';
+// var resArray = []; 
+// var url1 = 'https://api.foursquare.com/v2/venues/search?categoryId=4d4b7105d754a06374d81259&intent=browse&ne=40.827292,-73.935042&sw=40.809104,-73.965598&limit=50&v=20150321&oauth_token=ASYR2H1AHNFDD2TUHKJXCPUOKQ3SFKNTZUGOBQCAMBATHGA5'; 
+// var url2 = 'https://api.foursquare.com/v2/venues/search?categoryId=4d4b7105d754a06374d81259&intent=browse&ne=40.827292,-73.935042&sw=40.809104,-73.965598&limit=50&offset=50&v=20150321&oauth_token=ASYR2H1AHNFDD2TUHKJXCPUOKQ3SFKNTZUGOBQCAMBATHGA5'; 
+// var url3 = 'https://api.foursquare.com/v2/venues/search?categoryId=4d4b7105d754a06374d81259&intent=browse&ne=40.827292,-73.935042&sw=40.809104,-73.965598&limit=50&offset=100&v=20150321&oauth_token=ASYR2H1AHNFDD2TUHKJXCPUOKQ3SFKNTZUGOBQCAMBATHGA5'; 
+// var url4 = 'https://api.foursquare.com/v2/venues/search?categoryId=4d4b7105d754a06374d81259&intent=browse&ne=40.827292,-73.935042&sw=40.809104,-73.965598&limit=50&offset=150&v=20150321&oauth_token=ASYR2H1AHNFDD2TUHKJXCPUOKQ3SFKNTZUGOBQCAMBATHGA5'; 
+// var url5 = 'https://api.foursquare.com/v2/venues/search?categoryId=4d4b7105d754a06374d81259&intent=browse&ne=40.827292,-73.935042&sw=40.809104,-73.965598&limit=50&offset=200&v=20150321&oauth_token=ASYR2H1AHNFDD2TUHKJXCPUOKQ3SFKNTZUGOBQCAMBATHGA5'; 
+// var url6 = 'https://api.foursquare.com/v2/venues/search?categoryId=4d4b7105d754a06374d81259&intent=browse&ne=40.827292,-73.935042&sw=40.809104,-73.965598&limit=50&offset=250&v=20150321&oauth_token=ASYR2H1AHNFDD2TUHKJXCPUOKQ3SFKNTZUGOBQCAMBATHGA5';
 
-requestP(url1).then(function fulfilled1(res1, b1){
-  b1 = JSON.parse(b1); 
-  resArray = resArray.concat(b1.response.venues);
-  return requestP(url2)
-}).then(function fulfilled2(res2, b2){
-  b2 = JSON.parse(b2); 
-  resArray = resArray.concat(b2.response.venues); 
-  return requestP(url3)
-}).then(function fulfilled3(res3, b3){
-  b3 = JSON.parse(b3); 
-  resArray = resArray.concat(b3.response.venues); 
-  return requestP(url4)
-}).then(function fulfilled4(res4, b4){
-  b4 = JSON.parse(b4); 
-  resArray = resArray.concat(b4.response.venues); 
-  return requestP(url5)
-}).then(function fulfilled5(res5, b5){
-  b5 = JSON.parse(b5); 
-  resArray = resArray.concat(b5.response.venues); 
-  return requestP(url6)
-}).then(function fulfilled6(res6, b6){
-  b6 = JSON.parse(b6); 
-  resArray = resArray.concat(b6.response.venues); 
-}).catch(clientError, function(e){
-  console.log('error: ', e)
-})
+// requestP(url1).then(function fulfilled1(res1, b1){
+//   b1 = JSON.parse(b1); 
+//   resArray = resArray.concat(b1.response.venues);
+//   return requestP(url2)
+// }).then(function fulfilled2(res2, b2){
+//   b2 = JSON.parse(b2); 
+//   resArray = resArray.concat(b2.response.venues); 
+//   return requestP(url3)
+// }).then(function fulfilled3(res3, b3){
+//   b3 = JSON.parse(b3); 
+//   resArray = resArray.concat(b3.response.venues); 
+//   return requestP(url4)
+// }).then(function fulfilled4(res4, b4){
+//   b4 = JSON.parse(b4); 
+//   resArray = resArray.concat(b4.response.venues); 
+//   return requestP(url5)
+// }).then(function fulfilled5(res5, b5){
+//   b5 = JSON.parse(b5); 
+//   resArray = resArray.concat(b5.response.venues); 
+//   return requestP(url6)
+// }).then(function fulfilled6(res6, b6){
+//   b6 = JSON.parse(b6); 
+//   resArray = resArray.concat(b6.response.venues); 
+// }).catch(clientError, function(e){
+//   console.log('error: ', e)
+// })
 
-//////////////////////////////////////// LOAD DATA IN DB ////////////////////////////////////////////////////////
+// //////////////////////////////////////// LOAD DATA IN DB ////////////////////////////////////////////////////////
 
-resArray.forEach(function(store, index){
-  if (store){
-    if (!store.delivery) {
-      store.delivery = {
-        provider: {
-          name: null,
-          url: null
-        }
-      }
-    }
-    Foursquare.create({
-      name: store.name, 
-      storeId: store.id, 
-      storeUrl: store.url,
-      categories: [{
-        name: store.categories[0].name, 
-        id: store.categories[0].id, 
-        icon: {
-          prefix: store.categories[0].icon.prefix, 
-          suffix: store.categories[0].icon.suffix
-        }
-      }], 
-      contactInfo: {
-        phone: store.contact.phone, 
-        formattedPhone: store.contact.formattedStore, 
-        address: store.location.address, 
-        crossStreet: store.location.crossStreet, 
-        formattedAddress: store.location.formattedAddress, 
-        lat: store.location.lat, 
-        lng: store.location.lng, 
-        postalCode: store.location.postalCode
-      }, 
-      delivery: {
-        name: store.delivery.provider.name, 
-        url: store.delivery.provider.url
-      }
-    })
-    .then(function success(successdata){
-      console.log('store: ', successdata)
-    }, function failed(error){
-      console.log('err during creation: ', error)
-    })
-  } //end of if condition
-}); 
+// resArray.forEach(function(store, index){
+//   if (store){
+//     if (!store.delivery) {
+//       store.delivery = {
+//         provider: {
+//           name: null,
+//           url: null
+//         }
+//       }
+//     }
+//     Foursquare.create({
+//       name: store.name, 
+//       storeId: store.id, 
+//       storeUrl: store.url,
+//       categories: [{
+//         name: store.categories[0].name, 
+//         id: store.categories[0].id, 
+//         icon: {
+//           prefix: store.categories[0].icon.prefix, 
+//           suffix: store.categories[0].icon.suffix
+//         }
+//       }], 
+//       contactInfo: {
+//         phone: store.contact.phone, 
+//         formattedPhone: store.contact.formattedStore, 
+//         address: store.location.address, 
+//         crossStreet: store.location.crossStreet, 
+//         formattedAddress: store.location.formattedAddress, 
+//         lat: store.location.lat, 
+//         lng: store.location.lng, 
+//         postalCode: store.location.postalCode
+//       }, 
+//       delivery: {
+//         name: store.delivery.provider.name, 
+//         url: store.delivery.provider.url
+//       }
+//     })
+//     .then(function success(successdata){
+//       console.log('store: ', successdata)
+//     }, function failed(error){
+//       console.log('err during creation: ', error)
+//     })
+//   } //end of if condition
+// }); 
 
 /////////////////////////////////////////// TEXT MATCHING ALGORITHM ///////////////////////////////////////////////
 
@@ -184,79 +184,90 @@ function similar_text(first, second, percent) {
   }
 }
 
-var storeObjs = Store.find().exec(); 
-var fourObjs = Foursquare.find().exec(); 
-storeObjs.then(function fulfilled(resolvedStoreObjs){
-  fourObjs.then(function fulfilledAgain(resolvedFourObjs){
-    return resolvedStoreObjs.map(function m(store, index){
-      for (var i = 0; i <= resolvedFourObjs.length; i++){
-       if (store && resolvedFourObjs[i]){
-        if (!resolvedFourObjs[i].delivery){
-          resolvedFourObjs[i].delivery = {
-            name: null, 
-            url: null 
-          }
-        }
-         var bool = similar_text(store.name, resolvedFourObjs[i].name, true)
-         if (bool){
-            console.log('in if!!!!!!!!!!: ', store)
-            // console.log('phone from four: ', resolvedFourObjs[i])
-            store.formattedAddress = resolvedFourObjs[i].contactInfo.formattedAddress;
-            store.crossStreet = resolvedFourObjs[i].contactInfo.crossStreet; 
-            store.categories = [{
-              name: resolvedFourObjs[i].categories[0].name, 
-              id: resolvedFourObjs[i].categories[0].id,
-              icon: {
-                prefix: resolvedFourObjs[i].categories[0].icon.prefix, 
-                suffix: resolvedFourObjs[i].categories[0].icon.suffix 
-              }
-            }]; 
-            store.storeUrl = resolvedFourObjs[i].storeUrl; 
-            // console.log('store2: ', store)
-            store.save(function(err, saved){
-              return new Promise(function(resolve, reject){
-                if (err) return reject(err)
-                resolve(saved); 
-              })  
-            })
-          } // end of if
-          else {
-            // console.log('in else: ', store)
-            return new Promise(function(resolve, reject){
-              store.save(function(err, saved, num){
-                // console.log('num: ', num)
-                if (err) return reject(err)
-                resolve(saved); 
-              }) 
-            })
-          }   //end of else      
-        }
-      }   //end of for loop 
-    })  
-  }).then(function success(arrayOfPromises){
-    return Promise.all(arrayOfPromises); 
-  }, function failed(error){
-    console.log('error:', error)
-  }).then(function success(resolvedNewStores){
-      console.log('resolved: ', resolvedNewStores.length)
-  }, function failed(error){
-    console.log('error: ', error)
-  })
-})
+// var storeObjs = Store.find().exec(); 
+// var fourObjs = Foursquare.find().exec(); 
+// storeObjs.then(function fulfilled(resolvedStoreObjs){
+//   fourObjs.then(function fulfilledAgain(resolvedFourObjs){
+//     return resolvedStoreObjs.map(function m(store, index){
+//       for (var i = 0; i <= resolvedFourObjs.length; i++){
+//        if (store && resolvedFourObjs[i]){
+//         if (!resolvedFourObjs[i].delivery){
+//           resolvedFourObjs[i].delivery = {
+//             name: null, 
+//             url: null 
+//           }
+//         }
+//          var bool = similar_text(store.name, resolvedFourObjs[i].name, true)
+//          if (bool){
+//             console.log('in if!!!!!!!!!!: ', store)
+//             // console.log('phone from four: ', resolvedFourObjs[i])
+//             store.formattedAddress = resolvedFourObjs[i].contactInfo.formattedAddress;
+//             store.crossStreet = resolvedFourObjs[i].contactInfo.crossStreet; 
+//             store.categories = [{
+//               name: resolvedFourObjs[i].categories[0].name, 
+//               id: resolvedFourObjs[i].categories[0].id,
+//               icon: {
+//                 prefix: resolvedFourObjs[i].categories[0].icon.prefix, 
+//                 suffix: resolvedFourObjs[i].categories[0].icon.suffix 
+//               }
+//             }]; 
+//             store.storeUrl = resolvedFourObjs[i].storeUrl; 
+//             // console.log('store2: ', store)
+//             store.save(function(err, saved){
+//               return new Promise(function(resolve, reject){
+//                 if (err) return reject(err)
+//                 resolve(saved); 
+//               })  
+//             })
+//           } // end of if
+//           else {
+//             // console.log('in else: ', store)
+//             return new Promise(function(resolve, reject){
+//               store.save(function(err, saved, num){
+//                 // console.log('num: ', num)
+//                 if (err) return reject(err)
+//                 resolve(saved); 
+//               }) 
+//             })
+//           }   //end of else      
+//         }
+//       }   //end of for loop 
+//     })  
+//   }).then(function success(arrayOfPromises){
+//     return Promise.all(arrayOfPromises); 
+//   }, function failed(error){
+//     console.log('error:', error)
+//   }).then(function success(resolvedNewStores){
+//       console.log('resolved: ', resolvedNewStores.length)
+//   }, function failed(error){
+//     console.log('error: ', error)
+//   })
+// })
 
 
 ///////////////////////////////// LOAD GOVERNMENT DATA IN DB //////////////////////////////////////////////////////////
 
-Store.find({}).remove(function(){
-  fs.readFile(__dirname+"/../nydata.csv", function(err, data){
-    // console.log(err);
-    var storeString = data.toString();
-    csv.parse(storeString, function(err, stores){
-        // console.log(err);
-      stores.forEach(function(store, index) { 
-        if (index !== 0 && store[5] === "New York") {
-          // console.log(index + " thing");
-          Store.create({
+// Store.find({}).remove().exec() 
+
+// var promisify = require("promisify-node");
+var fs = Promise.promisify(require('fs'))
+var csvP = Promise.promisify(csv);
+
+var storeP = Store.find().exec()
+
+storeP.then(function success(stores){
+  return stores.remove().exec()
+})
+.then(function fulfilled(){
+  fs.readFile(__dirname+"/../nydata.csv")
+  .then(function success(data){
+    data = data.toString(); 
+    csvP.parse(data)
+    .then(function s(stores){
+      return stores.map(function m(store, index){
+        if (index !== 0) {
+          console.log(index + " thing");
+          return Store.create({
               name: store[0],
               address: store[3],
               addressLineTwo: store[4],
@@ -267,19 +278,90 @@ Store.find({}).remove(function(){
               county: store[9],
               state: store[6],
               city: store[5]
-          }, function(err, data){
-            // console.log("fdsafdsafdsaf");
-            // console.log(err);
-            // console.log(data);
+          }).then(function yes(data){
+            console.log('after create: ', data);
+          }, function fail(err){
+            console.log('fail in create: ', err)
           });
-
-        } else {
-          // console.log("not creating " + index);
         }
-      });
-    });
-  });
-})
+      })
+    })
+    .then(function fulfilled(arrOfPromises){
+      return Promise.all(arrOfPromises)
+    }, function failed(err){
+      console.log('err: ', err)
+    })
+
+
+// function(){ 
+//   fs.readFile(__dirname+"/../nydata.csv", function(err, data){
+//     // console.log(err);
+//     var storeString = data.toString();
+//     csv.parse(storeString, function(err, stores){
+//         // console.log(err);
+//       stores.forEach(function(store, index) { 
+//         if (index !== 0) {
+//           console.log(index + " thing");
+//           Store.create({
+//               name: store[0],
+//               address: store[3],
+//               addressLineTwo: store[4],
+//               lon: store[1],
+//               lat: store[2],
+//               zip5: store[7],
+//               zip4: store[8],
+//               county: store[9],
+//               state: store[6],
+//               city: store[5]
+//           }, function(err, data){
+//             // console.log("fdsafdsafdsaf");
+//             // console.log(err);
+//             console.log(data);
+//           });
+
+//         } else {
+//           // console.log("not creating " + index);
+//         }
+//       });
+//     });
+//   });
+// })
+
+
+
+// Store.find({}).remove(function(){
+//   fs.readFile(__dirname+"/../nydata.csv", function(err, data){
+//     // console.log(err);
+//     var storeString = data.toString();
+//     csv.parse(storeString, function(err, stores){
+//         // console.log(err);
+//       stores.forEach(function(store, index) { 
+//         if (index !== 0) {
+//           console.log(index + " thing");
+//           Store.create({
+//               name: store[0],
+//               address: store[3],
+//               addressLineTwo: store[4],
+//               lon: store[1],
+//               lat: store[2],
+//               zip5: store[7],
+//               zip4: store[8],
+//               county: store[9],
+//               state: store[6],
+//               city: store[5]
+//           }, function(err, data){
+//             // console.log("fdsafdsafdsaf");
+//             // console.log(err);
+//             console.log(data);
+//           });
+
+//         } else {
+//           // console.log("not creating " + index);
+//         }
+//       });
+//     });
+//   });
+// })
 
 
 
@@ -293,27 +375,27 @@ Store.find({}).remove(function(){
 
 
 
-Thing.find({}).remove(function() {
-  Thing.create({
-    name : 'Development Tools',
-    info : 'Integration with popular tools such as Bower, Grunt, Karma, Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, Stylus, Sass, CoffeeScript, and Less.'
-  }, {
-    name : 'Server and Client integration',
-    info : 'Built with a powerful and fun stack: MongoDB, Express, AngularJS, and Node.'
-  }, {
-    name : 'Smart Build System',
-    info : 'Build system ignores `spec` files, allowing you to keep tests alongside code. Automatic injection of scripts and styles into your index.html'
-  },  {
-    name : 'Modular Structure',
-    info : 'Best practice client and server structures allow for more code reusability and maximum scalability'
-  },  {
-    name : 'Optimized Build',
-    info : 'Build process packs up your templates as a single JavaScript payload, minifies your scripts/css/images, and rewrites asset names for caching.'
-  },{
-    name : 'Deployment Ready',
-    info : 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
-  });
-});
+// Thing.find({}).remove(function() {
+//   Thing.create({
+//     name : 'Development Tools',
+//     info : 'Integration with popular tools such as Bower, Grunt, Karma, Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, Stylus, Sass, CoffeeScript, and Less.'
+//   }, {
+//     name : 'Server and Client integration',
+//     info : 'Built with a powerful and fun stack: MongoDB, Express, AngularJS, and Node.'
+//   }, {
+//     name : 'Smart Build System',
+//     info : 'Build system ignores `spec` files, allowing you to keep tests alongside code. Automatic injection of scripts and styles into your index.html'
+//   },  {
+//     name : 'Modular Structure',
+//     info : 'Best practice client and server structures allow for more code reusability and maximum scalability'
+//   },  {
+//     name : 'Optimized Build',
+//     info : 'Build process packs up your templates as a single JavaScript payload, minifies your scripts/css/images, and rewrites asset names for caching.'
+//   },{
+//     name : 'Deployment Ready',
+//     info : 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
+//   });
+// });
 
 User.find({}).remove(function() {
   User.create({
