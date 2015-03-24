@@ -5,40 +5,33 @@ var mongoose = require('mongoose'),
 
 var StoreSchema = new Schema({
   name: String,
-  category: Array,
+  phone: String, 
   description: String,
   hours: Object, 
+  images: Object,
   address: String,
   addressLineTwo: String,
+  category: Array,
   lon: {type: Number},
   lat: {type: Number},
   avatar: String,
-  photos: Array,
   zip5: Number,
   zip4: Number,
+  location: [Number, Number],
   county: String,
   state: String,
   city: String,
   reviews: [{type: mongoose.Types.ObjectId, ref: 'Review'}],
   active: Boolean, 
-  phone: String, 
-  formattedPhone: String, 
   crossStreet: String, 
-  addressFour: String, 
-  formattedAddress: String, 
   storeUrl: String, 
-  categories: [{
-    name: String, 
-    id: String, 
-    icon: {
-      prefix: String, 
-      suffix: String
-    }
-  }],
   delivery: {
     name: String, 
     url: String
   } 
 }, {strict: false});    // this enables us to assign key-value pairs that are defined by this schema to store documents
+
+
+StoreSchema.index({ location: "2d" })
 
 module.exports = mongoose.model('Store', StoreSchema);

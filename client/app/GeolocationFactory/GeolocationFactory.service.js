@@ -6,8 +6,9 @@ angular.module('snapmapApp')
 
       factory.getGeo = function (){
         return $q(function (resolve, reject){
-          if(navigator.geolocation){
+          if(navigator.geolocation){                            //
             navigator.geolocation.getCurrentPosition(function (position){
+              console.log('pos: ', position)
               factory.latitude = position.coords.latitude;
               factory.longitude = position.coords.longitude;
               resolve();

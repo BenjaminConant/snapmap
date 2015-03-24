@@ -4,7 +4,7 @@
 	idKey= "{ id: location._id }"
 	icon="{ url: 'assets/images/snapmap_pin.png' }"
 	options= "{ title: location.name }" 
-	coords="{ latitude: location.lat, longitude: location.lon }">
+	coords="{ latitude: location.location[1], longitude: location.location[0] }">
 		<ui-gmap-window options="{ content: '<div style=\'height:150px\'><span><b>' + location.name + '</b></span><br>' + 
 		'<span>' + location.address + '</span><br><span>' + location.addressLineTwo + '</span><br><span>' + 
 		location.city + ', ' + location.state + ' ' + location.zip5 + '</span><br><a href=\'/store/' + location._id  + '\'>See more info</a></div>' }">
@@ -15,7 +15,7 @@
 	idKey= "{ id: grocery._id }"
 	icon="{ url: 'assets/images/snapmap_pin_GREEN.png' }"
 	options= "{ title: grocery.name }" 
-	coords="{ latitude: grocery.lat, longitude: grocery.lon }">
+	coords="{ latitude: grocery.location[1], longitude: grocery.location[0] }">
 		<ui-gmap-window options="{ content: '<div style=\'height:150px\'><span><b>' + grocery.name + '</b></span><br>' + 
 		'<span>' + grocery.address + '</span><br><span>' + grocery.addressLineTwo + '</span><br><span>' + 
 		grocery.city + ', ' + grocery.state + ' ' + grocery.zip5 + '</span><br><a href=\'/store/' + grocery._id  + '\'>See more info</a></div>' }">
