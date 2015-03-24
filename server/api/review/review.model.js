@@ -9,6 +9,6 @@ var ReviewSchema = new Schema({
   user: [{type : mongoose.Types.ObjectId, ref: 'User' }], 
   store: [{type : mongoose.Types.ObjectId, ref: 'Store'}],
   date: { type: Date, default: Date.now }
-});
+}, {strict: false});
 
 module.exports = mongoose.model('Review', ReviewSchema);

@@ -20,7 +20,25 @@ var StoreSchema = new Schema({
   state: String,
   city: String,
   reviews: [{type: mongoose.Types.ObjectId, ref: 'Review'}],
-  active: Boolean
-});
+  active: Boolean, 
+  phone: String, 
+  formattedPhone: String, 
+  crossStreet: String, 
+  addressFour: String, 
+  formattedAddress: String, 
+  storeUrl: String, 
+  categories: [{
+    name: String, 
+    id: String, 
+    icon: {
+      prefix: String, 
+      suffix: String
+    }
+  }],
+  delivery: {
+    name: String, 
+    url: String
+  } 
+}, {strict: false});    // this enables us to assign key-value pairs that are defined by this schema to store documents
 
 module.exports = mongoose.model('Store', StoreSchema);
