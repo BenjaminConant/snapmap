@@ -18,14 +18,17 @@ angular.module('snapmapApp')
             stars: review.rating,
             text: review.text,
             store: scope.store._id,
-            date: new Date(),
-            user: 'New User',
-            staricons: []
+            user: '5512e37ecc8cdc4f0b663b92'
           }
-          for (var i = 0; i < review.rating; i++){
-            obj.staricons.push(i);
-          };
-          scope.reviews.unshift(obj);
+          ReviewFactory.submitReview(obj).then(function (data){
+            console.log(data);
+            var review = data;
+            review.staricons = [];
+            for (var i = 0; i < review.rating; i++){
+              obj.staricons.push(i);
+            };
+            scope.reviews.unshift(review);
+          });
         }
     }
   }

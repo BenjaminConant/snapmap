@@ -2,6 +2,8 @@
 
 var _ = require('lodash');
 var Review = require('./review.model');
+var Store = require('../store/store.model');
+var User = require('../user/user.model');
 
 // Get list of reviews
 exports.index = function(req, res) {
@@ -22,9 +24,30 @@ exports.show = function(req, res) {
 
 // Creates a new review in the DB.
 exports.create = function(req, res) {
-  Review.create(req.body, function(err, review) {
-    if(err) { return handleError(res, err); }
-    return res.json(201, review);
+  var newReview = new Review();
+  newReview.stars = req.body.stars;
+  newReview.text = req.body.text;
+  newReview.user.push(req.body.user);
+  newReview.store.push(req.body.store);
+  newReview.save(function (err, review){
+    if (err) { console.log(err); return handleError(res, err); }
+    else {
+      Store.update({ _id: review.store[0] }, {$push: {reviews: review._id}}, function (err, store){
+        if (err) { console.log(err); return handleError(res, err); }
+        else {
+          User.findByIdAndUpdate(review.user[0], {$push: {reviews: review._id}}, function (err, user){
+            if (err) { console.log(err); return handleError(res, err); }
+            //Users do not currently have a first name and last name
+            var data = {};
+            data.text = review.text;
+            data.stars = review.stars;
+            data.date = review.date;
+            data.user = user.firstName + " " + user.lastName;
+            return res.json(201, data);
+          });
+        }
+      });
+    }
   });
 };
 

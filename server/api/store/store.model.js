@@ -21,7 +21,7 @@ var StoreSchema = new Schema({
   county: String,
   state: String,
   city: String,
-  reviews: [{type: mongoose.Types.ObjectId, ref: 'Review'}],
+  reviews: [{type: mongoose.Schema.Types.ObjectId, ref: 'Review'}],
   active: Boolean, 
   crossStreet: String, 
   storeUrl: String, 

@@ -9,7 +9,7 @@ var UserSchema = new Schema({
   firstName: String,
   lastName: String,
   avatar: String,
-  reviews: [{type : mongoose.Types.ObjectId, ref: 'User' }],
+  reviews: [{type : mongoose.Schema.Types.ObjectId, ref: 'User' }],
   email: { type: String, lowercase: true },
   role: {
     type: String,
