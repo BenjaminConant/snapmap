@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('snapmapApp')
-  .directive('map', function (uiGmapGoogleMapApi, GeolocationFactory, WindowSizeFactory, store, $state, $q) {
+  .directive('map', function (uiGmapGoogleMapApi, GeolocationFactory, store, $state, $q) {
     return {
       templateUrl: 'app/map/map.html',
       restrict: 'EA',
