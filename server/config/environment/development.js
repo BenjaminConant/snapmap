@@ -8,5 +8,5 @@ module.exports = {
     uri: 'mongodb://localhost/snapmap-dev'
   },
 
-  seedDB: true
+  seedDB: false
 };
