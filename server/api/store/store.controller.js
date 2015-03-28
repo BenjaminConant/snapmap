@@ -3,8 +3,6 @@
 var _ = require('lodash');
 var Store = require('./store.model');
 
-
-
 // Get stores for the map
 exports.index = function(req, res) {
   var j, k;
