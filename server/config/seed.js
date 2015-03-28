@@ -150,18 +150,23 @@ var requestP = Promise.promisify(require('request'));
 //   });
 // });
 
-  User.find({}).remove(function() {   
+  User.find({}).remove(function() { 
+    console.log('beginning to populate')  
     User.create({
       provider: 'local',
       name: 'Test User',
       email: 'test@test.com',
-      password: 'test'
+      password: 'test', 
+      firstName: 'testy', 
+      lastName: 'testy'
     }, {
       provider: 'local',
       role: 'admin',
       name: 'Admin',
       email: 'admin@admin.com',
-      password: 'admin'
+      password: 'admin', 
+      firstName: 'adminy', 
+      lastName: 'adminy'
     }, function() {
         console.log('finished populating users');
       }

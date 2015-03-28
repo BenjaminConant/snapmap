@@ -4,6 +4,9 @@ var User = require('./user.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
+var Review = require('../review/review.model');
+var Store = require('../store/store.model');
+
 
 var validationError = function(res, err) {
   return res.json(422, err);
@@ -32,6 +35,39 @@ exports.create = function (req, res, next) {
     var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
     res.json({ token: token });
   });
+};
+
+/**
+ * Retrieves Users reviews 
+ */
+exports.reviews = function (req, res, next) {
+  console.log('user: ', req.user._id)
+  Review
+    .find({user: req.user._id})
+    .exec()
+    .then(function fulfilled(reviews){
+      console.log('reviews: ', reviews)
+      return res.json(reviews)
+    }, function(err){
+      console.log('err: ', err)
+    })
+};
+
+/**
+ * Retrieves Users stores 
+ */
+exports.stores = function (req, res, next) {
+  console.log('user: ', req.user._id)
+  Review
+    .find({user: req.user._id})
+    .populate('store')  // sort by stars?
+    .exec()
+    .then(function fulfilled(stores){
+      console.log('stores: ', stores)
+      return res.json(stores)
+    }, function(err){
+      console.log('err: ', err)
+    })
 };
 
 /**

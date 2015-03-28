@@ -12,6 +12,8 @@ angular.module('snapmapApp')
     $scope.isAdmin = Auth.isAdmin;
     $scope.getCurrentUser = Auth.getCurrentUser;
 
+    console.log('user: ', Auth.getCurrentUser())
+
     $scope.logout = function() {
       Auth.logout();
       $location.path('/login');
