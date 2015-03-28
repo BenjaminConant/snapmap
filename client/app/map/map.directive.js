@@ -6,6 +6,11 @@ angular.module('snapmapApp')
       templateUrl: 'app/map/map.html',
       restrict: 'EA',
       link: function (scope, element, attrs) {
+        scope.mapChanged = {dragend: function () {
+             console.log("FOOBAT");
+             console.log(scope.map.center);
+            }
+          }
       	var data; 
       	// var deferred = $q.defer()
       	GeolocationFactory.getGeo().then(function (){
