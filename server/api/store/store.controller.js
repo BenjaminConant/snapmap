@@ -15,7 +15,14 @@ exports.index = function(req, res) {
   lat = Number(req.query.coords[1])
   dist = Number(req.query.dist)
   console.log('lng: ', lng, 'lat: ', lat, 'dist: ', dist)
-  Store.find({location: {$near: [lng, lat], $maxDistance: dist/68.91}}, function (err, stores) {
+
+
+
+
+
+  // Store.find({location: {$near: [lng, lat], $maxDistance: dist/68.91}}, function (err, stores) {
+
+  Store.find({location: { $geoWithin: { $centerSphere: [ [ lng, lat ], dist/3963.2 ] } }}, function (err, stores) {
     if(err) { return handleError(res, err); }
     console.log('stores: ', stores)
     return res.json(200, stores);
