@@ -13,8 +13,8 @@ module.exports = {
   FACEBOOK_SECRET:  'secret',
 
   //Google Config Vars
-  GOOGLE_ID:        '491396211239-aa3ac2a7kg1cvah6ffqq6rj09vltt1u1.apps.googleusercontent.com',
-  GOOGLE_SECRET:    'n-h2z9ARJGsus1y9oT4vjkFd',
+  GOOGLE_ID:        '943133073328-ueq5jmdj0r2atspprs9bm0p6as3edbm9.apps.googleusercontent.com',
+  GOOGLE_SECRET:    'u4dJLf_eI4Dg-a7NqXU5S5Ie',
 
   APP_DOMAIN: 'http://localhost:9000'
 
