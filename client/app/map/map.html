@@ -1,4 +1,4 @@
-<ui-gmap-google-map center="map.center" zoom="map.zoom">
+<ui-gmap-google-map center="map.center" zoom="map.zoom" events="mapChanged">
 	<ui-gmap-marker ng-repeat="location in locations"
 	click="{ click: hitMarker(location._id) }"
 	idKey= "{ id: location._id }"

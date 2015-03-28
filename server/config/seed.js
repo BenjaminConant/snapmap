@@ -67,49 +67,49 @@ var requestP = Promise.promisify(require('request'));
 
 ///////////////////////////////// LOAD GOVERNMENT DATA IN DB //////////////////////////////////////////////////////////
 
-// Store.find({}).remove().exec() 
+Store.find({}).remove().exec() 
 
-// var promisify = require("promisify-node");
-// var readFile = Promise.promisify(require('fs').readFile);
-// var csvParse = Promise.promisify(require('csv').parse);
+var promisify = require("promisify-node");
+var readFile = Promise.promisify(require('fs').readFile);
+var csvParse = Promise.promisify(require('csv').parse);
 
-// Store.find({}).remove().exec()
-// .then(function fulfilled(){
-//   console.log('hello!')
-// return readFile(__dirname+"/../nydata.csv")
-// }).then(function success(data){
-//   data = data.toString(); 
-//   return csvParse(data)
-// }).then(function s(stores){
-//   console.log('beginning recursive call')
-//   loadDB(1, stores)
-// })
+Store.find({}).remove().exec()
+.then(function fulfilled(){
+  console.log('hello!')
+return readFile(__dirname+"/../nydata.csv")
+}).then(function success(data){
+  data = data.toString(); 
+  return csvParse(data)
+}).then(function s(stores){
+  console.log('beginning recursive call')
+  loadDB(1, stores)
+})
 
 
 
-// function loadDB(index, stores){
-//   if (index === stores.length-1){
-//     return;
-//   }
-//   console.log('starting create')
-//   Store.create({
-//     name: stores[index][0],
-//     address: stores[index][3],
-//     addressLineTwo: stores[index][4],
-//     location: [stores[index][1], stores[index][2]],
-//     zip5: stores[index][7],
-//     zip4: stores[index][8],
-//     county: stores[index][9],
-//     state: stores[index][6],
-//     city: stores[index][5]
-//   }).then(function success(data){
-//     console.log('rec: ', index)
-//     loadDB(index + 1, stores)
-//     console.log('after create: ', data)
-//   }, function failed(err){
-//     console.log('err: ', err)
-//   })
-// }
+function loadDB(index, stores){
+  if (index === stores.length-1){
+    return;
+  }
+  console.log('starting create')
+  Store.create({
+    name: stores[index][0],
+    address: stores[index][3],
+    addressLineTwo: stores[index][4],
+    location: [stores[index][1], stores[index][2]],
+    zip5: stores[index][7],
+    zip4: stores[index][8],
+    county: stores[index][9],
+    state: stores[index][6],
+    city: stores[index][5]
+  }).then(function success(data){
+    console.log('rec: ', index)
+    loadDB(index + 1, stores)
+    console.log('after create: ', data)
+  }, function failed(err){
+    console.log('err: ', err)
+  })
+}
 
 
 

@@ -27,9 +27,11 @@ angular.module('snapmapApp')
 
     return {
 
-      someMethod: function (data) {
+      getStores: function (data) {
         return $http.get('/api/stores', {params: data})
           .then(function success(stores) {
+            // console.log("from the factory", stores.data);
+            // console.log("from the factory", stores.data.length)
             return stores.data;
           }, function failed (err){
               console.log('err: ', err);
