@@ -6,8 +6,9 @@ angular.module('snapmapApp')
     var user;
 
     function ensureUser(){
-      if (!user) user = Auth.getCurrentUser()._id; 
-      else user = user
+      user = Auth.getCurrentUser()._id; 
+      console.log('user: ', user)
+      // else user = user
     }
 
     $rootScope.$on('user:loggedIn', function(){
@@ -26,20 +27,14 @@ angular.module('snapmapApp')
 
         console.log('on scope :', scope)
 
-      	scope.newReview ={};
-      	// scope.reviews = [
-      	// {user: 'John Sample', date: '10-12-14', text: 'Great stuff, this place was awesome!', staricons: [1, 2, 3]},
-      	// {user: 'Jin Critic', date: '2-15-15', text: 'I was treated terribly, never coming back!!', staricons: [1]}
-       //  ];
-      	//by id
       	scope.submitReview = function (review){
           var obj = {
             stars: review.rating,
             text: review.text,
-            store: scope.store._id, 
-            user: user
+            store: scope.store._id 
+            // user: user
           }
-
+          scope.review = {}
           ReviewFactory.submitReview(obj).then(function (populatedReview){
             console.log('data here!!: ', populatedReview);
             // must reassign to create new object as mongoose object is immuatable

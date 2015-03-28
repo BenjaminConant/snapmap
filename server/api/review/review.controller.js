@@ -32,7 +32,9 @@ exports.show = function(req, res) {
 
 // Creates a new review in the DB.
 exports.create = function(req, res) {
-  console.log('user?:', req.body.user, 'body:', req.body)
+  // console.log('req user: ', req.user._id, 'user body:', req.user)
+  // console.log('user?:', req.body.user, 'body:', req.body)
+  req.body.user = req.user._id; 
   var finalReview; 
   Review.create(req.body)
     .then(function fulfilled (review) {
@@ -61,7 +63,7 @@ exports.create = function(req, res) {
     .then(function(ratedStore){
       console.log('ratedStore: ', ratedStore.rating, ratedStore.numReviews)
       return new Promise(function (resolve, reject){
-        User.findByIdAndUpdate(finalReview.user, {$push: {reviews: finalReview._id}}, function(err, user){
+        User.findByIdAndUpdate(req.user._id, {$push: {reviews: finalReview._id}}, function(err, user){
           if (err) return reject(err)
           resolve(user)
         })
