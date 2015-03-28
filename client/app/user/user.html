@@ -1,0 +1,8 @@
+<div ng-include="'components/navbar/navbar.html'" class="ng-scope"></div>
+
+
+<div class="col-lg-12">
+	<div ng-repeat='review in reviews'>
+		<h3 class='panel-description'>{{review.text}}</h3>
+	</div>
+</div>
