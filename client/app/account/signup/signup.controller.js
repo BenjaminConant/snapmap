@@ -8,9 +8,12 @@ angular.module('snapmapApp')
     $scope.register = function(form) {
       $scope.submitted = true;
 
+      var fullName = $scope.user.name.split(' '); 
+
       if(form.$valid) {
         Auth.createUser({
-          name: $scope.user.name,
+          firstName: fullName[0],
+          lastName: fullName[fullName.length -1],
           email: $scope.user.email,
           password: $scope.user.password
         })

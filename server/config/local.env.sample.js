@@ -12,9 +12,13 @@ module.exports = {
   FACEBOOK_ID:      'app-id',
   FACEBOOK_SECRET:  'secret',
 
-  GOOGLE_ID:        'app-id',
-  GOOGLE_SECRET:    'secret',
+  //Google Config Vars
+  GOOGLE_ID:        '491396211239-aa3ac2a7kg1cvah6ffqq6rj09vltt1u1.apps.googleusercontent.com',
+  GOOGLE_SECRET:    'n-h2z9ARJGsus1y9oT4vjkFd',
+
+  APP_DOMAIN: 'http://localhost:9000'
+
 
   // Control debug level for modules using visionmedia/debug
-  DEBUG: ''
+  // DEBUG: ''
 };
