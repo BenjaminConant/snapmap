@@ -37,6 +37,17 @@ var StoreSchema = new Schema({
 
 StoreSchema.index({ location: "2d" })
 
+StoreSchema.set('toJSON', {
+  virtuals: true
+});
+
+//average the data here 
+StoreSchema
+  .virtual('averageRating')
+  .get(function(){
+    return this.rating / this.numReviews; 
+  })
+
 StoreSchema.methods = {
   calculateRating: function(){
     var savedStore; 
