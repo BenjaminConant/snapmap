@@ -78,48 +78,53 @@ exports.show = function(req, res) {
 //     })   
 // };
 
-// // Creates a new review in the DB.
-// exports.create = function(req, res) {
-//   // console.log('req user: ', req.user._id, 'user body:', req.user)
-//   // console.log('user?:', req.body.user, 'body:', req.body)
-//   req.body.user = req.user._id; 
-//   var finalReview; 
-//   Review.create(req.body)
-//     .then(function fulfilled (review) {
-//       return Review.findById(review._id).populate('user').exec()
-//     })
-//     .then(function(popReview){
-//       console.log('popReview: ', popReview)
-//       finalReview = popReview; 
-//       //.update() does not return the document, just returns 1 if successful, 0 if unsuccessful
-//       return new Promise(function (resolve, reject){
-//         Store.findByIdAndUpdate(req.body.store, {$push: {reviews: popReview._id}}, function (err, store){
-//           store.numReviews += 1; 
-//           store.rating += req.body.stars;
-//           store.save(function(err, saved){
-//             if (err) return reject(err)
-//             resolve(store)
-//           })
-//         })
-//       })
-//     })
-//     .then(function(ratedStore){
-//       console.log('ratedStore: ', ratedStore.rating, ratedStore.numReviews)
-//       return new Promise(function (resolve, reject){
-//         User.findByIdAndUpdate(req.user._id, {$push: {reviews: finalReview._id}}, function(err, user){
-//           if (err) return reject(err)
-//           resolve(user)
-//         })
-//       })
-//     })
-//     .then(function(user){
-//       console.log('user: ', user )
-//       return res.json(201, finalReview);  // we'll want to send store object back w/ updated reviews
-//     }, function(err){
-//       console.log('err here: ', err)
-//       return handleError(res, err);
-//     })   
-// };
+// Creates a new review in the DB.
+exports.create = function(req, res) {
+  // console.log('req user: ', req.user._id, 'user body:', req.user)
+  // console.log('user?:', req.body.user, 'body:', req.body)
+  req.body.user = req.user._id; 
+  var finalReview; 
+  return Review.create(req.body)
+    .then(function fulfilled (review) {
+      return new Promise(function(resolve, reject){
+        review.populate('user', function(err, popReview){
+          if (err) return reject(err)
+          resolve(popReview)
+        })
+      })
+    })
+    .then(function(popReview){
+      console.log('popReview: ', popReview)
+      finalReview = popReview; 
+      //.update() does not return the document, just returns 1 if successful, 0 if unsuccessful
+      return new Promise(function (resolve, reject){
+        Store.findByIdAndUpdate(req.body.store, {$push: {reviews: popReview._id}}, function (err, store){
+          store.numReviews += 1; 
+          store.rating += req.body.stars;
+          store.save(function(err, saved){
+            if (err) return reject(err)
+            resolve(store)
+          })
+        })
+      })
+    })
+    .then(function(ratedStore){
+      console.log('ratedStore: ', ratedStore.rating, ratexdStore.numReviews)
+      return new Promise(function (resolve, reject){
+        User.findByIdAndUpdate(req.user._id, {$push: {reviews: finalReview._id}}, function(err, user){
+          if (err) return reject(err)
+          resolve(user)
+        })
+      })
+    })
+    .then(function(user){
+      console.log('user: ', user )
+      return res.json(201, finalReview);  // we'll want to send store object back w/ updated reviews
+    }, function(err){
+      console.log('err here: ', err)
+      return handleError(res, err);
+    })   
+};
 
 
 

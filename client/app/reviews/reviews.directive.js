@@ -32,7 +32,7 @@ angular.module('snapmapApp')
             stars: review.rating,
             text: review.text,
             store: scope.store._id 
-            // user: user
+            // user: user --- we get user on the backend: req.user
           }
           scope.review = {}
           ReviewFactory.submitReview(obj).then(function (populatedReview){
