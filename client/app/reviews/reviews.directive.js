@@ -41,11 +41,13 @@ angular.module('snapmapApp')
             // unless you call .toObject() on it, but if you call .toObject() on it
             // you lose any virtual fields, which are toJSON-ed
             var review = data.finalReview;
+            console.log('review: ', review)
             review.staricons = [];
             for (var i = 0; i < review.stars; i++){
               review.staricons.push(i);
             };
             scope.reviews.unshift(review);
+            console.log('scope reviews:', scope.reviews)
             scope.store = data.finalStore; 
           });
 

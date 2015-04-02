@@ -32,7 +32,7 @@ angular.module('snapmapApp')
           console.log('allReviews: ', allReviews)
           allReviews.forEach(function(review){
             review.staricons = []; 
-            for (var i = 0; i < review.rating; i++){
+            for (var i = 0; i < review.stars; i++){
               review.staricons.push(i)
             }
           })

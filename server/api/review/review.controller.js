@@ -1,11 +1,15 @@
 'use strict';
 
 var _ = require('lodash');
+// var mongoose = require('mongoose');
 var Review = require('./review.model');
 var Store = require('../store/store.model');
 var User = require('../user/user.model');
 var Promise = require('bluebird');  
-Promise.promisifyAll(mongoose); 
+// Promise.promisifyAll(mongoose); 
+var mongoose = require('mongoose-bird')(); 
+
+console.log('mongoose: ', mongoose.modelSchemas.Review.statics)
 
 // Get list of reviews
 exports.index = function(req, res) {
@@ -31,76 +35,6 @@ exports.show = function(req, res) {
   })
 };
 
-// // Creates a new review in the DB.
-// exports.create = function(req, res) {
-//   // console.log('req user: ', req.user._id, 'user body:', req.user)
-//   req.body.user = req.user._id; 
-//   var finalReview, 
-//     finalStore; 
-//   return Review.create(req.body)
-//     .then(function fulfilled (review) {
-//       return new Promise(function(resolve, reject){
-//         review.populate('user', function(err, popReview){
-//           if (err) return reject(err)
-//           resolve(popReview)
-//         })
-//       })
-//     })
-//     .then(function(popReview){
-//       finalReview = popReview; 
-//       //.update() does not return the document, just returns 1 if successful, 0 if unsuccessful
-//       /*
-
-//       instead of using callbacks to close over data, we instruct mongoose to RETURN to us the data when it 
-//       has retrieved it with the query  
-//       return Store
-//       .findByIdAndUpdate(req.body.store, {$push: {reviews: popReview._id}}) 
-//       .exec()
-//       .then(function (store){
-//         store.numReviews += 1; 
-//         store.rating += Number(req.body.stars);
-//         return store.saveAsync()
-//       })
-//       .then(function(ratedStore){
-//         return savedStore; 
-//       })
-//     })  
-//         */
-//       return new Promise(function (resolve, reject){
-//         Store.findByIdAndUpdate(req.body.store, {$push: {reviews: popReview._id}}, function (err, store){
-//           store.numReviews += 1; 
-//           store.rating += Number(req.body.stars);
-//           store.save(function(err, saved){
-//             if (err) return reject(err)
-//             resolve(store)
-//           })
-//         })
-//       })
-//     })
-//     .then(function(ratedStore){
-//       finalStore = ratedStore; 
-//       return new Promise(function (resolve, reject){
-//         User.findByIdAndUpdate(req.user._id, {$push: {reviews: finalReview._id}}, function(err, user){
-//           if (err) return reject(err)
-//           resolve(user)
-//         })
-//       })
-//     })
-//     .then(function(user){
-//       // console.log('user: ', user )
-//       //sending both the review and store back so we can update the store/:id view which displays review
-//       var data = {
-//         finalReview: finalReview, 
-//         finalStore: finalStore
-//       }
-//       // return res.json(201, {finalReview: finalReview, finalStore: finalStore})
-//       return res.json(201, data);  // we'll want to send store object back w/ updated reviews
-//     }, function(err){
-//       console.log('err here: ', err)
-//       return handleError(res, err);
-//     })   
-// };
-
 // Creates a new review in the DB.
 exports.create = function(req, res) {
   // console.log('req user: ', req.user._id, 'user body:', req.user)
@@ -108,9 +42,10 @@ exports.create = function(req, res) {
   var finalReview, finalStore; 
   return Review.create(req.body)
   .then(function fulfilled (review) {
-  return review.populate('user').execAsync();
+  return review.populateAsync('user')
   })  
   .then(function(popReview){
+    console.log('popReview: ', popReview)
     finalReview = popReview; 
     return Store.findByIdAndUpdate(req.body.store, {$push: {reviews: popReview._id}}).execAsync();
   })
@@ -124,85 +59,14 @@ exports.create = function(req, res) {
     return User.findByIdAndUpdate(req.user._id, {$push: {reviews: finalReview._id}}).execAsync();
   })
   .then(function(user){
+    console.log('finalReview: ', finalReview, 'finalStore: ', finalStore)
     //sending both the review and store back so we can update the store/:id view which displays review
     return res.json(201, {finalReview: finalReview, finalStore: finalStore})
-  })
-  .catch(function(err){
+  }, function(err){
     console.log('err here: ', err)
     return handleError(res, err);
   })   
 };
-
-// Creates a new review in the DB.
-// exports.create = function(req, res) {
-//   // console.log('req user: ', req.user._id, 'user body:', req.user)
-//   req.body.user = req.user._id; 
-//   var finalReview, 
-//     finalStore; 
-//   return Review.create(req.body)
-//     .then(function fulfilled (review) {
-//       return new Promise(function(resolve, reject){
-//         review.populate('user', function(err, popReview){
-//           if (err) return reject(err)
-//           resolve(popReview)
-//         })
-//       })
-//     })
-//     .then(function(popReview){
-//       finalReview = popReview; 
-//       //.update() does not return the document, just returns 1 if successful, 0 if unsuccessful
-//       /*
-
-//       instead of using callbacks to close over data, we instruct mongoose to RETURN to us the data when it 
-//       has retrieved it with the query  
-//       return Store
-//       .findByIdAndUpdate(req.body.store, {$push: {reviews: popReview._id}}) 
-//       .exec()
-//       .then(function (store){
-//         store.numReviews += 1; 
-//         store.rating += Number(req.body.stars);
-//         return store.saveAsync()
-//       })
-//       .then(function(ratedStore){
-//         return savedStore; 
-//       })
-//     })  
-//         */
-//       return new Promise(function (resolve, reject){
-//         Store.findByIdAndUpdate(req.body.store, {$push: {reviews: popReview._id}}, function (err, store){
-//           store.numReviews += 1; 
-//           store.rating += Number(req.body.stars);
-//           store.save(function(err, saved){
-//             if (err) return reject(err)
-//             resolve(store)
-//           })
-//         })
-//       })
-//     })
-//     .then(function(ratedStore){
-//       finalStore = ratedStore; 
-//       return new Promise(function (resolve, reject){
-//         User.findByIdAndUpdate(req.user._id, {$push: {reviews: finalReview._id}}, function(err, user){
-//           if (err) return reject(err)
-//           resolve(user)
-//         })
-//       })
-//     })
-//     .then(function(user){
-//       // console.log('user: ', user )
-//       //sending both the review and store back so we can update the store/:id view which displays review
-//       var data = {
-//         finalReview: finalReview, 
-//         finalStore: finalStore
-//       }
-//       // return res.json(201, {finalReview: finalReview, finalStore: finalStore})
-//       return res.json(201, data);  // we'll want to send store object back w/ updated reviews
-//     }, function(err){
-//       console.log('err here: ', err)
-//       return handleError(res, err);
-//     })   
-// };
-
 
 // Updates an existing review in the DB.
 exports.update = function(req, res) {
