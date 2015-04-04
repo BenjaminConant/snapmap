@@ -13,7 +13,7 @@ function requiredProcessEnv(name) {
 // All configurations will extend these options
 // ============================================
 var all = {
-  domain: process.env.APP_DOMAIN,
+  domain: 'http://localhost:9000',
   env: process.env.NODE_ENV,
 
   // Root path of server
