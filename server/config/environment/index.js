@@ -13,7 +13,7 @@ function requiredProcessEnv(name) {
 // All configurations will extend these options
 // ============================================
 var all = {
-  domain: process.env.APP_DOMAIN,
+  domain: 'http://localhost:9000',
   env: process.env.NODE_ENV,
 
   // Root path of server
@@ -23,7 +23,7 @@ var all = {
   port: process.env.PORT || 9000,
 
   // Should we populate the DB with sample data?
-  seedDB: true,
+  seedDB: false,
 
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {

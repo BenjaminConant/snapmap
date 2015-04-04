@@ -9,7 +9,7 @@
 				<h2>{{store.name}}</h2>
 				<h4>{{store.address}}</h4>
 				<h4>{{store.addressLineTwo}}</h4>
-				<h4> STORE RATING: {{store.rating}}</h4>
+				<h4 ng-if='store.averageRating > 0'> STORE RATING: {{store.averageRating}}</h4>
 				<!-- <h4>{{store.addressLineTwo}}</h4> -->
 			</div>
 		</div>

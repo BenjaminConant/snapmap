@@ -23,8 +23,8 @@ var StoreSchema = new Schema({
   state: String,
   city: String,
   reviews: [{type: mongoose.Schema.Types.ObjectId, ref: 'Review'}],
-  rating: Number,
-  numReviews: Number,
+  rating: {type: Number, default: 0},
+  numReviews: {type: Number, default: 0},
   active: Boolean, 
   crossStreet: String, 
   storeUrl: String, 
@@ -36,6 +36,17 @@ var StoreSchema = new Schema({
 
 
 StoreSchema.index({ location: "2d" })
+
+StoreSchema.set('toJSON', {
+  virtuals: true
+});
+
+//average the data here 
+StoreSchema
+  .virtual('averageRating')
+  .get(function(){
+    return (this.rating / this.numReviews).toFixed(2); // rounds to 2 decimals
+  })
 
 StoreSchema.methods = {
   calculateRating: function(){
