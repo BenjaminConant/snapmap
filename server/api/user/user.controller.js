@@ -7,7 +7,6 @@ var jwt = require('jsonwebtoken');
 var Review = require('../review/review.model');
 var Store = require('../store/store.model');
 
-
 var validationError = function(res, err) {
   return res.json(422, err);
 };
@@ -44,6 +43,7 @@ exports.reviews = function (req, res, next) {
   console.log('user: ', req.user._id)
   Review
     .find({user: req.user._id})
+    .populate('store')
     .exec()
     .then(function fulfilled(reviews){
       console.log('reviews: ', reviews)
