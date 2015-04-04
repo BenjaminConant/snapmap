@@ -34,21 +34,15 @@ angular.module('snapmapApp')
             // console.log("from the factory", stores.data.length)
             return stores.data;
           }, function failed (err){
-              console.log('err: ', err);
               return err;
           })
       },
       getStore: function (routeId) {
-        return $http.get('/api/stores/'+routeId).then(function success(stores) {
-          console.log(stores.data);
+        return $http.get('/api/stores/'+routeId)
+        .then(function success(stores) {
           return stores.data;
         }, function failed (err){
-          console.log(err);
           return err;
-          console.log('response:',  stores.data);
-          return stores.data;
-        }, function failed (err){
-          console.log(err);
         })
       }, 
       foursquare: function(categoriesArray) {
