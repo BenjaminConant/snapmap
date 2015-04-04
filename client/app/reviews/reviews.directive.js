@@ -7,8 +7,6 @@ angular.module('snapmapApp')
 
     function ensureUser(){
       user = Auth.getCurrentUser()._id; 
-      console.log('user: ', user)
-      // else user = user
     }
 
     $rootScope.$on('user:loggedIn', function(){
@@ -18,16 +16,12 @@ angular.module('snapmapApp')
 
     ensureUser();
 
-    console.log('USER: ', user)
 
     return {
       templateUrl: 'app/reviews/reviews.html',
       restrict: 'EA',
       link: function (scope, element, attrs) {
-
-        console.log('on scope :', scope)
-
-      	scope.submitReview = function (review){
+        scope.submitReview = function (review){
           var obj = {
             stars: review.rating,
             text: review.text,
@@ -36,19 +30,17 @@ angular.module('snapmapApp')
           }
           scope.review = {}
           ReviewFactory.submitReview(obj).then(function (data){
-            console.log('data here!!: ', data);
+            scope.store.averageRating = data.finalStore[0].averageRating; 
+            
             // must reassign to create new object as mongoose object is immuatable
             // unless you call .toObject() on it, but if you call .toObject() on it
             // you lose any virtual fields, which are toJSON-ed
             var review = data.finalReview;
-            console.log('review: ', review)
             review.staricons = [];
             for (var i = 0; i < review.stars; i++){
               review.staricons.push(i);
             };
             scope.reviews.unshift(review);
-            console.log('scope reviews:', scope.reviews)
-            scope.store = data.finalStore; 
           });
 
         }

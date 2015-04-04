@@ -8,17 +8,16 @@ angular.module('snapmapApp')
     var vm = this; 
 
     // this function loads the store info 
-    console.log('stateParams: ', $stateParams.storeId)
-    console.log($stateParams);
-    store.getStore($stateParams.storeId).then(function(store, err){
-    	console.log('store', store, 'err', err);
-    	if (err) console.log('err', err);
-    	if(store){
-    		console.log('store', store);
-    		$scope.store=store; //maybe make explicit
-    		$scope.store.review = 'Here is a very informed description about the location, this should be populated by a foursquare query and be awesome';
-    	}
-    })
+
+    vm.getStore = function(){
+      store.getStore($stateParams.storeId).then(function(store, err){
+      	if(store){
+          // cope for virtual persistence 
+          var store = store; 
+      		$scope.store= store; //maybe make explicit
+      	}
+      })
+    }
 
     //get reviews from id (possibly the same)
 
@@ -29,7 +28,6 @@ angular.module('snapmapApp')
       ReviewFactory
         .getReviews($stateParams.storeId)
         .then(function fulfilled(allReviews){
-          console.log('allReviews: ', allReviews)
           allReviews.forEach(function(review){
             review.staricons = []; 
             for (var i = 0; i < review.stars; i++){
@@ -41,6 +39,7 @@ angular.module('snapmapApp')
       }
 
 
+      vm.getStore()
       vm.getReviews()
 
 
