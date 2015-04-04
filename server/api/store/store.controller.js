@@ -3,22 +3,15 @@
 var _ = require('lodash');
 var Store = require('./store.model');
 
-
-
-// Get list of stores
+// Get stores for the map
 exports.index = function(req, res) {
-  //req.query  = {lng, lang}
-  // var zipcodes = [10027, 10025, 10026, 10030, 10031]; 
-  console.log('req:', req.query)
-  var lng, lat, dist;
-  lng = Number(req.query.coords[0])
-  lat = Number(req.query.coords[1])
-  dist = Number(req.query.dist)
-  console.log('lng: ', lng, 'lat: ', lat, 'dist: ', dist)
-  Store.find({location: {$near: [lng, lat], $maxDistance: dist/68.91}}, function (err, stores) {
-    if(err) { return handleError(res, err); }
-    console.log('stores: ', stores)
-    return res.json(200, stores);
+  var j, k;
+  j = [Number(req.query.j[0]), Number(req.query.j[1]) ];
+  k = [Number(req.query.k[0]), Number(req.query.k[1])];
+  Store.find({location: { $geoWithin: { $box: [ j, k] } }}, function (err, stores) {
+      if(err) { return handleError(res, err); }
+      console.log('stores: ', stores)
+      return res.json(200, stores);
   });
 };
 

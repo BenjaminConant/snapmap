@@ -1,7 +1,13 @@
 'use strict';
 
 var _ = require('lodash');
+// var mongoose = require('mongoose');
 var Review = require('./review.model');
+var Store = require('../store/store.model');
+var User = require('../user/user.model');
+var Promise = require('bluebird');  
+// Promise.promisifyAll(mongoose); 
+var mongoose = require('mongoose-bird')(); 
 
 // Get list of reviews
 exports.index = function(req, res) {
@@ -13,19 +19,44 @@ exports.index = function(req, res) {
 
 // Get a single review
 exports.show = function(req, res) {
-  Review.findById(req.params.id, function (err, review) {
-    if(err) { return handleError(res, err); }
-    if(!review) { return res.send(404); }
-    return res.json(review);
-  });
+  Review.find({store: req.params.storeId})
+    .sort('-date')
+    .populate('user')
+    .exec()
+    .then(function fulfilled(populatedReviews) {
+      return res.json(populatedReviews)
+  }, function failed(err){
+      return handleError(res, err);
+  })
 };
 
 // Creates a new review in the DB.
 exports.create = function(req, res) {
-  Review.create(req.body, function(err, review) {
-    if(err) { return handleError(res, err); }
-    return res.json(201, review);
-  });
+  req.body.user = req.user._id; 
+  var finalReview, finalStore; 
+  return Review.create(req.body)
+  .then(function fulfilled (review) {
+  return review.populateAsync('user')
+  })  
+  .then(function(popReview){
+    finalReview = popReview; 
+    return Store.findByIdAndUpdate(req.body.store, {$push: {reviews: popReview._id}}).execAsync();
+  })
+  .then(function (store){
+    store.numReviews += 1; 
+    store.rating += Number(req.body.stars);
+    return store.saveAsync();
+  })
+  .then(function(ratedStore){
+    finalStore = ratedStore;           
+    return User.findByIdAndUpdate(req.user._id, {$push: {reviews: finalReview._id}}).execAsync();
+  })
+  .then(function(user){
+    //sending both the review and store back so we can update the store/:id view which displays review
+    return res.json(201, {finalReview: finalReview, finalStore: finalStore})
+  }, function(err){
+    return handleError(res, err);
+  })   
 };
 
 // Updates an existing review in the DB.

@@ -13,6 +13,7 @@ function requiredProcessEnv(name) {
 // All configurations will extend these options
 // ============================================
 var all = {
+  domain: 'http://localhost:9000',
   env: process.env.NODE_ENV,
 
   // Root path of server
@@ -48,9 +49,9 @@ var all = {
   },
 
   google: {
-    clientID:     process.env.GOOGLE_ID || 'id',
-    clientSecret: process.env.GOOGLE_SECRET || 'secret',
-    callbackURL:  (process.env.DOMAIN || '') + '/auth/google/callback'
+    clientID:     process.env.GOOGLE_ID,
+    clientSecret: process.env.GOOGLE_SECRET,
+    callbackURL:  '/auth/google/oauth2callback'
   }
 };
 

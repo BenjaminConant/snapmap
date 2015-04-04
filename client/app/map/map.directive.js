@@ -6,40 +6,46 @@ angular.module('snapmapApp')
       templateUrl: 'app/map/map.html',
       restrict: 'EA',
       link: function (scope, element, attrs) {
-      	var data; 
-      	// var deferred = $q.defer()
+        
+        //init the map
       	GeolocationFactory.getGeo().then(function (){
-      		console.log('coords: ', GeolocationFactory.latitude, GeolocationFactory.longitude)
-	      if (GeolocationFactory.latitude && GeolocationFactory.longitude){
-	      	uiGmapGoogleMapApi.then(function (maps){
-						scope.map = { 
-							center: { latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude}, 
-							zoom: 17
-						};
-						console.log('map: ', scope.map)
-					})
-	      }
-	    })
-      .then(function(){
-      	data = {
-      		coords: [GeolocationFactory.longitude, GeolocationFactory.latitude], 
-      		dist: 10
-      	}
-      })
-      .then(function(){
-      	var regex = /grocery/;
-      	scope.locations = [];
-      	scope.groceries = [];
-      	store.someMethod(data)
-      	.then(function (location){
-    			console.log('location: ', location)
-    			location.forEach(function(store){
-	    			if (regex.test(store.name.toLowerCase())) scope.groceries.push(store);
-	    			else scope.locations.push(store);
-    				
-    			})
-	    	});
-      })
+  	      if (GeolocationFactory.latitude && GeolocationFactory.longitude){
+  	      	uiGmapGoogleMapApi.then(function (maps){
+              scope.map = { 
+  							center: { latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude}, 
+  							zoom: 17
+  						};
+  					})
+  	      }
+  	    })
+
+        // this function builds the arrays that the markers go into
+        var loadMarkers = function (maps) {     
+          var j = [maps.getBounds().va.j, maps.getBounds().Ea.j]; 
+          var k = [maps.getBounds().va.k, maps.getBounds().Ea.k];
+          var data = {j: j, k: k};
+
+          store.getStores(data)
+            .then(function (location){
+              // we can have diffrent arrays for each type of marker, groceries will cause green markers
+              // we should do the regexing on the backend though so I am taking it out in the front end
+              scope.locations = []; 
+              // scope.groceries = [];
+              location.forEach(function(store){
+                scope.locations.push(store);
+              })
+            })
+         };
+
+        // this object is passed to the angular-google-maps directive
+        // the keys are events from the google maps api and the values are functions that should      
+        scope.mapChanged = {
+                idle: loadMarkers,
+                dragend: loadMarkers,
+                tilesloaded: loadMarkers
+              }; 
+
+
     }
 	}
 
