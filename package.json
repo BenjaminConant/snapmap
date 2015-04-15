@@ -27,10 +27,13 @@
     "passport-facebook": "latest",
     "passport-google-oauth": "latest",
     "passport-local": "~0.1.6",
+    "promisified-request": "0.0.3",
     "promisify-node": "^0.1.5",
     "request": "^2.53.0",
     "serve-favicon": "~2.0.1",
-    "snapfinder-lib": "0.0.8"
+    "snapfinder-lib": "0.0.8",
+    "underscore": "^1.8.3",
+    "when": "^3.7.2"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
