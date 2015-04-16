@@ -80,63 +80,63 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 
 
 
-StoreGoogle.find({}).remove().exec()
-.then(function (){
-	return readFile(__dirname + '/../nydata.csv')
-})
-.then(function fulfilled (stores){
-	console.log('in first')
-  stores = stores.toString(); 
-  return csvParse(stores);
-})
-.then (function (arrayOfStores){                //.each(makeApiCallToPlaceSearch)
-	arrayOfStores = arrayOfStores.slice(1)
-	arrayOfStores = arrayOfStores.slice(0, 2)
-  return Promise.map(arrayOfStores, function(store){
-    return makeApiCallToPlaceSearch(store)
-  })
-}).then(function (resolved){
-	console.log('in third')
-  // export the transformed objects so we can double check seriality
-  // change the name of the file to appropriate designate the range of objects retrieved before uncommenting this out 
-  // exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_first50.json")
-})
+// StoreGoogle.find({}).remove().exec()
+// .then(function (){
+// 	return readFile(__dirname + '/../nydata.csv')
+// })
+// .then(function fulfilled (stores){
+// 	console.log('in first')
+//   stores = stores.toString(); 
+//   return csvParse(stores);
+// })
+// .then (function (arrayOfStores){                //.each(makeApiCallToPlaceSearch)
+// 	arrayOfStores = arrayOfStores.slice(1)
+// 	arrayOfStores = arrayOfStores.slice(0, 2)
+//   return Promise.map(arrayOfStores, function(store){
+//     return makeApiCallToPlaceSearch(store)
+//   })
+// }).then(function (resolved){
+// 	console.log('in third')
+//   // export the transformed objects so we can double check seriality
+//   // change the name of the file to appropriate designate the range of objects retrieved before uncommenting this out 
+//   // exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_first50.json")
+// })
 
 
-function makeApiCallToPlaceSearch(store){
-	var queryString, 
-			body,
-			urlPlaceSearch; 
+// function makeApiCallToPlaceSearch(store){
+// 	var queryString, 
+// 			body,
+// 			urlPlaceSearch; 
 
-	// construct query string by concatenating store name, street address and zip code for optimal search accuracy
-	queryString = store[0]; 
-	// remove any numbers in the name before concatenating address and zip code 
-	queryString = queryString.replace(/[0-9]/g, '');
-	if (store[8]) queryString = queryString + ' ' + store[3] + ' ' + store[7] + '-' + store[8]; 
-	else queryString = queryString + ' ' + store[3] + ' ' + store[7];
-	queryString = queryString.split(',');
-	queryString = queryString.join(' ');
-	//verify that the query string looks as it is supposed to 
-	console.log('new store name: ', queryString)
-	// add your own api key at the end of this url 
-  urlPlaceSearch = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location=' + Number(store[2]) + ',' + Number(store[1]) + '&radius=1&sensor=true&query=' + queryString + "&key=AIzaSyDl2B0kbv7OI2PqqvwX6vMboXK9d333G_k";
-  //make request
-  requestP(urlPlaceSearch).then(function(response){
-  // choose the first object in the array -- comprehensiveness of queryString does not make this much of a gamble 
-    body = JSON.parse(response[0].body)
-    //store entire response object 
-    StoreGoogle.create(body.results[0])
-    .then(function(createdGoogleStore){
-      // console.log('store created: ', createdGoogleStore)
-      return createdGoogleStore; 
-    })
-    .then(null, function(err){
-      // console.log('err: ', err)
-    })
-  }, function(err){
-    // console.log('err: ', err)
-  }) 
-}
+// 	// construct query string by concatenating store name, street address and zip code for optimal search accuracy
+// 	queryString = store[0]; 
+// 	// remove any numbers in the name before concatenating address and zip code 
+// 	queryString = queryString.replace(/[0-9]/g, '');
+// 	if (store[8]) queryString = queryString + ' ' + store[3] + ' ' + store[7] + '-' + store[8]; 
+// 	else queryString = queryString + ' ' + store[3] + ' ' + store[7];
+// 	queryString = queryString.split(',');
+// 	queryString = queryString.join(' ');
+// 	//verify that the query string looks as it is supposed to 
+// 	console.log('new store name: ', queryString)
+// 	// add your own api key at the end of this url 
+//   urlPlaceSearch = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location=' + Number(store[2]) + ',' + Number(store[1]) + '&radius=1&sensor=true&query=' + queryString + "&key=AIzaSyDl2B0kbv7OI2PqqvwX6vMboXK9d333G_k";
+//   //make request
+//   requestP(urlPlaceSearch).then(function(response){
+//   // choose the first object in the array -- comprehensiveness of queryString does not make this much of a gamble 
+//     body = JSON.parse(response[0].body)
+//     //store entire response object 
+//     StoreGoogle.create(body.results[0])
+//     .then(function(createdGoogleStore){
+//       // console.log('store created: ', createdGoogleStore)
+//       return createdGoogleStore; 
+//     })
+//     .then(null, function(err){
+//       // console.log('err: ', err)
+//     })
+//   }, function(err){
+//     // console.log('err: ', err)
+//   }) 
+// }
 
 /////////////////////////////////////// PLACE DETAILS //////////////////////////////////////////////////////////////////////////////
 
