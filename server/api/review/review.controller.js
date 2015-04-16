@@ -45,11 +45,12 @@ exports.create = function(req, res) {
   .then(function (store){
     store.numReviews += 1; 
     store.rating += Number(req.body.stars);
-    return store.saveAsync();
-  })
-  .then(function(ratedStore){
-    finalStore = ratedStore;           
-    return User.findByIdAndUpdate(req.user._id, {$push: {reviews: finalReview._id}}).execAsync();
+    return store.saveAsync()
+    .spread(function(ratedStore){
+      // finalStore = ratedStore[0] bc saveAsync returns promise
+      finalStore = ratedStore;           
+      return User.findByIdAndUpdate(req.user._id, {$push: {reviews: finalReview._id}}).execAsync();
+    })
   })
   .then(function(user){
     //sending both the review and store back so we can update the store/:id view which displays review

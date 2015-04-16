@@ -9,107 +9,168 @@ var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
 var Store = require('../api/store/store.model');
 var fs = require('fs');
+var exec = require('child_process').exec; 
+var path = require('path'); 
 var csv = require('csv');
 var Foursquare = require('../api/foursquare/foursquare.model'); 
 var request = require('request');
 var Promise = require('bluebird'); 
 var requestP = Promise.promisify(require('request')); 
+var StoreGoogle = require('../api/StoreGoogle/StoreGoogle.model'); 
+// var Worker = require('webworker-threads').Worker; 
+var isJSON = require('is-json');
+var csvParse = Promise.promisify(require('csv').parse);
+var readFile = Promise.promisify(require('fs').readFile);
+var LineReader = Promise.promisify(require('node-line-reader').LineReader);
+// var promisify = require("promisify-node");
 
 
 
-// //////////////////////////////////////// LOAD DATA IN DB ////////////////////////////////////////////////////////
+// function dbSeedString(collection) {
+//   return "mongoexport --db snapmap-dev --collection " + collection + " --out " + path.join(__dirname,"/db_data") + "/" + collection + ".json"
+// }
 
-// resArray.forEach(function(store, index){
-//   if (store){
-//     if (!store.delivery) {
-//       store.delivery = {
-//         provider: {
-//           name: null,
-//           url: null
-//         }
-//       }
-//     }
-//     Foursquare.create({
-//       name: store.name, 
-//       storeId: store.id, 
-//       storeUrl: store.url,
-//       categories: [{
-//         name: store.categories[0].name, 
-//         id: store.categories[0].id, 
-//         icon: {
-//           prefix: store.categories[0].icon.prefix, 
-//           suffix: store.categories[0].icon.suffix
-//         }
-//       }], 
-//       contactInfo: {
-//         phone: store.contact.phone, 
-//         formattedPhone: store.contact.formattedStore, 
-//         address: store.location.address, 
-//         crossStreet: store.location.crossStreet, 
-//         formattedAddress: store.location.formattedAddress, 
-//         lat: store.location.lat, 
-//         lng: store.location.lng, 
-//         postalCode: store.location.postalCode
-//       }, 
-//       delivery: {
-//         name: store.delivery.provider.name, 
-//         url: store.delivery.provider.url
-//       }
-//     })
-//     .then(function success(successdata){
-//       console.log('store: ', successdata)
-//     }, function failed(error){
-//       console.log('err during creation: ', error)
-//     })
-//   } //end of if condition
-// }); 
+
+//exports the store collection into a json file 
+// exec("mongoexport --db snapmap-dev --collection stores --out stores.json")
+
 
 
 ///////////////////////////////// LOAD GOVERNMENT DATA IN DB //////////////////////////////////////////////////////////
 
-Store.find({}).remove().exec() 
-
-var promisify = require("promisify-node");
-var readFile = Promise.promisify(require('fs').readFile);
-var csvParse = Promise.promisify(require('csv').parse);
-
-Store.find({}).remove().exec()
-.then(function fulfilled(){
-  console.log('hello!')
-return readFile(__dirname+"/../nydata.csv")
-}).then(function success(data){
-  data = data.toString(); 
-  return csvParse(data)
-}).then(function s(stores){
-  console.log('beginning recursive call')
-  loadDB(1, stores)
-})
+// Store.find({}).remove().exec()
+// .then(function fulfilled(){
+//   console.log('hello!')
+// return readFile(__dirname+"/../nydata.csv")
+// }).then(function success(data){
+//   data = data.toString(); 
+//   return csvParse(data)
+// }).then(function s(stores){
+//   console.log('beginning recursive call')
+//   loadDB(1, stores)
+// })
 
 
 
-function loadDB(index, stores){
-  if (index === stores.length-1){
-    return;
-  }
-  console.log('starting create')
-  Store.create({
-    name: stores[index][0],
-    address: stores[index][3],
-    addressLineTwo: stores[index][4],
-    location: [stores[index][1], stores[index][2]],
-    zip5: stores[index][7],
-    zip4: stores[index][8],
-    county: stores[index][9],
-    state: stores[index][6],
-    city: stores[index][5]
-  }).then(function success(data){
-    console.log('rec: ', index)
-    loadDB(index + 1, stores)
-    console.log('after create: ', data)
-  }, function failed(err){
-    console.log('err: ', err)
-  })
-}
+// function loadDB(index, stores){
+//   if (index === stores.length-1){
+//     return;
+//   }
+//   console.log('starting create')
+//   Store.create({
+//     name: stores[index][0],
+//     address: stores[index][3],
+//     addressLineTwo: stores[index][4],
+//     location: [stores[index][1], stores[index][2]],
+//     zip5: stores[index][7],
+//     zip4: stores[index][8],
+//     county: stores[index][9],
+//     state: stores[index][6],
+//     city: stores[index][5]
+//   }).then(function success(data){
+//     console.log('rec: ', index)
+//     loadDB(index + 1, stores)
+//     console.log('after create: ', data)
+//   }, function failed(err){
+//     console.log('err: ', err)
+//   })
+// }
+
+///////////////////////////////// PING GOOGLE PLACES TEXT SEARCH API //////////////////////////////////////////////////////////
+
+
+
+// StoreGoogle.find({}).remove().exec()
+// .then(function (){
+// 	return readFile(__dirname + '/../nydata.csv')
+// })
+// .then(function fulfilled (stores){
+// 	console.log('in first')
+//   stores = stores.toString(); 
+//   return csvParse(stores);
+// })
+// .then (function (arrayOfStores){                //.each(makeApiCallToPlaceSearch)
+// 	arrayOfStores = arrayOfStores.slice(1)
+// 	arrayOfStores = arrayOfStores.slice(0, 2)
+//   return Promise.map(arrayOfStores, function(store){
+//     return makeApiCallToPlaceSearch(store)
+//   })
+// }).then(function (resolved){
+// 	console.log('in third')
+//   // export the transformed objects so we can double check seriality
+//   // change the name of the file to appropriate designate the range of objects retrieved before uncommenting this out 
+//   // exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_first50.json")
+// })
+
+
+// function makeApiCallToPlaceSearch(store){
+// 	var queryString, 
+// 			body,
+// 			urlPlaceSearch; 
+
+// 	// construct query string by concatenating store name, street address and zip code for optimal search accuracy
+// 	queryString = store[0]; 
+// 	// remove any numbers in the name before concatenating address and zip code 
+// 	queryString = queryString.replace(/[0-9]/g, '');
+// 	if (store[8]) queryString = queryString + ' ' + store[3] + ' ' + store[7] + '-' + store[8]; 
+// 	else queryString = queryString + ' ' + store[3] + ' ' + store[7];
+// 	queryString = queryString.split(',');
+// 	queryString = queryString.join(' ');
+// 	//verify that the query string looks as it is supposed to 
+// 	console.log('new store name: ', queryString)
+// 	// add your own api key at the end of this url 
+//   urlPlaceSearch = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location=' + Number(store[2]) + ',' + Number(store[1]) + '&radius=1&sensor=true&query=' + queryString + "&key=AIzaSyDl2B0kbv7OI2PqqvwX6vMboXK9d333G_k";
+//   //make request
+//   requestP(urlPlaceSearch).then(function(response){
+//   // choose the first object in the array -- comprehensiveness of queryString does not make this much of a gamble 
+//     body = JSON.parse(response[0].body)
+//     //store entire response object 
+//     StoreGoogle.create(body.results[0])
+//     .then(function(createdGoogleStore){
+//       // console.log('store created: ', createdGoogleStore)
+//       return createdGoogleStore; 
+//     })
+//     .then(null, function(err){
+//       // console.log('err: ', err)
+//     })
+//   }, function(err){
+//     // console.log('err: ', err)
+//   }) 
+// }
+
+/////////////////////////////////////// PLACE DETAILS //////////////////////////////////////////////////////////////////////////////
+
+// var urlPlaceDetails = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=' +placeId + '&key=' + apiKey; 
+
+// StoreGoogle.find({}).exec()
+// .then(function(storeObjs){
+//   console.log('in then', storeObjs[0])
+//   storeObjs = storeObjs.slice(0, 4)
+//   storeObjs.forEach(makeApiCallToPlaceDetails)
+// })
+
+// function makeApiCallToPlaceDetails(place){
+
+//   var urlPlaceDetails = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=' +place_id + '&key=AIzaSyDl2B0kbv7OI2PqqvwX6vMboXK9d333G_k';
+//   var body; 
+//   requestP(urlPlaceDetails).then(function(response){
+//     console.log('body: ', response[0].body)
+//     // choose the first object in the array -- big gamble, should add err handling here as well as some checking that this is the right place 
+//       body = JSON.parse(response[0].body)
+      // console.log('parsed response: ', body)
+      //store entire response object -- create schema that matches this structure; need to create StoreDetails model*/
+//       StoreDetails.create(body.results[0])
+//       .then(function(createdGoogleStore){
+//         console.log('store created: ', createdGoogleStore)
+//       })
+//       .then(null, function(err){
+//         console.log('err: ', err)
+//       })
+//     // })
+//   }, function(err){
+//     console.log('err: ', err)
+//   }) 
+// }
 
 
 
@@ -119,56 +180,3 @@ function loadDB(index, stores){
 
 
 
-
-
-
-
-
-
-
-
-
-// Thing.find({}).remove(function() {
-//   Thing.create({
-//     name : 'Development Tools',
-//     info : 'Integration with popular tools such as Bower, Grunt, Karma, Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, Stylus, Sass, CoffeeScript, and Less.'
-//   }, {
-//     name : 'Server and Client integration',
-//     info : 'Built with a powerful and fun stack: MongoDB, Express, AngularJS, and Node.'
-//   }, {
-//     name : 'Smart Build System',
-//     info : 'Build system ignores `spec` files, allowing you to keep tests alongside code. Automatic injection of scripts and styles into your index.html'
-//   },  {
-//     name : 'Modular Structure',
-//     info : 'Best practice client and server structures allow for more code reusability and maximum scalability'
-//   },  {
-//     name : 'Optimized Build',
-//     info : 'Build process packs up your templates as a single JavaScript payload, minifies your scripts/css/images, and rewrites asset names for caching.'
-//   },{
-//     name : 'Deployment Ready',
-//     info : 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
-//   });
-// });
-
-  User.find({}).remove(function() { 
-    console.log('beginning to populate')  
-    User.create({
-      provider: 'local',
-      name: 'Test User',
-      email: 'test@test.com',
-      password: 'test', 
-      firstName: 'testy', 
-      lastName: 'testy'
-    }, {
-      provider: 'local',
-      role: 'admin',
-      name: 'Admin',
-      email: 'admin@admin.com',
-      password: 'admin', 
-      firstName: 'adminy', 
-      lastName: 'adminy'
-    }, function() {
-        console.log('finished populating users');
-      }
-    );
-  });

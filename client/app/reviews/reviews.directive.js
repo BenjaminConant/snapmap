@@ -30,7 +30,8 @@ angular.module('snapmapApp')
           }
           scope.review = {}
           ReviewFactory.submitReview(obj).then(function (data){
-            scope.store.averageRating = data.finalStore[0].averageRating; 
+            console.log('data: ', data)
+            scope.store.averageRating = data.finalStore.averageRating; 
             
             // must reassign to create new object as mongoose object is immuatable
             // unless you call .toObject() on it, but if you call .toObject() on it
