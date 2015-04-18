@@ -4,7 +4,7 @@
   "main": "server/app.js",
   "dependencies": {
     "angular-google-maps": "^2.0.17",
-    "bluebird": "^2.9.14",
+    "bluebird": "^2.9.24",
     "body-parser": "~1.5.0",
     "composable-middleware": "^0.3.0",
     "compression": "~1.0.1",
@@ -31,7 +31,7 @@
     "passport-local": "~0.1.6",
     "promisified-request": "0.0.3",
     "promisify-node": "^0.1.5",
-    "request": "^2.53.0",
+    "request": "^2.55.0",
     "serve-favicon": "~2.0.1",
     "snapfinder-lib": "0.0.8",
     "underscore": "^1.8.3",

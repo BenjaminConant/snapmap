@@ -24,8 +24,6 @@ var readFile = Promise.promisify(require('fs').readFile);
 var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 // var promisify = require("promisify-node");
 
-
-
 // function dbSeedString(collection) {
 //   return "mongoexport --db snapmap-dev --collection " + collection + " --out " + path.join(__dirname,"/db_data") + "/" + collection + ".json"
 // }
@@ -89,27 +87,35 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 //   stores = stores.toString(); 
 //   return csvParse(stores);
 // })
-// .then (function (arrayOfStores){                //.each(makeApiCallToPlaceSearch)
-// 	arrayOfStores = arrayOfStores.slice(1)
-// 	arrayOfStores = arrayOfStores.slice(0, 2)
-//   return Promise.map(arrayOfStores, function(store){
-//     return makeApiCallToPlaceSearch(store)
-//   })
-// }).then(function (resolved){
-// 	console.log('in third')
+// .then (function (arrayOfStores){ 
+// 	console.log('in second')
+// 	arrayOfStores = arrayOfStores.slice(1)			// first array is a key for the structure of all other objects
+// 	arrayOfStores = arrayOfStores.slice(0, 10000)
+// 	return makeApiCallToPlaceSearch(0, arrayOfStores)
+// })
+// .then(function (resolved){
 //   // export the transformed objects so we can double check seriality
 //   // change the name of the file to appropriate designate the range of objects retrieved before uncommenting this out 
-//   // exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_first50.json")
+//   // exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_first15000.json")
+// })
+// .then(null, function(err){
+// 	console.log('err3: ', err)
 // })
 
 
-// function makeApiCallToPlaceSearch(store){
+// function makeApiCallToPlaceSearch(index, array){
+// console.log('array:', Array.isArray(array))
+// if (index === array.length-1){
+//   return; 
+// }
+
 // 	var queryString, 
 // 			body,
 // 			urlPlaceSearch; 
 
 // 	// construct query string by concatenating store name, street address and zip code for optimal search accuracy
-// 	queryString = store[0]; 
+// 	var store = array[index]; 
+//   queryString = store[0]; 
 // 	// remove any numbers in the name before concatenating address and zip code 
 // 	queryString = queryString.replace(/[0-9]/g, '');
 // 	if (store[8]) queryString = queryString + ' ' + store[3] + ' ' + store[7] + '-' + store[8]; 
@@ -119,24 +125,22 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 // 	//verify that the query string looks as it is supposed to 
 // 	console.log('new store name: ', queryString)
 // 	// add your own api key at the end of this url 
-//   urlPlaceSearch = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location=' + Number(store[2]) + ',' + Number(store[1]) + '&radius=1&sensor=true&query=' + queryString + "&key=AIzaSyDl2B0kbv7OI2PqqvwX6vMboXK9d333G_k";
+//   urlPlaceSearch = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location=' + Number(store[2]) + ',' + Number(store[1]) + '&radius=1&sensor=true&query=' + queryString + "&key=AIzaSyDhtUFkee_SW-TgXLaEGp5E2r3r3Z6yWnI";
 //   //make request
-//   requestP(urlPlaceSearch).then(function(response){
+//   requestP(urlPlaceSearch)
+//   .then(function(response){
 //   // choose the first object in the array -- comprehensiveness of queryString does not make this much of a gamble 
 //     body = JSON.parse(response[0].body)
 //     //store entire response object 
-//     StoreGoogle.create(body.results[0])
-//     .then(function(createdGoogleStore){
-//       // console.log('store created: ', createdGoogleStore)
-//       return createdGoogleStore; 
-//     })
-//     .then(null, function(err){
-//       // console.log('err: ', err)
-//     })
-//   }, function(err){
-//     // console.log('err: ', err)
-//   }) 
+//     return StoreGoogle.create(body.results[0])
+//   })
+//   .then(function(createdGoogleStore){
+//      //recursive call
+//      return makeApiCallToPlaceSearch(index + 1, array)
+//   })
 // }
+
+
 
 /////////////////////////////////////// PLACE DETAILS //////////////////////////////////////////////////////////////////////////////
 
