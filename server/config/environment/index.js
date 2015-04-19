@@ -51,7 +51,7 @@ var all = {
   google: {
     clientID:     process.env.GOOGLE_ID,
     clientSecret: process.env.GOOGLE_SECRET,
-    callbackURL:  '/auth/google/oauth2callback'
+    callbackURL:  process.env.APP_DOMAIN + '/auth/google/oauth2callback'
   }
 };
 
