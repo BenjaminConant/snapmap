@@ -89,14 +89,12 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 // })
 // .then (function (arrayOfStores){ 
 // 	console.log('in second')
-// 	arrayOfStores = arrayOfStores.slice(1)			// first array is a key for the structure of all other objects
-// 	arrayOfStores = arrayOfStores.slice(0, 10000)
+// 	// first array is a key for the structure of all other objects
+// 	arrayOfStores = arrayOfStores.slice(1)		
+// 	// change this line to slice the part of the subarray you're responsible for 
+// 	// note that the last index is not inclusive 
+// 	arrayOfStores = arrayOfStores.slice(15000, 30001)
 // 	return makeApiCallToPlaceSearch(0, arrayOfStores)
-// })
-// .then(function (resolved){
-//   // export the transformed objects so we can double check seriality
-//   // change the name of the file to appropriate designate the range of objects retrieved before uncommenting this out 
-//   // exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_first15000.json")
 // })
 // .then(null, function(err){
 // 	console.log('err3: ', err)
@@ -106,7 +104,11 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 // function makeApiCallToPlaceSearch(index, array){
 // console.log('array:', Array.isArray(array))
 // if (index === array.length-1){
-//   return; 
+// 	// when we're at the end of our subarray, we export the collection
+// 	// export the transformed objects so we can double check seriality
+// 	// change the name of the file to appropriate designate the range of objects retrieved before uncommenting this out 
+//   exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_15000_30000.json"); 
+//   return;
 // }
 
 // 	var queryString, 
@@ -135,10 +137,14 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 //     return StoreGoogle.create(body.results[0])
 //   })
 //   .then(function(createdGoogleStore){
+//   		// see that the created object matches expectations 
+//      console.log('created: ', createdGoogleStore)
 //      //recursive call
 //      return makeApiCallToPlaceSearch(index + 1, array)
 //   })
 // }
+
+
 
 
 
