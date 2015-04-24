@@ -48,8 +48,6 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 //   loadDB(1, stores)
 // })
 
-
-
 // function loadDB(index, stores){
 //   if (index === stores.length-1){
 //     return;
@@ -75,7 +73,6 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 // }
 
 ///////////////////////////////// PING GOOGLE PLACES TEXT SEARCH API //////////////////////////////////////////////////////////
-
 
 
 // StoreGoogle.find({}).remove().exec()
@@ -143,7 +140,6 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 //      return makeApiCallToPlaceSearch(index + 1, array)
 //   })
 // }
-
 
 
 

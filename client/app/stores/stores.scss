@@ -31,7 +31,11 @@
 }
 
 .margin-top {
-	margin-top: 20px;
+	margin-top: 80px;
+}
+
+.margin-bottom {
+	margin-bottom: 40px;
 }
 
 @media (min-width: 1200px){
@@ -96,5 +100,26 @@
 	padding-bottom: 20px;
 	.panel-content {
 		padding-left: 2.5%;
+	}
+}
+
+.section-background {
+	border-radius: 2.5px;
+}
+@media (max-width: 991px) {
+	.section-background {
+		background-color: #C56A51;
+		height: 100px;
+		padding-top: 25px;
+	}
+	.bump-top {
+		margin-top: 10px;
+	}
+}
+@media (min-width: 992px) {
+	.section-background {
+		background-color: #C56A51;
+		height: 175px;
+		padding-top: 60px;
 	}
 }
