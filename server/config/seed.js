@@ -28,6 +28,7 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 //   return "mongoexport --db snapmap-dev --collection " + collection + " --out " + path.join(__dirname,"/db_data") + "/" + collection + ".json"
 // }
 
+// exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_40443_43003.json"); 
 
 //exports the store collection into a json file 
 // exec("mongoexport --db snapmap-dev --collection stores --out stores.json")
@@ -77,6 +78,7 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 
 // StoreGoogle.find({}).remove().exec()
 // .then(function (){
+// 	console.log('in here')
 // 	return readFile(__dirname + '/../nydata.csv')
 // })
 // .then(function fulfilled (stores){
@@ -90,7 +92,7 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 // 	arrayOfStores = arrayOfStores.slice(1)		
 // 	// change this line to slice the part of the subarray you're responsible for 
 // 	// note that the last index is not inclusive 
-// 	arrayOfStores = arrayOfStores.slice(38501, 45001)
+// 	arrayOfStores = arrayOfStores.slice(43003, 53003)
 // 	return makeApiCallToPlaceSearch(0, arrayOfStores)
 // })
 // .then(null, function(err){
@@ -104,7 +106,7 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 // 	// when we're at the end of our subarray, we export the collection
 // 	// export the transformed objects so we can double check seriality
 // 	// change the name of the file to appropriate designate the range of objects retrieved before uncommenting this out 
-//   exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_38501_45001.json"); 
+//   exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_43003_53003.json"); 
 //   return;
 // }
 
