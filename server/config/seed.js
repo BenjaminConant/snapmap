@@ -93,7 +93,7 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 // 	arrayOfStores = arrayOfStores.slice(1)		
 // 	// change this line to slice the part of the subarray you're responsible for 
 // 	// note that the last index is not inclusive 
-// 	arrayOfStores = arrayOfStores.slice(15000, 30001)
+// 	arrayOfStores = arrayOfStores.slice(38501, 45001)
 // 	return makeApiCallToPlaceSearch(0, arrayOfStores)
 // })
 // .then(null, function(err){
@@ -107,7 +107,7 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 // 	// when we're at the end of our subarray, we export the collection
 // 	// export the transformed objects so we can double check seriality
 // 	// change the name of the file to appropriate designate the range of objects retrieved before uncommenting this out 
-//   exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_15000_30000.json"); 
+//   exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_38501_45001.json"); 
 //   return;
 // }
 
@@ -127,7 +127,7 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 // 	//verify that the query string looks as it is supposed to 
 // 	console.log('new store name: ', queryString)
 // 	// add your own api key at the end of this url 
-//   urlPlaceSearch = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location=' + Number(store[2]) + ',' + Number(store[1]) + '&radius=1&sensor=true&query=' + queryString + "&key=AIzaSyDhtUFkee_SW-TgXLaEGp5E2r3r3Z6yWnI";
+//   urlPlaceSearch = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location=' + Number(store[2]) + ',' + Number(store[1]) + '&radius=1&sensor=true&query=' + queryString + "&key=AIzaSyDl2B0kbv7OI2PqqvwX6vMboXK9d333G_k";
 //   //make request
 //   requestP(urlPlaceSearch)
 //   .then(function(response){
