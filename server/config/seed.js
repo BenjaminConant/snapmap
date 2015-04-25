@@ -32,7 +32,7 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 
 // exec("mongoimport --db snapmap-dev --collection storegoogles storegoogles_195000_210000.json --jsonArray"); 
 
-// exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_first_half.json --jsonArray"); 
+exec("mongoexport --db snapmap-dev --collection placedetails --out placedetails_1_8988_nonArray.json"); 
 
 //exports the store collection into a json file 
 // exec("mongoexport --db snapmap-dev --collection stores --out stores.json")
@@ -153,51 +153,51 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 // var urlPlaceDetails = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=' +placeId + '&key=' + apiKey; 
 
 
-PlaceDetails.find({}).remove().exec()
-.then(function(){
-	return readFile(__dirname + '/../../storegoogles_first_half.json')
-})
-.then(function(storeObjs){
-	storeObjs = JSON.parse(storeObjs)
-	console.log('in then', storeObjs[0])
-	storeObjs = storeObjs.slice(0, 15000)
-	return makeApiCallToPlaceDetails(0, storeObjs)
-})
-.then(null, function(err){
-	console.log('err: ', err)
-})
+// PlaceDetails.find({}).remove().exec()
+// .then(function(){
+// 	return readFile(__dirname + '/../../storegoogles_first_half.json')
+// })
+// .then(function(storeObjs){
+// 	storeObjs = JSON.parse(storeObjs)
+// 	console.log('in then', storeObjs[0])
+// 	storeObjs = storeObjs.slice(8989, 15000)
+// 	return makeApiCallToPlaceDetails(0, storeObjs)
+// })
+// .then(null, function(err){
+// 	console.log('err: ', err)
+// })
 
-function makeApiCallToPlaceDetails(index, array){
+// function makeApiCallToPlaceDetails(index, array){
 
-	if(index === array.length-1){
-		return;
-	}
+// 	if(index === array.length-1){
+// 		return;
+// 	}
 
-	var store = array[index];
-	console.log('store: ', store)
+// 	var store = array[index];
+// 	console.log('store: ', store)
 
-	if (store && store.place_id){
+// 	if (store && store.place_id){
 	 
-	  var urlPlaceDetails = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=' +store.place_id + '&key=AIzaSyAT__B68i6m_QFqf8pf2kCKGy5s2o20iG4';
-	  var body; 
-	  requestP(urlPlaceDetails)
-	  .then(function(response){
-	    console.log('body!!!!!: ', response[0].body)
-	    // choose the first object in the array -- big gamble, should add err handling here as well as some checking that this is the right place 
-	    body = JSON.parse(response[0].body)
-	    console.log('parsed response: ', body)
-	    // store entire response object -- create schema that matches this structure; need to create StoreDetails model*/
-	    return PlaceDetails.create(body.result)
-	  })
-		.then(function(createdPlaceDetails){
-	    console.log('store created: ', createdPlaceDetails)
-	    return makeApiCallToPlaceDetails(index + 1, array)
-	  })
-	}
+// 	  var urlPlaceDetails = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=' +store.place_id + '&key=AIzaSyAT__B68i6m_QFqf8pf2kCKGy5s2o20iG4';
+// 	  var body; 
+// 	  requestP(urlPlaceDetails)
+// 	  .then(function(response){
+// 	    console.log('body!!!!!: ', response[0].body)
+// 	    // choose the first object in the array -- big gamble, should add err handling here as well as some checking that this is the right place 
+// 	    body = JSON.parse(response[0].body)
+// 	    console.log('parsed response: ', body)
+// 	    // store entire response object -- create schema that matches this structure; need to create StoreDetails model*/
+// 	    return PlaceDetails.create(body.result)
+// 	  })
+// 		.then(function(createdPlaceDetails){
+// 	    console.log('store created: ', createdPlaceDetails)
+// 	    return makeApiCallToPlaceDetails(index + 1, array)
+// 	  })
+// 	}
 
-	else {
-		return makeApiCallToPlaceDetails(index + 1, array);
-	} 
+// 	else {
+// 		return makeApiCallToPlaceDetails(index + 1, array);
+// 	} 
 
-}
+// }
 
