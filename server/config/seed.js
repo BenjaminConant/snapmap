@@ -28,6 +28,8 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 //   return "mongoexport --db snapmap-dev --collection " + collection + " --out " + path.join(__dirname,"/db_data") + "/" + collection + ".json"
 // }
 
+// exec("mongoimport --db snapmap-dev --collection storegoogles storegoogles_80001_95002.json --jsonArray"); 
+
 // exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_40443_43003.json"); 
 
 //exports the store collection into a json file 
