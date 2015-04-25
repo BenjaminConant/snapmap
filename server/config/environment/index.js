@@ -37,7 +37,7 @@ var all = {
   mongo: {
     options: {
       db: {
-        safe: true
+        safe: false
       }
     }
   },

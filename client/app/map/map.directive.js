@@ -1,5 +1,9 @@
 'use strict';
 
+function route (lat, lon){
+    console.log('pressed something?!', lat, lon);
+}
+
 angular.module('snapmapApp')
   .directive('map', function (uiGmapGoogleMapApi, GeolocationFactory, store, $state, $q, uiGmapIsReady) {
     return {
@@ -38,10 +42,6 @@ angular.module('snapmapApp')
               })
             })
          };
-
-         function route (){
-          console.log('pressed something?!');
-         }
 
         scope.route = function (location){
             console.log('pressed route', location);
@@ -83,9 +83,18 @@ angular.module('snapmapApp')
                 dragend: loadMarkers,
                 tilesloaded: loadMarkers
         }; 
-
-
     }
 	}
-
 });
+
+angular.module('snapmapApp').directive('directions', function(){
+    return {
+      restrict: 'A',
+      link: function (scope, attrs, element){
+
+        element.bind('click', function(info){
+          console.log('pressed the button', info);
+        });
+      }
+    }
+})
