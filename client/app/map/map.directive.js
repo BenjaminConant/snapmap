@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('snapmapApp')
-  .directive('map', function (uiGmapGoogleMapApi, GeolocationFactory, store, $state, $q) {
+  .directive('map', function (uiGmapGoogleMapApi, GeolocationFactory, store, $state, $q, uiGmapIsReady) {
     return {
       templateUrl: 'app/map/map.html',
       restrict: 'EA',
@@ -15,9 +15,11 @@ angular.module('snapmapApp')
   							center: { latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude}, 
   							zoom: 17
   						};
+              scope.directionsService = new maps.DirectionsService();
+              scope.directionsDisplay = new maps.DirectionsRenderer();
   					})
   	      }
-  	    })
+  	    });
 
         // this function builds the arrays that the markers go into
         var loadMarkers = function (maps) {     
@@ -37,13 +39,50 @@ angular.module('snapmapApp')
             })
          };
 
+         function route (){
+          console.log('pressed something?!');
+         }
+
+        scope.route = function (location){
+            console.log('pressed route', location);
+            if(GeolocationFactory.latitude && GeolocationFactory.longitude){
+              uiGmapIsReady.promise(1).then(function (instance){
+
+                // var request = {
+                //   origin: new maps.LatLng(
+                //     GeolocationFactory.latitude,
+                //     GeolocationFactory.longitude
+                //   ),
+                //   destination: new maps.LatLng(
+                //     location.latitude, 
+                //     location.longitude
+                //   ),
+                //   travelMode: maps.TravelMode['WALKING'],
+                //   optimizeWaypoints: true
+                // };
+                // scope.directionsDisplay.setMap(instances[0].map);
+                // scope.directionsService.route(request, function(response, status) {
+                //   if (status == google.maps.DirectionsStatus.OK) {
+                //     console.log('finished directions with ', response, status);
+                //     console.log('you will go ', response.routes[0].legs[0].distance.text, 'in', response.routes[0].legs[0].duration.text);
+                //       // $scope.directionsDisplay.setDirections(response);
+                //   }
+                
+                // });
+              });
+            }
+            else{
+              alert('You need to allow tracking to receive Direction information');
+            }
+        }
+
         // this object is passed to the angular-google-maps directive
         // the keys are events from the google maps api and the values are functions that should      
         scope.mapChanged = {
                 idle: loadMarkers,
                 dragend: loadMarkers,
                 tilesloaded: loadMarkers
-              }; 
+        }; 
 
 
     }

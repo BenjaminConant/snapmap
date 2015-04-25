@@ -91,7 +91,7 @@ StoreGoogle.find({}).remove().exec()
 	arrayOfStores = arrayOfStores.slice(1)		
 	// change this line to slice the part of the subarray you're responsible for 
 	// note that the last index is not inclusive 
-	arrayOfStores = arrayOfStores.slice(170001, 185000);
+	arrayOfStores = arrayOfStores.slice(185000, 195001);
 	return makeApiCallToPlaceSearch(0, arrayOfStores);
 })
 .then(null, function(err){
@@ -105,7 +105,7 @@ if (index === array.length-1){
 	// when we're at the end of our subarray, we export the collection
 	// export the transformed objects so we can double check seriality
 	// change the name of the file to appropriate designate the range of objects retrieved before uncommenting this out 
-  exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_170001_185000.json"); 
+  exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_185000_195001.json"); 
   return;
 }
 
