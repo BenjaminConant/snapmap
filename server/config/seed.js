@@ -48,8 +48,6 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 //   loadDB(1, stores)
 // })
 
-
-
 // function loadDB(index, stores){
 //   if (index === stores.length-1){
 //     return;
@@ -76,11 +74,10 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 
 ///////////////////////////////// PING GOOGLE PLACES TEXT SEARCH API //////////////////////////////////////////////////////////
 
-
-
 StoreGoogle.find({}).remove().exec()
 .then(function (){
 	console.log('started seed file');
+
 	return readFile(__dirname + '/../nydata.csv')
 })
 .then(function fulfilled (stores){
@@ -126,6 +123,7 @@ if (index === array.length-1){
 	queryString = queryString.split(',');
 	queryString = queryString.join(' ');
 	//verify that the query string looks as it is supposed to 
+
 	console.log('index', index, 'new store name: ', queryString)
 	// add your own api key at the end of this url 
   urlPlaceSearch = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location=' + Number(store[2]) + ',' + Number(store[1]) + '&radius=1&sensor=true&query=' + queryString + "&key=AIzaSyD_MrO0Qx368MXMvJgcVvHx84XRiwjpskc";
@@ -144,10 +142,6 @@ if (index === array.length-1){
      return makeApiCallToPlaceSearch(index + 1, array)
   })
 }
-
-
-
-
 
 /////////////////////////////////////// PLACE DETAILS //////////////////////////////////////////////////////////////////////////////
 

@@ -1,6 +1,6 @@
 <div ng-include="'components/navbar/navbar.html'" class="ng-scope"></div>
 
-<main class="container">
+<main style="margin-top:50px" class="container">
 	<div id="userInformation" class="row">
 		<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 			<img class="img-responsive" ng-src="{{currentUser.avatar}}"/>
@@ -17,7 +17,7 @@
 					<h3>Reviews</h3>
 				</div>
 				<div class="panel-body">
-					<article ng-repeat="review in reviews | orderBy:'date'">
+					<article ng-repeat="review in reviews | orderBy:'-date'">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 well">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<h4 ui-sref="stores({ storeId: review.store._id })">{{review.store.name}}</h4>

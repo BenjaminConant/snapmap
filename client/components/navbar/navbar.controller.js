@@ -22,4 +22,5 @@ angular.module('snapmapApp')
     $scope.isActive = function(route) {
       return route === $location.path();
     };
+
   });
