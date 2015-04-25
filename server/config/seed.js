@@ -89,7 +89,7 @@ StoreGoogle.find({}).remove().exec()
 	arrayOfStores = arrayOfStores.slice(1)		
 	// change this line to slice the part of the subarray you're responsible for 
 	// note that the last index is not inclusive 
-	arrayOfStores = arrayOfStores.slice(80001, 95002)
+	arrayOfStores = arrayOfStores.slice(195000, 210000)
 	return makeApiCallToPlaceSearch(0, arrayOfStores)
 })
 .then(null, function(err){
@@ -103,7 +103,7 @@ if (index === array.length-1){
 	// when we're at the end of our subarray, we export the collection
 	// export the transformed objects so we can double check seriality
 	// change the name of the file to appropriate designate the range of objects retrieved before uncommenting this out 
-  exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_80001_95002.json"); 
+  exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_195000_210000.json"); 
   return;
 }
 
@@ -123,7 +123,7 @@ if (index === array.length-1){
 	//verify that the query string looks as it is supposed to 
 	console.log('new store name: ', queryString)
 	// add your own api key at the end of this url 
-  urlPlaceSearch = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location=' + Number(store[2]) + ',' + Number(store[1]) + '&radius=1&sensor=true&query=' + queryString + "&key=AIzaSyBRtqwQ3xrSSn6ouWJuWTsOpUK-afFTjNQ";
+  urlPlaceSearch = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location=' + Number(store[2]) + ',' + Number(store[1]) + '&radius=1&sensor=true&query=' + queryString + "&key=AIzaSyAaqIcNAPph6W5dqhUogN-bK2nCUBmC5RM";
   //make request
   requestP(urlPlaceSearch)
   .then(function(response){
