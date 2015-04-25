@@ -9,7 +9,9 @@ angular.module('snapmapApp')
     return {
       templateUrl: 'app/map/map.html',
       restrict: 'EA',
-      link: function (scope, element, attrs) {
+      scope: { route: '&' },
+      link: function (scope, element, attrs, controllers) {
+        
         
         //init the map
       	GeolocationFactory.getGeo().then(function (){
@@ -30,7 +32,7 @@ angular.module('snapmapApp')
           var j = [maps.getBounds().va.j, maps.getBounds().Ea.j]; 
           var k = [maps.getBounds().va.k, maps.getBounds().Ea.k];
           var data = {j: j, k: k};
-
+          console.log('element', element, 'attrs', attrs);
           store.getStores(data)
             .then(function (location){
               // we can have diffrent arrays for each type of marker, groceries will cause green markers
@@ -87,14 +89,14 @@ angular.module('snapmapApp')
 	}
 });
 
-angular.module('snapmapApp').directive('directions', function(){
-    return {
-      restrict: 'A',
-      link: function (scope, attrs, element){
+// angular.module('snapmapApp').directive('directions', function(){
+//     return {
+//       restrict: 'A',
+//       link: function (scope, attrs, element){
 
-        element.bind('click', function(info){
-          console.log('pressed the button', info);
-        });
-      }
-    }
-})
+//         element.bind('click', function(info){
+//           console.log('pressed the button', info);
+//         });
+//       }
+//     }
+// })
