@@ -146,8 +146,6 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 // }
 
 
-
-
 /////////////////////////////////////// PLACE DETAILS //////////////////////////////////////////////////////////////////////////////
 
 // var urlPlaceDetails = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=' +placeId + '&key=' + apiKey; 
