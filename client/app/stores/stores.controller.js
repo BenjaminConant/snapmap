@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('snapmapApp')
-  .controller('StoresCtrl', function ($scope, $stateParams, store, ReviewFactory) {
+  .controller('StoresCtrl', function ($scope, $stateParams, store, ReviewFactory, Auth) {
 
     ///////////////// This controller controls /store/:id page ///////////////
 
@@ -15,6 +15,12 @@ angular.module('snapmapApp')
           // cope for virtual persistence 
           var store = store; 
       		$scope.store= store; //maybe make explicit
+          var ratingHolder = $scope.store.averageRating;
+          $scope.store.averageRating = [];
+          for (var i = 0; i < ratingHolder; i++) {
+            $scope.store.averageRating.push(i);
+          }
+          console.log($scope.store);
       	}
       })
     }
@@ -33,11 +39,13 @@ angular.module('snapmapApp')
             for (var i = 0; i < review.stars; i++){
               review.staricons.push(i)
             }
+            if (!review.user.avatar) {
+              review.user.avatar = 'http://lorempixel.com/100/100/abstract/';
+            }
           })
           $scope.reviews = allReviews; 
         })
       }
-
 
       vm.getStore()
       vm.getReviews()

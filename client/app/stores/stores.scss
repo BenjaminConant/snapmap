@@ -123,3 +123,47 @@
 		padding-top: 60px;
 	}
 }
+
+.center-block {
+	width: 70%;
+	margin: auto 15%;
+	padding: 0%;
+	.well {
+		padding: 0%;
+	}
+}
+#storeOptions {
+	margin-top: 40px;
+	div {
+		padding-left: 0%;
+		text-align: center;
+		font-size: large;
+	}
+	hr {
+		padding-right: 10px;
+	}
+}
+.img-fill {
+	width: 100%;
+	height: auto;
+}
+.table-div {
+	float: left;
+	width: 14.2%;
+}
+#storeStars {
+	i {
+		color: gold;
+	}
+}
+.blurb {
+	border-radius: 10px;
+	background-color: white;
+}
+.reviewer {
+	img {
+		border-radius: 50px;
+		width: 75px;
+		height: auto;
+	}
+}

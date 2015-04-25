@@ -1,9 +1,10 @@
 <div class='row'>
-	<div class="col-lg-1 col-md-1 col-sm-12 col-xs-12 align-center section-background">
-		<i class="fa fa-pencil fa-4x"></i>
-	</div>
-	<div class="col-lg-11 col-md-11 col-sm-12 col-xs-12 bump-top">
-		<div class="col-lg-12">
+	<h2 class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>Reviews</h2>
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bump-top">
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 reviewer">
+			<img class='img-responsive' ng-src='{{currentUser.avatar}}'/>
+		</div>
+		<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 blurb create-padding">
 			<form name="reviewForm" ng-submit="reviewForm.$valid && submitReview(review)">
 				<div class="form-group">
 					<label for="review_text">Review</label>
@@ -19,24 +20,17 @@
 	</div>
 </div>
 <div class='row margin-top'>
-	<div class='col-lg-1 col-md-1 col-sm-12 col-xs-12 align-center section-background'>
-		<i class="fa fa-comments fa-4x"></i>
-	</div>
-	<div class='col-lg-11 col-md-11 col-sm-12 col-xs-12'>
-		<h2>Reviews</h2>
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<div ng-repeat='review in reviews'>
-				<div class='review'>
-					<div class="panel-primary">
-						<div class="panel-heading">
-							<h3 class="panel-description">{{review.user.name}}</h3>
-						</div>
-						<div class="panel-content">
-							<h5>{{review.date | date}}</h5>
-							<h4>{{review.text}}</h4>
-							<p><span ng-repeat='i in review.staricons' class="fa fa-star"></span></p>
-						</div>
-					</div>
+	<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+		<div ng-repeat='review in reviews'>
+			<div>
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 reviewer">
+					<img class='img-responsive' ng-src='{{review.user.avatar}}' title='{{review.user.name}}'/>
+				</div>
+				<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 blurb">
+					<h5>{{review.date | date}}</h5>
+					<h4>{{review.user.name}}</h4>
+					<h4>{{review.text}}</h4>
+					<p><span ng-repeat='i in review.staricons' class="fa fa-star"></span></p>
 				</div>
 			</div>
 		</div>
