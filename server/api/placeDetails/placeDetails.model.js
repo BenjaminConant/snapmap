@@ -5,6 +5,12 @@ var mongoose = require('mongoose'),
     Promise = require('bluebird');
 Promise.promisifyAll(mongoose); 
 
+/*
+unless otherwise marked, all fields are defined by the 
+responses returned from the google places api
+*/
+
+
 var PlaceDetailsSchema = new Schema({
   address_components : [
          {
@@ -51,8 +57,6 @@ var PlaceDetailsSchema = new Schema({
          }
       ],
   rating: Number,
-  // internal rating will be for our users
-  internalRating: Number,
   reference: String,
   reviews: [
          {
@@ -72,7 +76,9 @@ var PlaceDetailsSchema = new Schema({
       ],
   //field that points to the reviews that snapmap users submit 
   reviewsInternal: [{type: mongoose.Schema.Types.ObjectId, ref: 'Review'}],
+  // a count for calculating the average 
   numReviews: {type: Number, default: 0}, 
+  // internal rating will be for snapmap users
   ratingInternal: {type: Number, default: 0},
   types: [String],
   url: String,
@@ -87,5 +93,12 @@ PlaceDetailsSchema.index({ location: "2d" })
 PlaceDetailsSchema.set('toJSON', {
   virtuals: true
 });
+
+//average the data here 
+PlaceDetailsSchema
+  .virtual('averageRating')
+  .get(function(){
+    return (this.ratingInternal / this.numReviews).toFixed(2); // rounds to 2 decimals
+  })
 
 module.exports = mongoose.model('PlaceDetails', PlaceDetailsSchema);
