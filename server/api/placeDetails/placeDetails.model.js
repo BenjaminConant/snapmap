@@ -3,6 +3,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     Promise = require('bluebird');
+Promise.promisifyAll(mongoose); 
 
 var PlaceDetailsSchema = new Schema({
   address_components : [
@@ -14,12 +15,12 @@ var PlaceDetailsSchema = new Schema({
       ],
   formatted_address: String,
   formatted_phone_number: String,
-      geometry: {
-         location: {
-           lat: Number,
-           lng: Number
-         }
-      },
+  geometry: {
+    location: {
+      lat: Number,
+      lng: Number
+    }
+  },
   icon: String,
   id: String,
   international_phone_number: String,
@@ -50,6 +51,8 @@ var PlaceDetailsSchema = new Schema({
          }
       ],
   rating: Number,
+  // internal rating will be for our users
+  internalRating: Number,
   reference: String,
   reviews: [
          {
@@ -67,6 +70,10 @@ var PlaceDetailsSchema = new Schema({
             time: Number
          } 
       ],
+  //field that points to the reviews that snapmap users submit 
+  reviewsInternal: [{type: mongoose.Schema.Types.ObjectId, ref: 'Review'}],
+  numReviews: {type: Number, default: 0}, 
+  ratingInternal: {type: Number, default: 0},
   types: [String],
   url: String,
   vicinity: String,
@@ -75,6 +82,7 @@ var PlaceDetailsSchema = new Schema({
 
 
 PlaceDetailsSchema.index({ location: "2d" })
+
 
 PlaceDetailsSchema.set('toJSON', {
   virtuals: true
