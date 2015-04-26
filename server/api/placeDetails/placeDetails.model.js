@@ -14,12 +14,12 @@ var PlaceDetailsSchema = new Schema({
       ],
   formatted_address: String,
   formatted_phone_number: String,
-      geometry: {
-         location: {
-           lat: Number,
-           lng: Number
-         }
-      },
+  geometry: {
+    location: {
+      lat: Number,
+      lng: Number
+    }
+  },
   icon: String,
   id: String,
   international_phone_number: String,
