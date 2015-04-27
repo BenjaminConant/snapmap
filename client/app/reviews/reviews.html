@@ -30,7 +30,7 @@
 					<img class='img-responsive' ng-if='!review.user' ng-src='http://lorempixel.com/100/100/' title='{{review.author_name}}'/>
 				</div>
 				<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 blurb">
-					<h5>{{review.time | orderBy:'review.time' | date}}</h5>
+					<h5>{{review.time | date}}</h5>
 					<h4>{{review.author_name}}</h4>
 					<h4>{{review.text}}</h4>
 					<p><span ng-repeat='i in review.staricons' class="fa fa-star"></span></p>

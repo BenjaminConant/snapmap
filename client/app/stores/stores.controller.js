@@ -47,7 +47,7 @@ angular.module('snapmapApp')
       return hours + ':' + minutes + tod;
     }
     var checkIfOpened = function (open, close) {
-      if (new Date().getUTCHours() >= (open.substring(0, 2) * 1) && new Date().getUTCHours() < (close.substring(0, 2) * 1)) {
+      if (new Date().getHours() >= (open.substring(0, 2) * 1) && new Date().getHours() < (close.substring(0, 2) * 1)) {
         $scope.isOpen = 'Open'
       }
     }
@@ -70,7 +70,6 @@ angular.module('snapmapApp')
           hours.open.time = convertTime(hours.open.time);
           hours.close.time = convertTime(hours.close.time);
         });
-        console.log($scope.store.opening_hours.periods);
       }
       $scope.store.averageRating = 0;
       $scope.store.reviews.forEach(function (review) {
