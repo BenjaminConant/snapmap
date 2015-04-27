@@ -30,9 +30,13 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 //   return "mongoexport --db snapmap-dev --collection " + collection + " --out " + path.join(__dirname,"/db_data") + "/" + collection + ".json"
 // }
 
+<<<<<<< HEAD
 //exec("mongoimport --db snapmap-dev --collection placedetails placedetails_1_8988.json --jsonArray"); 
+=======
+// exec("mongoimport --db snapmap-dev --collection storegoogles storegoogles_first_half.json -jsonArray"); 
+>>>>>>> origin/master
 
-// exec("mongoexport --db snapmap-dev --collection placedetails --out placedetails_8988_9979_nonArray.json"); 
+// exec("mongoexport --db snapmap-dev --collection placedetails --out placedetails_43963_49390_nonArray.json"); 
 
 //exports the store collection into a json file 
 // exec("mongoexport --db snapmap-dev --collection stores --out stores.json")
@@ -162,7 +166,11 @@ if (index === array.length-1){
 // 	console.log('in then', storeObjs[0].place_id, storeObjs[1])
 // 	console.log('LENGTH!!', storeObjs.length)
 // 	//take a portion of the array
+<<<<<<< HEAD
 // 	storeObjs = storeObjs.slice(25000, 35000)
+=======
+// 	storeObjs = storeObjs.slice(43963, 50000)
+>>>>>>> origin/master
 // 	// console.log('LENGTH2: ', storeObjs.length)
 // 	// console.log('first: ', storeObjs[2000])
 // 	// filter to ensure that every obj has a place_id; 

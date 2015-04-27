@@ -9,12 +9,14 @@ var errors = require('./components/errors');
 module.exports = function(app) {
 
   // Insert routes below
-  app.use('/api/foursquares', require('./api/foursquare'));
   app.use('/api/reviews', require('./api/review'));
   app.use('/api/stores', require('./api/store'));
-  app.use('/api/things', require('./api/thing'));
   app.use('/api/users', require('./api/user'));
   app.use('/api/placeDetails', require('./api/placeDetails'));
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 
   app.use('/auth', require('./auth'));
   
