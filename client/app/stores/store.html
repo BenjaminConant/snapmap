@@ -11,20 +11,19 @@
 				</div>
 				<div class='row'>
 					<p class='lead' style='font-size: medium;'>
-						{{store.address}}, 
-						<span ng-if='store.addressLineTwo != ""'>{{store.addressLineTwo}},</span>
-						{{store.city}}, {{store.state}} {{store.zip5}}
+						{{store.formatted_address}}
 					</p>
 				</div>
 				<div id='storeStars' class='row'>
-					<i class='fa fa-star fa-3x' ng-repeat='i in store.averageRating'></i>
+					<i class='fa fa-star fa-3x' ng-repeat='i in store.stars'></i>
 				</div>
 				<div id='storeOptions' class='row'>
 					<div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>
-						<a>Store Website</a>
+						<a ng-if='!store.website' href='{{store.url}}'>Store Website</a>
+						<a ng-if='store.website' href='{{store.website}}'>Store Website</a>
 					</div>
 					<div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>
-						<a>(555) 555-5555</a>
+						<a href='tel:{{store.hrefTel}}'>{{store.formatted_phone_number}}</a>
 					</div>
 					<div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>
 						<a>Get Directions</a>
@@ -33,28 +32,42 @@
 			</div>
 		</section>
 		<section id='hours' class='row well'>
-			<h3 class='col-lg-12 col-md-12 col-sm-12 col-xs-12 align-center'>Open 9:00AM-9:00PM</h3>
+			<h3 class='col-lg-12 col-md-12 col-sm-12 col-xs-12 align-center'>{{isOpen}} {{todayOpen}}-{{todayClose}}</h3>
 			<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12 align-center' style='font-size: smaller;'>
 				<div class='table-div'>
-					Monday<br>9:00AM-9:00PM
+					Monday<br><span ng-if='store.opening_hours.periods[0]'>
+					{{store.opening_hours.periods[0].open.time}}-{{store.opening_hours.periods[0].close.time}}</span>
+					<span ng-if='!store.opening_hours.periods[0]'>Closed</span>
 				</div>
 				<div class='table-div'>
-					Tuesday<br>9:00AM-9:00PM
+					Tuesday<br><span ng-if='store.opening_hours.periods[1]'>
+					{{store.opening_hours.periods[1].open.time}}-{{store.opening_hours.periods[1].close.time}}</span>
+					<span ng-if='!store.opening_hours.periods[1]'>Closed</span>
 				</div>
 				<div class='table-div'>
-					Wednesday<br>9:00AM-9:00PM
+					Wednesday<br><span ng-if='store.opening_hours.periods[2]'>
+					{{store.opening_hours.periods[2].open.time}}-{{store.opening_hours.periods[2].close.time}}</span>
+					<span ng-if='!store.opening_hours.periods[2]'>Closed</span>
 				</div>
 				<div class='table-div'>
-					Thursday<br>9:00AM-9:00PM 
+					Thursday<br><span ng-if='store.opening_hours.periods[3]'>
+					{{store.opening_hours.periods[3].open.time}}-{{store.opening_hours.periods[3].close.time}}</span>
+					<span ng-if='!store.opening_hours.periods[3]'>Closed</span>
 				</div>
 				<div class='table-div'>
-					Friday<br>9:00AM-9:00PM 
+					Friday<br><span ng-if='store.opening_hours.periods[4]'>
+					{{store.opening_hours.periods[4].open.time}}-{{store.opening_hours.periods[4].close.time}}</span>
+					<span ng-if='!store.opening_hours.periods[4]'>Closed</span>
 				</div>
 				<div class='table-div'>
-					Saturday<br>9:00AM-9:00PM 
+					Saturday<br><span ng-if='store.opening_hours.periods[5]'>
+					{{store.opening_hours.periods[5].open.time}}-{{store.opening_hours.periods[5].close.time}}</span>
+					<span ng-if='!store.opening_hours.periods[5]'>Closed</span>
 				</div>
 				<div class='table-div'>
-					Sunday<br>9:00AM-9:00PM
+					Sunday<br><span ng-if='store.opening_hours.periods[6]'>
+					{{store.opening_hours.periods[6].open.time}}-{{store.opening_hours.periods[6].close.time}}</span>
+					<span ng-if='!store.opening_hours.periods[6]'>Closed</span>
 				</div>
 			</div>
 		</section>

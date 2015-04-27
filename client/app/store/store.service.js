@@ -54,6 +54,12 @@ angular.module('snapmapApp')
         }).then(function success(data){
           return data.response.venues; 
         });
+      },
+      getAllPlaces: function (){
+        return $http.get('/api/placeDetails').then(function success(places) {
+          console.log(places.data);
+          return places.data;
+        });
       }
     };
   });
