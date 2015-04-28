@@ -32,7 +32,9 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 
 // exec("mongoimport --db snapmap-dev --collection storegoogles storegoogles_195000_210000.json --jsonArray"); 
 
-exec("mongoexport --db snapmap-dev --collection placedetails --out placedetails_1_8988_nonArray.json"); 
+// exec("mongoexport --db snapmap-dev --collection placedetails --out placedetails_1_8988_nonArray.json"); 
+
+exec( "mongoexport --db snapmap-dev --collection storegoogles --out 210000_225000_storegoogles.json --jsonArray")
 
 //exports the store collection into a json file 
 // exec("mongoexport --db snapmap-dev --collection stores --out stores.json")
@@ -82,7 +84,7 @@ exec("mongoexport --db snapmap-dev --collection placedetails --out placedetails_
 
 StoreGoogle.find({}).remove().exec()
 .then(function (){
-	return readFile(__dirname + '/../nydata.csv')
+	return readFile(__dirname + '/../nydata.csv');
 })
 .then(function fulfilled (stores){
 	console.log('in first')
@@ -91,12 +93,22 @@ StoreGoogle.find({}).remove().exec()
 })
 .then (function (arrayOfStores){ 
 	console.log('in second')
+	// console.log(" htis is the type", typeof arrayOfStores[1][6], arrayOfStores[1][6]);
+
 	// first array is a key for the structure of all other objects
-	arrayOfStores = arrayOfStores.slice(1)		
+	arrayOfStores = arrayOfStores.slice(1)	
+	arrayOfStores = arrayOfStores.filter(function(store){
+		return store[6] === 'NY';
+	})
+	console.log('array of stores length: ', arrayOfStores.length)	
 	// change this line to slice the part of the subarray you're responsible for 
-	// note that the last index is not inclusive 
-	arrayOfStores = arrayOfStores.slice(210000, 225000)
+	// note that the last index is not inclusive
+	/// there are 18583 stores in New York
+	// I have data for the first 8674  
+	// the next is 8675 - 18583
+	arrayOfStores = arrayOfStores.slice(16205, 18584)
 	return makeApiCallToPlaceSearch(0, arrayOfStores)
+	// return "fooo"
 })
 .then(null, function(err){
 	console.log('err3: ', err)
@@ -109,7 +121,7 @@ if (index === array.length-1){
 	// when we're at the end of our subarray, we export the collection
 	// export the transformed objects so we can double check seriality
 	// change the name of the file to appropriate designate the range of objects retrieved before uncommenting this out 
-  exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_210000_225000.json"); 
+  exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_NY_16205_18584.json"); 
   return;
 }
 
@@ -129,7 +141,7 @@ if (index === array.length-1){
 	//verify that the query string looks as it is supposed to 
 	console.log('new store name: ', queryString)
 	// add your own api key at the end of this url 
-  urlPlaceSearch = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location=' + Number(store[2]) + ',' + Number(store[1]) + '&radius=1&sensor=true&query=' + queryString + "&key=AIzaSyAaqIcNAPph6W5dqhUogN-bK2nCUBmC5RM";
+  urlPlaceSearch = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location=' + Number(store[2]) + ',' + Number(store[1]) + '&radius=1&sensor=true&query=' + queryString + "&key=AIzaSyAT__B68i6m_QFqf8pf2kCKGy5s2o20iG4";
   //make request
   requestP(urlPlaceSearch)
   .then(function(response){
@@ -145,6 +157,24 @@ if (index === array.length-1){
      return makeApiCallToPlaceSearch(index + 1, array)
   })
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /////////////////////////////////////// PLACE DETAILS //////////////////////////////////////////////////////////////////////////////
