@@ -2,6 +2,7 @@
 
 var path = require('path');
 var _ = require('lodash');
+var config = require('./development.js');
 
 function requiredProcessEnv(name) {
   if(!process.env[name]) {
@@ -13,14 +14,15 @@ function requiredProcessEnv(name) {
 // All configurations will extend these options
 // ============================================
 var all = {
-  domain: 'http://localhost:9000',
+  domain: 'http://localhost:' + config.PORT,
   env: process.env.NODE_ENV,
 
   // Root path of server
   root: path.normalize(__dirname + '/../../..'),
 
   // Server port
-  port: process.env.PORT || 9000,
+  port: config.PORT || 9000,
+  // port: 3333,
 
   // Should we populate the DB with sample data?
   seedDB: true,
