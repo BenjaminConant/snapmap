@@ -8,6 +8,8 @@
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
 var Store = require('../api/store/store.model');
+var PlaceDetails = require('../api/placeDetails/placeDetails.model');
+
 var fs = require('fs');
 var exec = require('child_process').exec; 
 var path = require('path'); 
@@ -28,6 +30,9 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 //   return "mongoexport --db snapmap-dev --collection " + collection + " --out " + path.join(__dirname,"/db_data") + "/" + collection + ".json"
 // }
 
+// exec("mongoimport --db snapmap-dev --collection storegoogles storegoogles_195000_210000.json --jsonArray"); 
+
+// exec("mongoexport --db snapmap-dev --collection placedetails --out placedetails_8988_9979_nonArray.json"); 
 
 //exports the store collection into a json file 
 // exec("mongoexport --db snapmap-dev --collection stores --out stores.json")
@@ -76,7 +81,7 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 
 // StoreGoogle.find({}).remove().exec()
 // .then(function (){
-// 	console.log('started seed file');
+// 	console.log('in here')
 
 // 	return readFile(__dirname + '/../nydata.csv')
 // })
@@ -91,8 +96,10 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 // 	arrayOfStores = arrayOfStores.slice(1)		
 // 	// change this line to slice the part of the subarray you're responsible for 
 // 	// note that the last index is not inclusive 
-// 	arrayOfStores = arrayOfStores.slice(185000, 195001);
-// 	return makeApiCallToPlaceSearch(0, arrayOfStores);
+
+// 	arrayOfStores = arrayOfStores.slice(43003, 53003)
+// 	return makeApiCallToPlaceSearch(0, arrayOfStores)
+
 // })
 // .then(null, function(err){
 // 	console.log('err3: ', err)
@@ -105,7 +112,9 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 // 	// when we're at the end of our subarray, we export the collection
 // 	// export the transformed objects so we can double check seriality
 // 	// change the name of the file to appropriate designate the range of objects retrieved before uncommenting this out 
-//   exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_185000_195001.json"); 
+
+//   exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_43003_53003.json"); 
+
 //   return;
 // }
 
@@ -124,9 +133,10 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 // 	queryString = queryString.join(' ');
 // 	//verify that the query string looks as it is supposed to 
 
-// 	console.log('index', index, 'new store name: ', queryString)
+// 	console.log('new store name: ', queryString)
 // 	// add your own api key at the end of this url 
-//   urlPlaceSearch = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location=' + Number(store[2]) + ',' + Number(store[1]) + '&radius=1&sensor=true&query=' + queryString + "&key=AIzaSyD_MrO0Qx368MXMvJgcVvHx84XRiwjpskc";
+//   urlPlaceSearch = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location=' + Number(store[2]) + ',' + Number(store[1]) + '&radius=1&sensor=true&query=' + queryString + "&key=AIzaSyDl2B0kbv7OI2PqqvwX6vMboXK9d333G_k";
+
 //   //make request
 //   requestP(urlPlaceSearch)
 //   .then(function(response){
@@ -147,33 +157,61 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 
 // var urlPlaceDetails = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=' +placeId + '&key=' + apiKey; 
 
-// StoreGoogle.find({}).exec()
-// .then(function(storeObjs){
-//   console.log('in then', storeObjs[0])
-//   storeObjs = storeObjs.slice(0, 4)
-//   storeObjs.forEach(makeApiCallToPlaceDetails)
-// })
 
-// function makeApiCallToPlaceDetails(place){
+PlaceDetails.find({}).remove().exec()
+.then(function(){
+	return readFile(__dirname + '/../../storegoogles_first_half.json')
+})
+.then(function(storeObjs){
+	storeObjs = JSON.parse(storeObjs)
+	console.log('in then', storeObjs[0].place_id, storeObjs[1])
+	console.log('LENGTH!!', storeObjs.length)
+	//take a portion of the array
+	storeObjs = storeObjs.slice(25000, 35000)
+	// console.log('LENGTH2: ', storeObjs.length)
+	// console.log('first: ', storeObjs[2000])
+	// filter to ensure that every obj has a place_id; 
+	// var newStoreArray = storeObjs.filter(function(store){
+	// 	return typeof store.place_id !== 'undefined'; 
+	// })
+	// console.log('new: ', newStoreArray[0])
+	return makeApiCallToPlaceDetails(0, storeObjs)
+})
+.then(null, function(err){
+	console.log('err: ', err)
+})
 
-//   var urlPlaceDetails = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=' +place_id + '&key=AIzaSyDl2B0kbv7OI2PqqvwX6vMboXK9d333G_k';
-//   var body; 
-//   requestP(urlPlaceDetails).then(function(response){
-//     console.log('body: ', response[0].body)
-//     // choose the first object in the array -- big gamble, should add err handling here as well as some checking that this is the right place 
-//       body = JSON.parse(response[0].body)
-      // console.log('parsed response: ', body)
-      //store entire response object -- create schema that matches this structure; need to create StoreDetails model*/
-//       StoreDetails.create(body.results[0])
-//       .then(function(createdGoogleStore){
-//         console.log('store created: ', createdGoogleStore)
-//       })
-//       .then(null, function(err){
-//         console.log('err: ', err)
-//       })
-//     // })
-//   }, function(err){
-//     console.log('err: ', err)
-//   }) 
-// }
+function makeApiCallToPlaceDetails(index, array){
+
+	if(index === array.length-1){
+		return;
+	}
+
+	var store = array[index];
+	console.log('store: ', store)
+
+	if (store && store.place_id){
+	 
+	  var urlPlaceDetails = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=' +store.place_id + '&key=AIzaSyAT__B68i6m_QFqf8pf2kCKGy5s2o20iG4';
+	  var body; 
+	  requestP(urlPlaceDetails)
+	  .then(function(response){
+	    // console.log('body!!!!!: ', response[0].body)
+	    // choose the first object in the array -- big gamble, should add err handling here as well as some checking that this is the right place 
+	    body = JSON.parse(response[0].body)
+	    // console.log('parsed response: ', body)
+	    // store entire response object -- create schema that matches this structure; need to create StoreDetails model*/
+	    return PlaceDetails.create(body.result)
+	  })
+		.then(function(createdPlaceDetails){
+	    console.log('store created: ', createdPlaceDetails)
+	    return makeApiCallToPlaceDetails(index + 1, array)
+	  })
+	}
+
+	else {
+		return makeApiCallToPlaceDetails(index + 1, array);
+	} 
+
+}
 
