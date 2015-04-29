@@ -5,10 +5,12 @@
 	icon="{ url: 'assets/images/snapmap_pin.png' }"
 	options= "{ title: location.name }" 
 	coords="{ latitude: location.location[1], longitude: location.location[0] }">
-		<ui-gmap-window options="{ content: '<div class=\'popups\' style=\'height:150px\'><span><b>' + location.name + '</b></span><br>' + 
+		<!-- <ui-gmap-window options="{ content: '<div class=\'popups\' style=\'height:150px\'><span><b>' + location.name + '</b></span><br>' + 
 		'<span>' + location.address + '</span><br><span>' + location.addressLineTwo + '</span><br><span>' + 
-		location.city + ', ' + location.state + ' ' + location.zip5 + '</span><br><a href=\'/store/' + location._id  + '\'>See more info</a><br><a href=\'https://www.google.com/maps/dir/Current+Location/'+location.location[1]+','+location.location[0]+'\' <!-- onclick= \'route('+ location.location[0] +', '+ location.location[1] +')\' -- >Directions</a></div>' }">
-		</ui-gmap-window>
+		location.city + ', ' + location.state + ' ' + location.zip5 + '</span><br><a href=\'/store/' + location._id  + '\'>See more info</a><br><a ng-click= \'$root .route('+ location.location[1] +', '+ location.location[0] +')\' >Directions</a></div>' }">
+		</ui-gmap-window> -->
+		<ui-gmap-window templateUrl="{url: map.windowTemplate }" templateParameter='map.windowParameter(location)' ng-cloak='ng-cloak'></ui-gmap-window>
+
 	</ui-gmap-marker>
 	<ui-gmap-marker ng-repeat="grocery in groceries"
 	click="{ click: hitMarker(grocery._id) }"

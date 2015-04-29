@@ -6,6 +6,7 @@ var Review = require('./review.model');
 var Store = require('../store/store.model');
 var User = require('../user/user.model');
 var Promise = require('bluebird');  
+var Places = require('../placeDetails/placeDetails.model');
 // Promise.promisifyAll(mongoose); 
 var mongoose = require('mongoose-bird')(); 
 
@@ -25,12 +26,19 @@ exports.show = function(req, res) {
     .exec()
     .then(function fulfilled(populatedReviews) {
       return res.json(populatedReviews)
-  }, function failed(err){
+    })
+    .then(null, function failed(err){
       return handleError(res, err);
-  })
+    })
 };
 
-// Creates a new review in the DB.
+/*
+This is the create route we've been using for the Store Collection, which holds
+the government stores
+
+Creates a new review in the DB.
+
+*/ 
 exports.create = function(req, res) {
   req.body.user = req.user._id; 
   var finalReview, finalStore; 
@@ -55,10 +63,54 @@ exports.create = function(req, res) {
   .then(function(user){
     //sending both the review and store back so we can update the store/:id view which displays review
     return res.json(201, {finalReview: finalReview, finalStore: finalStore})
-  }, function(err){
+  })
+  .then(null, function(err){
     return handleError(res, err);
   })   
 };
+
+/*
+This is a create route customized for the Places/placeDetails
+Collection
+It is designed to provide the same functionality as the above create
+controller
+Notice that I've added fields to the Places collection 
+to accommodate both internal snapmap reviews and reviews from the 
+google places api
+
+*/
+
+// // Creates a new review in the DB.
+// exports.createReviewsForPlaces = function(req, res) {
+//   req.body.user = req.user._id; 
+//   var finalReview, 
+//       finalStore; 
+//   Review.create(req.body)
+//   .then(function (review) {
+//     return review.populateAsync('user')
+//   })  
+//   .then(function(popReview){
+//     finalReview = popReview; 
+//     return Places.findByIdAndUpdate(req.body.store, {$push: {reviews: popReview._id}}).execAsync();
+//   })
+//   .then(function (place){
+//     place.numReviews += 1; 
+//     place.ratingInternal += Number(req.body.stars);
+//     return place.saveAsync()
+//   })
+//   .spread(function(ratedStore){
+//     // finalStore = ratedStore[0] bc saveAsync returns promise
+//     finalStore = ratedStore;           
+//     return User.findByIdAndUpdate(req.user._id, {$push: {reviews: finalReview._id}}).execAsync();
+//   })
+//   .then(function(user){
+//     //sending both the review and store back so we can update the store/:id view which displays review
+//     return res.json(201, {finalReview: finalReview, finalStore: finalStore})
+//   })
+//   .then(null, function(err){
+//     return handleError(res, err);
+//   })   
+// };
 
 // Updates an existing review in the DB.
 exports.update = function(req, res) {
@@ -87,5 +139,5 @@ exports.destroy = function(req, res) {
 };
 
 function handleError(res, err) {
-  return res.send(500, err);
+  return res.status(500).json(err);
 }

@@ -1,11 +1,11 @@
 'use strict';
 
-function route (lat, lon){
-    console.log('pressed something?!', lat, lon);
-}
+angular.module('snapmapApp').controller("winTemplateCtrl", ["$scope", function($scope) {
+  
+}]);
 
 angular.module('snapmapApp')
-  .directive('map', function (uiGmapGoogleMapApi, GeolocationFactory, store, $state, $q, uiGmapIsReady) {
+  .directive('map', function (uiGmapGoogleMapApi, GeolocationFactory, store, $state, $q, uiGmapIsReady, $rootScope) {
     return {
       templateUrl: 'app/map/map.html',
       restrict: 'EA',
@@ -19,8 +19,13 @@ angular.module('snapmapApp')
   	      	uiGmapGoogleMapApi.then(function (maps){
               scope.map = { 
   							center: { latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude}, 
-  							zoom: 17
+  							zoom: 17,
+                windowTemplate: "popup.html",
+                windowParameter: function(marker){
+                  return marker;
+                }
   						};
+
               scope.directionsService = new maps.DirectionsService();
               scope.directionsDisplay = new maps.DirectionsRenderer();
   					})
@@ -32,7 +37,6 @@ angular.module('snapmapApp')
           var j = [maps.getBounds().va.j, maps.getBounds().Ea.j]; 
           var k = [maps.getBounds().va.k, maps.getBounds().Ea.k];
           var data = {j: j, k: k};
-          console.log('element', element, 'attrs', attrs);
           store.getStores(data)
             .then(function (location){
               // we can have diffrent arrays for each type of marker, groceries will cause green markers
@@ -44,6 +48,21 @@ angular.module('snapmapApp')
               })
             })
          };
+
+        scope.markerClick = function(marker) {
+            if(marker.show) {
+                marker.show = false;
+            } else {
+                _.forEach($scope.markers, function(curMarker) {
+                    curMarker.show = false;
+                });
+                marker.show = true;
+            }
+        };
+
+        scope.markerClose = function(marker) {
+            marker.show = false;
+        }; 
 
         scope.route = function (location){
             console.log('pressed route', location);
