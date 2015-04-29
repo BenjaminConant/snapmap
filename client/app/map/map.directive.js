@@ -17,8 +17,6 @@ angular.module('snapmapApp')
   							center: { latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude}, 
   							zoom: 17
   						};
-              scope.directionsService = new maps.DirectionsService();
-              scope.directionsDisplay = new maps.DirectionsRenderer();
   					})
   	      }
   	    });
