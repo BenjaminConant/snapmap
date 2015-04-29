@@ -39,7 +39,7 @@ var all = {
   mongo: {
     options: {
       db: {
-        safe: false
+        safe: true
       }
     }
   },
