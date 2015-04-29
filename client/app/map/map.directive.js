@@ -7,6 +7,7 @@ angular.module('snapmapApp')
       restrict: 'EA',
       link: function (scope, element, attrs) {
         
+
         //init the map
       	GeolocationFactory.getGeo().then(function (){
   	      if (GeolocationFactory.latitude && GeolocationFactory.longitude){
@@ -17,14 +18,13 @@ angular.module('snapmapApp')
   						};
   					})
   	      }
-  	    })
+  	    });
 
         // this function builds the arrays that the markers go into
         var loadMarkers = function (maps) {     
           var j = [maps.getBounds().va.j, maps.getBounds().Ea.j]; 
           var k = [maps.getBounds().va.k, maps.getBounds().Ea.k];
           var data = {j: j, k: k};
-
           store.getStores(data)
             .then(function (location){
               // we can have diffrent arrays for each type of marker, groceries will cause green markers
@@ -43,10 +43,7 @@ angular.module('snapmapApp')
                 idle: loadMarkers,
                 dragend: loadMarkers,
                 tilesloaded: loadMarkers
-              }; 
-
-
+        }; 
     }
 	}
-
 });
