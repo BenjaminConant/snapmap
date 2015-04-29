@@ -83,7 +83,8 @@ var PlaceDetailsSchema = new Schema({
   types: [String],
   url: String,
   vicinity: String,
-  website: String
+  website: String, 
+  formattedCoordinates: Array
 }, {strict: false});    // this enables us to assign key-value pairs that are defined by this schema to store documents
 
 
