@@ -11,7 +11,7 @@ exports.index = function(req, res) {
   var j, k;
   j = [Number(req.query.j[0]), Number(req.query.j[1]) ];
   k = [Number(req.query.k[0]), Number(req.query.k[1])];
-  Places.find({geometry.location: { $geoWithin: { $box: [ j, k] } }}).exec()
+  Places.find({'geometry.location': { $geoWithin: { $box: [ j, k] } }}).exec()
   .then(function (stores) {
       console.log('stores: ', stores)
       return res.json(stores);

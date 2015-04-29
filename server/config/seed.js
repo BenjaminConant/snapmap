@@ -5,7 +5,6 @@
 
 'use strict';
 
-var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
 var Store = require('../api/store/store.model');
 var PlaceDetails = require('../api/placeDetails/placeDetails.model');
@@ -14,7 +13,6 @@ var fs = require('fs');
 var exec = require('child_process').exec; 
 var path = require('path'); 
 var csv = require('csv');
-var Foursquare = require('../api/foursquare/foursquare.model'); 
 var request = require('request');
 var Promise = require('bluebird'); 
 var requestP = Promise.promisify(require('request')); 
@@ -24,15 +22,19 @@ var isJSON = require('is-json');
 var csvParse = Promise.promisify(require('csv').parse);
 var readFile = Promise.promisify(require('fs').readFile);
 var LineReader = Promise.promisify(require('node-line-reader').LineReader);
+var mongoose = require('mongoose'); 
+Promise.promisifyAll(mongoose);
+
 // var promisify = require("promisify-node");
 
 // function dbSeedString(collection) {
 //   return "mongoexport --db snapmap-dev --collection " + collection + " --out " + path.join(__dirname,"/db_data") + "/" + collection + ".json"
 // }
 
-// exec("mongoimport --db snapmap-dev --collection storegoogles storegoogles_first_half.json -jsonArray"); 
 
-// exec("mongoexport --db snapmap-dev --collection placedetails --out placedetails_43963_49390_nonArray.json"); 
+// exec('mongoimport --db snapmap-dev --collection placedetails nydata_one_asArray.json --jsonArray')
+
+// exec("mongoexport --db snapmap-dev --collection placedetails --out NYDATA_ALL_asArray.json --jsonArray"); 
 
 //exports the store collection into a json file 
 // exec("mongoexport --db snapmap-dev --collection stores --out stores.json")
@@ -150,19 +152,19 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 
 /////////////////////////////////////// PLACE DETAILS //////////////////////////////////////////////////////////////////////////////
 
-// var urlPlaceDetails = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=' +placeId + '&key=' + apiKey; 
-
-
 // PlaceDetails.find({}).remove().exec()
 // .then(function(){
-// 	return readFile(__dirname + '/../../storegoogles_first_half.json')
+// 	return readFile(__dirname + '/../../allNY_asArray.json')
 // })
 // .then(function(storeObjs){
 // 	storeObjs = JSON.parse(storeObjs)
 // 	console.log('in then', storeObjs[0].place_id, storeObjs[1])
 // 	console.log('LENGTH!!', storeObjs.length)
 // 	//take a portion of the array
-// 	storeObjs = storeObjs.slice(43963, 50000)
+// 	storeObjs = storeObjs.filter(function(store){
+// 		return typeof store.place_id === 'string'; 
+// 	})
+// 	console.log('storeOBj: ', storeObjs.length) 		//15328 out of 18582
 // 	// console.log('LENGTH2: ', storeObjs.length)
 // 	// console.log('first: ', storeObjs[2000])
 // 	// filter to ensure that every obj has a place_id; 
@@ -170,6 +172,8 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 // 	// 	return typeof store.place_id !== 'undefined'; 
 // 	// })
 // 	// console.log('new: ', newStoreArray[0])
+// 	storeObjs = storeObjs.slice(1769)
+// 	console.log('LENGTH: ', storeObjs.length)
 // 	return makeApiCallToPlaceDetails(0, storeObjs)
 // })
 // .then(null, function(err){
@@ -179,6 +183,7 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 // function makeApiCallToPlaceDetails(index, array){
 
 // 	if(index === array.length-1){
+// 		exec("mongoexport --db snapmap-dev --collection placedetails --out NewYorkData_asArray.json -jsonArray"); 
 // 		return;
 // 	}
 
@@ -196,10 +201,14 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 // 	    body = JSON.parse(response[0].body)
 // 	    // console.log('parsed response: ', body)
 // 	    // store entire response object -- create schema that matches this structure; need to create StoreDetails model*/
-// 	    return PlaceDetails.create(body.result)
+// 	   return PlaceDetails.create(body.result)
 // 	  })
-// 		.then(function(createdPlaceDetails){
-// 	    console.log('store created: ', createdPlaceDetails)
+// 	  .then(function(created){
+// 	    created.formattedCoordinates = [created.geometry.location.lng, created.geometry.location.lat]
+// 	    return created.saveAsync()
+// 	  })
+// 		.then(function(createdPlaceDetails){  
+// 	    console.log('store created: ', createdPlaceDetails[0])
 // 	    return makeApiCallToPlaceDetails(index + 1, array)
 // 	  })
 // 	}
