@@ -7,6 +7,7 @@ angular.module('snapmapApp')
       restrict: 'EA',
       link: function (scope, element, attrs) {
         
+
         //init the map
       	GeolocationFactory.getGeo().then(function (){
   	      if (GeolocationFactory.latitude && GeolocationFactory.longitude){
@@ -17,7 +18,7 @@ angular.module('snapmapApp')
   						};
   					})
   	      }
-  	    })
+  	    });
 
         // this function builds the arrays that the markers go into
         var loadMarkers = function (maps) {     
@@ -50,10 +51,7 @@ angular.module('snapmapApp')
                 idle: loadMarkers,
                 dragend: loadMarkers,
                 tilesloaded: loadMarkers
-              }; 
-
-
+        }; 
     }
 	}
-
 });

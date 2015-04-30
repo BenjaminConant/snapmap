@@ -48,32 +48,32 @@ StoreSchema
     return (this.rating / this.numReviews).toFixed(2); // rounds to 2 decimals
   })
 
-StoreSchema.methods = {
-  calculateRating: function(){
-    var savedStore; 
-    var self = this; 
-    return Promise.resolve(this)
-    .then(function fulfilled(store){
-        // console.log('reviews array: ', reviewsArray)
-      var rating = 0; 
-        self.reviews.forEach(function(review){
-          rating += review.stars; 
-          console.log('rating: ', rating)
-        })
-        self.numReviews = self.reviews.length;
-        self.rating = rating/self.numReviews;
-        return new Promise(function (resolve, reject){
-          self.save(function(err, savedS){
-            console.log('savedS: ', savedS.numReviews, savedS.rating)
-            if (err) return reject(err)
-            resolve(savedS)
-          })
-        })
-      }, function failed(err){
-        console.log('err: ', err)
-        return err; 
-      })
-  }
-}
+// StoreSchema.methods = {
+//   calculateRating: function(){ 
+//     var savedStore; 
+//     var self = this; 
+//     return Promise.resolve(this)
+//     .then(function fulfilled(store){
+//         // console.log('reviews array: ', reviewsArray)
+//       var rating = 0; 
+//         self.reviews.forEach(function(review){
+//           rating += review.stars; 
+//           console.log('rating: ', rating)
+//         })
+//         self.numReviews = self.reviews.length;
+//         self.rating = rating/self.numReviews;
+//         return new Promise(function (resolve, reject){
+//           self.save(function(err, savedS){
+//             console.log('savedS: ', savedS.numReviews, savedS.rating)
+//             if (err) return reject(err)
+//             resolve(savedS)
+//           })
+//         })
+//       }, function failed(err){
+//         console.log('err: ', err)
+//         return err; 
+//       })
+//   }
+// }
 
 module.exports = mongoose.model('Store', StoreSchema);
