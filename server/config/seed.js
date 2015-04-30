@@ -30,11 +30,11 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 //   return "mongoexport --db snapmap-dev --collection " + collection + " --out " + path.join(__dirname,"/db_data") + "/" + collection + ".json"
 // }
 
-<<<<<<< HEAD
+
 //exec("mongoimport --db snapmap-dev --collection placedetails placedetails_1_8988.json --jsonArray"); 
-=======
+
 // exec("mongoimport --db snapmap-dev --collection storegoogles storegoogles_first_half.json -jsonArray"); 
->>>>>>> origin/master
+
 
 // exec("mongoexport --db snapmap-dev --collection placedetails --out placedetails_43963_49390_nonArray.json"); 
 
