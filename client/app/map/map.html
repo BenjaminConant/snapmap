@@ -5,19 +5,14 @@
 	icon="{ url: 'assets/images/snapmap_pin.png' }"
 	options= "{ title: location.name }" 
 	coords="{ latitude: location.location[1], longitude: location.location[0] }">
-		<!-- <ui-gmap-window options="{ content: '<div class=\'popups\' style=\'height:150px\'><span><b>' + location.name + '</b></span><br>' + 
-		'<span>' + location.address + '</span><br><span>' + location.addressLineTwo + '</span><br><span>' + 
-		location.city + ', ' + location.state + ' ' + location.zip5 + '</span><br><a href=\'/store/' + location._id  + '\'>See more info</a><br><a ng-click= \'$root .route('+ location.location[1] +', '+ location.location[0] +')\' >Directions</a></div>' }">
-		</ui-gmap-window> -->
-		<ui-gmap-window show='location.show' coords='{ latitude: location.location[1], longitude: location.location[0] }' templateUrl="popup.html" templateParameter='map.windowParameter(location)' ng-cloak='ng-cloak'>
-			<div class='popups' ng-controller='winTemplateCtrl' style='height:150px'>
-				<!-- <span><b> {{location.name}} </b></span><br> 
+		<ui-gmap-window show='location.show' templateParamter='map.windowParameter' coords='{ latitude: location.location[1], longitude: location.location[0] }' options='map.windowParamter.options'ng-cloak='ng-cloak'>
+			<div data-ng-init="thing=location;" >
+				<span><b> {{location.name}} </b></span><br> 
 				<span> {{location.address}} </span><br>
 				<span>{{location.addressLineTwo}} </span><br>
 				<span>{{location.city}}, {{location.state}} {{location.zip5}}</span><br>
 				<a href='/store/'+location._id >See more info</a><br>
-				<a ng-click= 'route({{location.location[1]}} +', '+ {{location.location[0]}})' >Directions</a> -->
-				<span>TEST</span>
+				<a ng-click= "$root.route(this.coords)"  >Directions</a>
 			</div>
 		</ui-gmap-window>
 

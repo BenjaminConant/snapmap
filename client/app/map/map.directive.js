@@ -1,9 +1,5 @@
 'use strict';
 
-angular.module('snapmapApp').controller("winTemplateCtrl", ["$scope", function($scope) {
-  
-}]);
-
 angular.module('snapmapApp')
   .directive('map', function (uiGmapGoogleMapApi, GeolocationFactory, store, $state, $q, uiGmapIsReady, $rootScope) {
     return {
@@ -16,15 +12,19 @@ angular.module('snapmapApp')
       	GeolocationFactory.getGeo().then(function (){
   	      if (GeolocationFactory.latitude && GeolocationFactory.longitude){
   	      	uiGmapGoogleMapApi.then(function (maps){
+              scope.maps = maps;
               scope.map = { 
   							center: { latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude}, 
   							zoom: 17,
                 windowTemplate: "popup.html",
-                windowParameter: function(marker){
-                  return marker;
+                windowParameter: {
+                  options: {
+                    minHeight: '150px',
+                    minWidth: '180px'
+                  },
+                  parent: scope
                 }
   						};
-              console.log(scope.map);
               scope.directionsService = new maps.DirectionsService();
               scope.directionsDisplay = new maps.DirectionsRenderer();
   					})
@@ -56,40 +56,42 @@ angular.module('snapmapApp')
                     curMarker.show = false;
                 });
                 marker.show = true;
-                console.log(marker);
             }
         };
+
+        scope.click = function (){
+          console.log('into directive');
+        }
 
         scope.markerClose = function(marker) {
             marker.show = false;
         }; 
 
-        scope.route = function (location){
-            console.log('pressed route', location);
+        scope.$root.route = function (location){
             if(GeolocationFactory.latitude && GeolocationFactory.longitude){
               uiGmapIsReady.promise(1).then(function (instance){
-
-                // var request = {
-                //   origin: new maps.LatLng(
-                //     GeolocationFactory.latitude,
-                //     GeolocationFactory.longitude
-                //   ),
-                //   destination: new maps.LatLng(
-                //     location.latitude, 
-                //     location.longitude
-                //   ),
-                //   travelMode: maps.TravelMode['WALKING'],
-                //   optimizeWaypoints: true
-                // };
-                // scope.directionsDisplay.setMap(instances[0].map);
-                // scope.directionsService.route(request, function(response, status) {
-                //   if (status == google.maps.DirectionsStatus.OK) {
-                //     console.log('finished directions with ', response, status);
-                //     console.log('you will go ', response.routes[0].legs[0].distance.text, 'in', response.routes[0].legs[0].duration.text);
-                //       // $scope.directionsDisplay.setDirections(response);
-                //   }
+                var request = {
+                  origin: new scope.maps.LatLng(
+                    GeolocationFactory.latitude,
+                    GeolocationFactory.longitude
+                  ),
+                  destination: new scope.maps.LatLng(
+                    location.latitude, 
+                    location.longitude
+                  ),
+                  travelMode: scope.maps.TravelMode['WALKING'],
+                  optimizeWaypoints: true
+                };
+                console.log(request);
+                scope.directionsDisplay.setMap(instance[0].map);
+                scope.directionsService.route(request, function(response, status) {
+                  if (status == google.maps.DirectionsStatus.OK) {
+                    console.log('finished directions with ', response, status);
+                    console.log('you will go ', response.routes[0].legs[0].distance.text, 'in', response.routes[0].legs[0].duration.text);
+                      scope.directionsDisplay.setDirections(response);
+                  }
                 
-                // });
+                });
               });
             }
             else{
