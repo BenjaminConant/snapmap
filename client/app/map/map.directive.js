@@ -35,6 +35,8 @@ angular.module('snapmapApp')
           //       scope.locations.push(store);
           //     })
           //   })
+        
+        //gets all stores currently passes geolocation data but will only return one preset store for my testing purposes
          store.getAllPlaces(data)
             .then(function (places) {
               scope.locations = [];

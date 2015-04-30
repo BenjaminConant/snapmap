@@ -106,6 +106,21 @@
 .section-background {
 	border-radius: 2.5px;
 }
+@media (max-width: 669px) {
+	.table-div {
+		float: left;
+		clear: both;
+		width: 100%;
+		font-size: large;
+		border-top: 1px solid black;
+	}
+}
+@media (min-width: 670px) {
+	.table-div {
+		float: left;
+		width: 14.2%;
+	}
+}
 @media (max-width: 991px) {
 	.section-background {
 		background-color: #C56A51;
@@ -115,12 +130,26 @@
 	.bump-top {
 		margin-top: 10px;
 	}
+	#storeInfo {
+		padding-left: 20px;
+	}
+	#storeImage {
+		padding-right: 0%;
+	}
+	.img-fill {
+		width: 50%;
+		height: auto;
+	}
 }
 @media (min-width: 992px) {
 	.section-background {
 		background-color: #C56A51;
 		height: 175px;
 		padding-top: 60px;
+	}
+	.img-fill {
+		width: 100%;
+		height: auto;
 	}
 }
 
@@ -132,8 +161,24 @@
 		padding: 0%;
 	}
 }
+
+@media (max-width: 1199px) {
+	#storeOptions {
+		margin-top: 10px;
+	}
+	#typeTags {
+		margin-top: 1%;
+	}
+}
+@media (min-width: 1200px) {
+	#storeOptions {
+		margin-top: 20px;
+	}
+	#typeTags {
+		margin-top: 2.5%;
+	}
+}
 #storeOptions {
-	margin-top: 20px;
 	div {
 		padding-left: 0%;
 		text-align: center;
@@ -142,14 +187,6 @@
 	hr {
 		padding-right: 10px;
 	}
-}
-.img-fill {
-	width: 100%;
-	height: auto;
-}
-.table-div {
-	float: left;
-	width: 14.2%;
 }
 #storeStars {
 	i {
@@ -168,7 +205,6 @@
 	}
 }
 #typeTags {
-	margin-top: 2.5%;
 	span {
 		margin-left: 1.5%;
 	}

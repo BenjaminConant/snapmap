@@ -28,12 +28,7 @@ angular.module('snapmapApp')
     //get reviews from id (possibly the same)
 
 
-    $scope.testGooglePlace = function () {
-      return $http.get('/api/placeDetails/553bbfa3d25374388ffcacd5').then(function (place) {
-        return place.data;
-      })
-    }
-
+    //Converts time to correct format
     var convertTime = function (time) {
       var tod = 'AM';
       var hours = time.split('');
@@ -46,19 +41,24 @@ angular.module('snapmapApp')
       }
       return hours + ':' + minutes + tod;
     }
+    //Checks if current time falls between open and close hours of the store
     var checkIfOpened = function (open, close) {
       if (new Date().getHours() >= (open.substring(0, 2) * 1) && new Date().getHours() < (close.substring(0, 2) * 1)) {
         $scope.isOpen = 'Open'
       }
     }
 
-    $scope.testGooglePlace().then(function (place) {
+    store.getPlace($stateParams.storeId).then(function (place) {
       $scope.store = place;
-      console.log($scope.store);
+      //Creates an href safe telephone number
       $scope.store.hrefTel = $scope.store.formatted_phone_number.split("(").join("").split(")").join("").split("-").join("").split(" ").join("");
+      
+      //This section gets the open close time for the current day
       $scope.today = new Date();
       $scope.today = $scope.today.getDay();
       $scope.store.stars = [];
+
+      //Checks if store is current open based on current day
       if ($scope.store.opening_hours.periods) {
         $scope.isOpen = 'Closed';
         if ($scope.store.opening_hours.periods[$scope.today]) {
@@ -71,6 +71,8 @@ angular.module('snapmapApp')
           hours.close.time = convertTime(hours.close.time);
         });
       }
+
+      //Tallys all ratings so I can calculate average for star purposes
       $scope.store.averageRating = 0;
       $scope.store.reviews.forEach(function (review) {
         $scope.store.averageRating += review.rating;

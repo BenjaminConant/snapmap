@@ -4,10 +4,9 @@
 	idKey= "{ id: location._id }"
 	icon="{ url: 'assets/images/snapmap_pin.png' }"
 	options= "{ title: location.name }" 
-	coords="{ latitude: location.geometry.location.lat, longitude: location.geometry.location.lon }">
-		<ui-gmap-window options="{ content: '<div style=\'height:150px\'><span><b>' + location.name + '</b></span><br>' + 
-		'<span>' + location.address + '</span><br><span>' + location.addressLineTwo + '</span><br><span>' + 
-		location.city + ', ' + location.state + ' ' + location.zip5 + '</span><br><a href=\'/store/' + location._id  + '\'>See more info</a><br><a href=\'https://www.google.com/maps/dir/Current+Location/'+location.location[1]+','+location.location[0]+'\'  >Directions</a></div>' }">
+	coords="{ latitude: location.geometry.location.lat, longitude: location.geometry.location.lng }">
+		<ui-gmap-window options="{ content: '<div style=\'height:150px\'>' + '<span><b>' + location.name + '</b></span><br>' + '<span>' + location.address_components[0].short_name + ' ' + location.address_components[1].short_name + '</span><br>' + '<span>' + 
+		location.address_components[2].long_name + ', ' + location.address_components[3].short_name + ' ' + location.address_components[5].short_name + '</span><br><a href=\'/store/' + location._id  + '\'>See more info</a><br><a href=\'https://www.google.com/maps/dir/Current+Location/'+location.location[1]+','+location.location[0]+'\'  >Directions</a></div>' }">
 		</ui-gmap-window>
 	</ui-gmap-marker>
 	<ui-gmap-marker ng-repeat="grocery in groceries"
