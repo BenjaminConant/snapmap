@@ -9,8 +9,7 @@ angular.module('snapmapApp')
     return {
       templateUrl: 'app/map/map.html',
       restrict: 'EA',
-      scope: { route: '&' },
-      link: function (scope, element, attrs, controllers) {
+      link: function (scope, element, attrs) {
         
         
         //init the map
@@ -25,7 +24,7 @@ angular.module('snapmapApp')
                   return marker;
                 }
   						};
-
+              console.log(scope.map);
               scope.directionsService = new maps.DirectionsService();
               scope.directionsDisplay = new maps.DirectionsRenderer();
   					})
@@ -53,10 +52,11 @@ angular.module('snapmapApp')
             if(marker.show) {
                 marker.show = false;
             } else {
-                _.forEach($scope.markers, function(curMarker) {
+                _.forEach(scope.locations, function(curMarker) {
                     curMarker.show = false;
                 });
                 marker.show = true;
+                console.log(marker);
             }
         };
 
@@ -107,15 +107,3 @@ angular.module('snapmapApp')
     }
 	}
 });
-
-// angular.module('snapmapApp').directive('directions', function(){
-//     return {
-//       restrict: 'A',
-//       link: function (scope, attrs, element){
-
-//         element.bind('click', function(info){
-//           console.log('pressed the button', info);
-//         });
-//       }
-//     }
-// })
