@@ -46,8 +46,12 @@ angular.module('snapmapApp')
               // we should do the regexing on the backend though so I am taking it out in the front end
               scope.locations = []; 
               // scope.groceries = [];
+              var count = 0;
               location.forEach(function(store){
-                scope.locations.push(store);
+                if(count < 50){
+                  scope.locations.push(store);
+                  count++;
+                }
               })
             })
          };
