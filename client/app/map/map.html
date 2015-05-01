@@ -9,7 +9,7 @@
 	<ui-gmap-marker ng-repeat="location in locations"
 	click="{ click: markerClick(location) }"
 	idKey= "{ id: location._id }"
-	icon="{ url: 'assets/images/snapmap_pin.png' }"
+	icon="{ url: location.marker }"
 	options= "{ title: location.name }" 
 	coords="{ latitude: location.geometry.location.lat, longitude: location.geometry.location.lng }">
 		<ui-gmap-window show='location.show' templateParamter='map.windowParameter' coords='{ latitude: location.location[1], longitude: location.location[0] }' options='map.windowParamter.options'ng-cloak='ng-cloak'>
