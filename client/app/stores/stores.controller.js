@@ -109,5 +109,14 @@ angular.module('snapmapApp')
       //vm.getStore()
       vm.getReviews()
 
+      $scope.typesString = function(typesArray) {
+        var typesString = "";
+        typesArray.forEach(function(type) {
+          typesString += type + " | "
+        });
+
+        return typesString;
+      }
+
 
   });
