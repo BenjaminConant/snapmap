@@ -17,6 +17,6 @@ module.exports = {
     clientSecret: '9fd46cd6727148d5cbd224ea9162f02a',
     callbackURL: 'http://127.0.0.1:9000/auth/facebook/callback'
   },
-  seedDB: false,
+  seedDB: true,
   PORT: 3333 
 };

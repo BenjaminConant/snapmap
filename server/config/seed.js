@@ -3,6 +3,7 @@
  * to disable, edit config/environment/index.js, and set `seedDB: false`
  */
 
+
 'use strict';
 
 var User = require('../api/user/user.model');
@@ -34,7 +35,7 @@ Promise.promisifyAll(mongoose);
 // exec('mongoimport --db snapmap-dev --collection placedetails nydata_one_asArray.json --jsonArray')
 
 
-exec('mongoimport --db snapmap-dev --collection placedetails NYDATA_ALL_asArray.json --jsonArray');
+// exec('mongoimport --db snapmap-dev --collection placedetails NYDATA_ALL_asArray.json --jsonArray');
 
 // exec("mongoexport --db snapmap-dev --collection placedetails --out NYDATA_ALL_asArray.json --jsonArray"); 
 
@@ -302,4 +303,16 @@ exec('mongoimport --db snapmap-dev --collection placedetails NYDATA_ALL_asArray.
 // 	} 
 
 // }
+
+
+// var user2 = new User({
+//   provider: 'local',
+//   firstName: 'Ben',
+//   lastName: 'Conant',
+//   email: 'conantbenjamin@gmail.com',
+//   password: 'test',
+//   avatar: 'http://www.fullstackacademy.com/img/team/ben_conant@2x.jpg'
+// });
+
+// user2.save();
 

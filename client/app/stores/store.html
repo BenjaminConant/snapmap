@@ -18,15 +18,12 @@
 					<i class='fa fa-star fa-3x' ng-repeat='i in store.stars'></i>
 				</div>
 				<div id='storeOptions' class='row'>
-					<div class='col-lg-4 col-md-4 col-sm-4 col-xs-4'>
-						<a ng-if='!store.website' href='{{store.url}}'>Store Website</a>
-						<a ng-if='store.website' href='{{store.website}}'>Store Website</a>
+					<div class='col-lg-6 col-md-6 col-sm-6 col-xs-6'>
+						<a ng-if='!store.website' href='{{store.url}}'>Website</a>
+						<a ng-if='store.website' href='{{store.website}}'>Website</a>
 					</div>
-					<div class='col-lg-4 col-md-4 col-sm-4 col-xs-4'>
+					<div class='col-lg-6 col-md-6 col-sm-6 col-xs-6'>
 						<a href='tel:{{store.hrefTel}}'>{{store.formatted_phone_number}}</a>
-					</div>
-					<div class='col-lg-4 col-md-4 col-sm-4 col-xs-4'>
-						<a>Get Directions</a>
 					</div>
 				</div>
 				<div id='typeTags' class='row'>

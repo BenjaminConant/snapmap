@@ -50,6 +50,7 @@ angular.module('snapmapApp')
 
     store.getPlace($stateParams.storeId).then(function (place) {
       $scope.store = place;
+      console.log("many things", $scope.store);
       //Creates an href safe telephone number
       $scope.store.hrefTel = $scope.store.formatted_phone_number.split("(").join("").split(")").join("").split("-").join("").split(" ").join("");
       
@@ -116,6 +117,26 @@ angular.module('snapmapApp')
         });
 
         return typesString;
+      }
+
+
+      $scope.randomFaces = [
+        ['https://s3.amazonaws.com/uifaces/faces/twitter/kevin_granger/128.jpg'],
+        ['https://s3.amazonaws.com/uifaces/faces/twitter/dingyi/128.jpg'],
+        ['https://s3.amazonaws.com/uifaces/faces/twitter/vista/128.jpg'],
+        ['https://s3.amazonaws.com/uifaces/faces/twitter/peterlandt/128.jpg'],
+        ['https://s3.amazonaws.com/uifaces/faces/twitter/_shahedk/128.jpg'],
+        ['https://s3.amazonaws.com/uifaces/faces/twitter/nick_persad/128.jpg'],
+        ['https://s3.amazonaws.com/uifaces/faces/twitter/vocino/128.jpg'],
+        ['https://s3.amazonaws.com/uifaces/faces/twitter/superjunaid/128.jpg'],
+        ['https://s3.amazonaws.com/uifaces/faces/twitter/jinuem/128.jpg'],
+        ['https://s3.amazonaws.com/uifaces/faces/twitter/th3ya0vi/128.jpg'],
+        ['https://s3.amazonaws.com/uifaces/faces/twitter/peterlandt/128.jpg'],
+        ['https://s3.amazonaws.com/uifaces/faces/twitter/_shahedk/128.jpg'],
+      ]
+
+      $scope.randomFace = function() {
+        return $scope.randomFaces[Math.floor(Math.random() * $scope.randomFaces.length)][0];
       }
 
 
