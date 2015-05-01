@@ -40,21 +40,16 @@ angular.module('snapmapApp')
           var j = [maps.getBounds().va.j, maps.getBounds().Ea.j]; 
           var k = [maps.getBounds().va.k, maps.getBounds().Ea.k];
           var data = {j: j, k: k};
-          store.getStores(data)
-            .then(function (location){
-              // we can have diffrent arrays for each type of marker, groceries will cause green markers
-              // we should do the regexing on the backend though so I am taking it out in the front end
-              scope.locations = []; 
-              // scope.groceries = [];
-              var count = 0;
-              location.forEach(function(store){
-                if(count < 50){
-                  scope.locations.push(store);
-                  count++;
-                }
-              })
-            })
+
+          store.getAllPlaces(data)
+            .then(function (places) {
+              scope.locations = [];
+              places.forEach(function (place) {
+                scope.locations.push(place);
+              });
+            });
          };
+
 
         scope.markerClick = function(marker) {
             if(marker.show) {
@@ -103,6 +98,8 @@ angular.module('snapmapApp')
           scope.directionsPressed = false;
           scope.directionsDisplay.setMap(null);
         }
+
+         
 
         // this object is passed to the angular-google-maps directive
         // the keys are events from the google maps api and the values are functions that should      

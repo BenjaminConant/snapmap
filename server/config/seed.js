@@ -31,10 +31,16 @@ Promise.promisifyAll(mongoose);
 //   return "mongoexport --db snapmap-dev --collection " + collection + " --out " + path.join(__dirname,"/db_data") + "/" + collection + ".json"
 // }
 
+// exec('mongoimport --db snapmap-dev --collection placedetails nydata_one_asArray.json --jsonArray')
+
 
 // exec('mongoimport --db snapmap-dev --collection placedetails NYDATA_ALL_asArray.json --jsonArray')
 
 // exec("mongoexport --db snapmap-dev --collection placedetails --out NYDATA_ALL_asArray.json --jsonArray"); 
+
+// exec("mongoexport --db snapmap-dev --collection placedetails --out placedetails_1_8988_nonArray.json"); 
+
+
 
 //exports the store collection into a json file 
 // exec("mongoexport --db snapmap-dev --collection stores --out stores.json")
@@ -81,72 +87,150 @@ Promise.promisifyAll(mongoose);
 
 ///////////////////////////////// PING GOOGLE PLACES TEXT SEARCH API //////////////////////////////////////////////////////////
 
+// StoreGoogle.find({}).remove().exec()
+// .then(function (){
+// 	return readFile(__dirname + '/../nydata.csv')
+// })
+// .then(function fulfilled (stores){
+// 	console.log('in first')
+//   stores = stores.toString(); 
+//   return csvParse(stores);
+// })
+// .then (function (arrayOfStores){ 
+// 	console.log('in second')
+// 	// first array is a key for the structure of all other objects
+// 	arrayOfStores = arrayOfStores.slice(1)		
+// 	// change this line to slice the part of the subarray you're responsible for 
+// 	// note that the last index is not inclusive 
+// 	arrayOfStores = arrayOfStores.slice(210000, 225000)
+// 	return makeApiCallToPlaceSearch(0, arrayOfStores)
+// })
+// .then(null, function(err){
+// 	console.log('err3: ', err)
+// })
 
-StoreGoogle.find({}).remove().exec()
-.then(function (){
-	return readFile(__dirname + '/../nydata.csv')
-})
-.then(function fulfilled (stores){
-	console.log('in first')
-  stores = stores.toString(); 
-  return csvParse(stores);
-})
-.then (function (arrayOfStores){ 
-	console.log('in second')
-	// first array is a key for the structure of all other objects
-	arrayOfStores = arrayOfStores.slice(1)		
-	// change this line to slice the part of the subarray you're responsible for 
-	// note that the last index is not inclusive 
-	arrayOfStores = arrayOfStores.slice(210000, 225000)
-	return makeApiCallToPlaceSearch(0, arrayOfStores)
-})
-.then(null, function(err){
-	console.log('err3: ', err)
-})
+
+// function makeApiCallToPlaceSearch(index, array){
+// console.log('array:', Array.isArray(array))
+// if (index === array.length-1){
+// 	// when we're at the end of our subarray, we export the collection
+// 	// export the transformed objects so we can double check seriality
+// 	// change the name of the file to appropriate designate the range of objects retrieved before uncommenting this out 
+//   exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_210000_225000.json"); 
+//   return;
+// }
+// =======
+// StoreGoogle.find({}).remove().exec()
+// .then(function (){
+// 	return readFile(__dirname + '/../nydata.csv');
+// })
+// .then(function fulfilled (stores){
+// 	console.log('in first')
+//   stores = stores.toString(); 
+//   return csvParse(stores);
+// })
+// .then (function (arrayOfStores){ 
+// 	console.log('in second')
+// 	// console.log(" htis is the type", typeof arrayOfStores[1][6], arrayOfStores[1][6]);
+
+// 	// first array is a key for the structure of all other objects
+// 	arrayOfStores = arrayOfStores.slice(1)	
+// 	arrayOfStores = arrayOfStores.filter(function(store){
+// 		return store[6] === 'NY';
+// 	})
+// 	console.log('array of stores length: ', arrayOfStores.length)	
+// 	// change this line to slice the part of the subarray you're responsible for 
+// 	// note that the last index is not inclusive
+// 	/// there are 18583 stores in New York
+// 	// I have data for the first 8674  
+// 	// the next is 8675 - 18583
+// 	arrayOfStores = arrayOfStores.slice(16205, 18584)
+// 	return makeApiCallToPlaceSearch(0, arrayOfStores)
+// 	// return "fooo"
+// })
+// .then(null, function(err){
+// 	console.log('err3: ', err)
+// })
 
 
-function makeApiCallToPlaceSearch(index, array){
-console.log('array:', Array.isArray(array))
-if (index === array.length-1){
-	// when we're at the end of our subarray, we export the collection
-	// export the transformed objects so we can double check seriality
-	// change the name of the file to appropriate designate the range of objects retrieved before uncommenting this out 
-  exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_210000_225000.json"); 
-  return;
-}
+// function makeApiCallToPlaceSearch(index, array){
+// console.log('array:', Array.isArray(array))
+// if (index === array.length-1){
+// 	// when we're at the end of our subarray, we export the collection
+// 	// export the transformed objects so we can double check seriality
+// 	// change the name of the file to appropriate designate the range of objects retrieved before uncommenting this out 
+//   exec("mongoexport --db snapmap-dev --collection storegoogles --out storegoogles_NY_16205_18584.json"); 
+//   return;
+// }
 
-	var queryString, 
-			body,
-			urlPlaceSearch; 
+// 	var queryString, 
+// 			body,
+// 			urlPlaceSearch; 
 
-	// construct query string by concatenating store name, street address and zip code for optimal search accuracy
-	var store = array[index]; 
-  queryString = store[0]; 
-	// remove any numbers in the name before concatenating address and zip code 
-	queryString = queryString.replace(/[0-9]/g, '');
-	if (store[8]) queryString = queryString + ' ' + store[3] + ' ' + store[7] + '-' + store[8]; 
-	else queryString = queryString + ' ' + store[3] + ' ' + store[7];
-	queryString = queryString.split(',');
-	queryString = queryString.join(' ');
-	//verify that the query string looks as it is supposed to 
-	console.log('new store name: ', queryString)
-	// add your own api key at the end of this url 
-  urlPlaceSearch = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location=' + Number(store[2]) + ',' + Number(store[1]) + '&radius=1&sensor=true&query=' + queryString + "&key=AIzaSyAaqIcNAPph6W5dqhUogN-bK2nCUBmC5RM";
-  //make request
-  requestP(urlPlaceSearch)
-  .then(function(response){
-  // choose the first object in the array -- comprehensiveness of queryString does not make this much of a gamble 
-    body = JSON.parse(response[0].body)
-    //store entire response object 
-    return StoreGoogle.create(body.results[0])
-  })
-  .then(function(createdGoogleStore){
-  		// see that the created object matches expectations 
-     console.log('created: ', createdGoogleStore)
-     //recursive call
-     return makeApiCallToPlaceSearch(index + 1, array)
-  })
-}
+// 	// construct query string by concatenating store name, street address and zip code for optimal search accuracy
+// 	var store = array[index]; 
+//   queryString = store[0]; 
+// 	// remove any numbers in the name before concatenating address and zip code 
+// 	queryString = queryString.replace(/[0-9]/g, '');
+// 	if (store[8]) queryString = queryString + ' ' + store[3] + ' ' + store[7] + '-' + store[8]; 
+// 	else queryString = queryString + ' ' + store[3] + ' ' + store[7];
+// 	queryString = queryString.split(',');
+// 	queryString = queryString.join(' ');
+// 	//verify that the query string looks as it is supposed to 
+// 	console.log('new store name: ', queryString)
+// 	// add your own api key at the end of this url 
+//   urlPlaceSearch = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location=' + Number(store[2]) + ',' + Number(store[1]) + '&radius=1&sensor=true&query=' + queryString + "&key=AIzaSyAT__B68i6m_QFqf8pf2kCKGy5s2o20iG4";
+//   //make request
+//   requestP(urlPlaceSearch)
+//   .then(function(response){
+//   // choose the first object in the array -- comprehensiveness of queryString does not make this much of a gamble 
+//     body = JSON.parse(response[0].body)
+//     //store entire response object 
+//     return StoreGoogle.create(body.results[0])
+//   })
+//   .then(function(createdGoogleStore){
+//   		// see that the created object matches expectations 
+//      console.log('created: ', createdGoogleStore)
+//      //recursive call
+//      return makeApiCallToPlaceSearch(index + 1, array)
+//   })
+// }
+
+
+/////////////////////////////////////// PLACE DETAILS //////////////////////////////////////////////////////////////////////////////
+
+// 	var queryString, 
+// 			body,
+// 			urlPlaceSearch; 
+
+// 	// construct query string by concatenating store name, street address and zip code for optimal search accuracy
+// 	var store = array[index]; 
+//   queryString = store[0]; 
+// 	// remove any numbers in the name before concatenating address and zip code 
+// 	queryString = queryString.replace(/[0-9]/g, '');
+// 	if (store[8]) queryString = queryString + ' ' + store[3] + ' ' + store[7] + '-' + store[8]; 
+// 	else queryString = queryString + ' ' + store[3] + ' ' + store[7];
+// 	queryString = queryString.split(',');
+// 	queryString = queryString.join(' ');
+// 	//verify that the query string looks as it is supposed to 
+// 	console.log('new store name: ', queryString)
+// 	// add your own api key at the end of this url 
+//   urlPlaceSearch = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location=' + Number(store[2]) + ',' + Number(store[1]) + '&radius=1&sensor=true&query=' + queryString + "&key=AIzaSyAaqIcNAPph6W5dqhUogN-bK2nCUBmC5RM";
+//   //make request
+//   requestP(urlPlaceSearch)
+//   .then(function(response){
+//   // choose the first object in the array -- comprehensiveness of queryString does not make this much of a gamble 
+//     body = JSON.parse(response[0].body)
+//     //store entire response object 
+//     return StoreGoogle.create(body.results[0])
+//   })
+//   .then(function(createdGoogleStore){
+//   		// see that the created object matches expectations 
+//      console.log('created: ', createdGoogleStore)
+//      //recursive call
+//      return makeApiCallToPlaceSearch(index + 1, array)
+//   })
+// }
 
 /////////////////////////////////////// PLACE DETAILS //////////////////////////////////////////////////////////////////////////////
 
@@ -159,6 +243,7 @@ if (index === array.length-1){
 // 	console.log('in then', storeObjs[0].place_id, storeObjs[1])
 // 	console.log('LENGTH!!', storeObjs.length)
 // 	//take a portion of the array
+// 	storeObjs = storeObjs.slice(43963, 50000)
 // 	storeObjs = storeObjs.filter(function(store){
 // 		return typeof store.place_id === 'string'; 
 // 	})
