@@ -5,3 +5,39 @@
 		}
 	}
 }
+
+@media (max-width: 650px){
+	#direction-panel{
+		height: 35%;
+		width: 100%;
+		bottom: 0%;
+	}
+}
+@media (min-width: 650px) {
+	#direction-panel{
+		min-height: 50%;
+		width: 30%;
+		min-width: 300px;
+		top: 50px;
+	}
+}
+ui-gmap-google-map ui-gmap-marker .google-box {
+	min-width: 180px;
+}
+
+#direction-panel {
+	position: absolute;
+	z-index: 10;
+	background: white;
+	right: 0px;
+	.selector {
+		margin-left: 15px;
+		margin-top: 15px;
+		a {
+			color: black;
+			float: right;
+			margin-right: 15px;
+			cursor: pointer;
+		}
+	}
+}
