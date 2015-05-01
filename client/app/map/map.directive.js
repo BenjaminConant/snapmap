@@ -1,16 +1,5 @@
 'use strict';
 
-// angular.module('snapmapApp')
-//   .directive('direction', function(){
-//     return {
-//       restrict: 'EA',
-//       templateUrl: 'app/map/directions.html',
-//       link: function (scope, element, attrs, controllers){
-
-//       }
-//     }
-//   })
-
 angular.module('snapmapApp')
   .directive('map', function (uiGmapGoogleMapApi, GeolocationFactory, store, $state, $q, uiGmapIsReady, $rootScope) {
     return {
@@ -43,6 +32,9 @@ angular.module('snapmapApp')
 
         scope.transportModes = [{name: 'Driving' ,type:'DRIVING'}, {name: 'Walking' ,type:'WALKING'}, {name: 'Bicycling' ,type:'BICYCLING'}, {name: 'Transit' ,type:'TRANSIT'}];
         scope.selectedMode = 'TRANSIT';
+        scope.directionsPressed = false;
+        scope.locate = {};
+        
         // this function builds the arrays that the markers go into
         var loadMarkers = function (maps) {     
           var j = [maps.getBounds().va.j, maps.getBounds().Ea.j]; 
@@ -71,15 +63,8 @@ angular.module('snapmapApp')
             }
         };
 
-        scope.click = function (){
-          console.log('into directive');
-        }
-
-        scope.markerClose = function(marker) {
-            marker.show = false;
-        }; 
-        scope.locate={};
         scope.$root.route = function (location){
+            scope.directionsPressed = true;
             if(location) scope.locate = location;
             if(GeolocationFactory.latitude && GeolocationFactory.longitude){
               uiGmapIsReady.promise(1).then(function (instance){
@@ -99,9 +84,7 @@ angular.module('snapmapApp')
                 scope.directionsDisplay.setPanel(document.getElementById('direction-panel'));
                 scope.directionsService.route(request, function(response, status) {
                   if (status == google.maps.DirectionsStatus.OK) {
-                    console.log('finished directions with ', response, status);
-                    console.log('you will go ', response.routes[0].legs[0].distance.text, 'in', response.routes[0].legs[0].duration.text);
-                      scope.directionsDisplay.setDirections(response);
+                    scope.directionsDisplay.setDirections(response);
                   }
                 
                 });
@@ -110,6 +93,11 @@ angular.module('snapmapApp')
             else{
               alert('You need to allow tracking to receive Direction information');
             }
+        }
+
+        scope.closeDirections = function (){
+          scope.directionsPressed = false;
+          scope.directionsDisplay.setMap(null);
         }
 
         // this object is passed to the angular-google-maps directive
