@@ -8,6 +8,7 @@ Promise.promisifyAll(mongoose)
 
 // Get stores for the map
 exports.index = function(req, res) {
+  
   var j, k;
   j = [Number(req.query.j[0]), Number(req.query.j[1])];
   k = [Number(req.query.k[0]), Number(req.query.k[1])];

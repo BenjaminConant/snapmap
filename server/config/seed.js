@@ -34,10 +34,31 @@ Promise.promisifyAll(mongoose);
 
 // exec('mongoimport --db snapmap-dev --collection placedetails nydata_one_asArray.json --jsonArray')
 
+// PlaceDetails.find({}).remove().exec()
+// .then(function(){
+// 	console.log('removed')
+// })
+
+// exec('mongoimport --db snapmap-dev --collection placedetails NewYorkData_asArray.json --jsonArray');
+
+
+/* ny data one has the first 1600 or so */
+// exec('mongoimport --db snapmap-dev --collection placedetails nydata_one_asArray.json --jsonArray');
+
+/* NewYorkData as array has the other 13,000 */
+// exec("mongoexport --db snapmap-dev --collection placedetails --out part3_NY_lastDay_13795-end_asArray.json --jsonArray"); 
+
+// PlaceDetails.find({}).remove().exec()
+// .then(function(){
+
+// })
+
+// exec("mongoexport --db snapmap-dev --collection placedetails --out REAL_NYDATA_ALL_asArray.json --jsonArray"); 
+
 
 // exec('mongoimport --db snapmap-dev --collection placedetails NYDATA_ALL_asArray.json --jsonArray');
 
-// exec("mongoexport --db snapmap-dev --collection placedetails --out NYDATA_ALL_asArray.json --jsonArray"); 
+
 
 // exec("mongoexport --db snapmap-dev --collection placedetails --out placedetails_1_8988_nonArray.json"); 
 
@@ -245,7 +266,7 @@ Promise.promisifyAll(mongoose);
 // 	console.log('in then', storeObjs[0].place_id, storeObjs[1])
 // 	console.log('LENGTH!!', storeObjs.length)
 // 	//take a portion of the array
-// 	storeObjs = storeObjs.slice(43963, 50000)
+// 	// storeObjs = storeObjs.slice(43963, 50000)
 // 	storeObjs = storeObjs.filter(function(store){
 // 		return typeof store.place_id === 'string'; 
 // 	})
@@ -257,7 +278,7 @@ Promise.promisifyAll(mongoose);
 // 	// 	return typeof store.place_id !== 'undefined'; 
 // 	// })
 // 	// console.log('new: ', newStoreArray[0])
-// 	storeObjs = storeObjs.slice(1769)
+// 	storeObjs = storeObjs.slice(13795)
 // 	console.log('LENGTH: ', storeObjs.length)
 // 	return makeApiCallToPlaceDetails(0, storeObjs)
 // })
@@ -268,7 +289,7 @@ Promise.promisifyAll(mongoose);
 // function makeApiCallToPlaceDetails(index, array){
 
 // 	if(index === array.length-1){
-// 		exec("mongoexport --db snapmap-dev --collection placedetails --out NewYorkData_asArray.json -jsonArray"); 
+// 		exec("mongoexport --db snapmap-dev --collection placedetails --out NY_COMPLETE_asArray.json -jsonArray"); 
 // 		return;
 // 	}
 

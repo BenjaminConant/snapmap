@@ -18,5 +18,5 @@ module.exports = {
     callbackURL: 'http://127.0.0.1:9000/auth/facebook/callback'
   },
   seedDB: true,
-  PORT: 3333 
+  PORT: 9000 
 };

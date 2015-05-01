@@ -41,14 +41,44 @@ angular.module('snapmapApp')
           var k = [maps.getBounds().va.k, maps.getBounds().Ea.k];
           var data = {j: j, k: k};
 
+          /*
+            TYPES: restaurant, store, health, pharmacy, grocery_or_supermarket
+    
+          */
+
           store.getAllPlaces(data)
             .then(function (places) {
               console.log("these are the places",places);
               scope.locations = [];
               places.forEach(function (place) {
+                for (var i = 0, len = place.types.length; i < len; i++){
+                  if (place.types[i] === 'health'){
+                    place.marker = 'assets/images/green-dot.png'; 
+                    break;
+                  }
+                  else if (place.types[i] === 'pharmacy'){
+                    place.marker = 'assets/images/purple-dot.png';
+                    break;
+                  }
+                  else if (place.types[i] === 'restaurant'){
+                    place.marker = 'assets/images/blue-dot.png';
+                    break;
+                  }
+                  else if (place.types[i] === 'grocery_or_supermarket'){
+                    place.marker = 'assets/images/yellow-dot.png';
+                    break;
+                  }
+                  else if (place.types[i] === 'store'){
+                    place.marker = 'assets/images/red-dot.png';
+                  }
+                }
                 scope.locations.push(place);
               });
-            });
+            })
+            .catch(function(err){
+              console.log('err: ', err)
+            })
+
          };
 
 
