@@ -88,7 +88,7 @@ var PlaceDetailsSchema = new Schema({
 }, {strict: false});    // this enables us to assign key-value pairs that are defined by this schema to store documents
 
 
-PlaceDetailsSchema.index({ location: "2d" })
+PlaceDetailsSchema.index({ formattedCoordinates: "2d" })
 
 
 PlaceDetailsSchema.set('toJSON', {

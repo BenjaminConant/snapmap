@@ -18,7 +18,7 @@
 				<span> {{location.address_components[0].short_name}} </span><br>
 				<span>{{location.address_components[1].short_name}} </span><br>
 				<span>{{location.address_components[2].long_name}}, {{location.address_components[3].short_name}} {{location.address_components[5].short_name}}</span><br>
-				<a href='/store/'+location._id >See more info</a><br>
+				<a href='{{"/store/" + location._id}}'>See more info</a><br>
 				<a ng-click= "$root.route(this.coords)"  >Directions</a>
 			</div>
 		</ui-gmap-window>

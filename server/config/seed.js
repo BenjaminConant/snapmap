@@ -34,7 +34,7 @@ Promise.promisifyAll(mongoose);
 // exec('mongoimport --db snapmap-dev --collection placedetails nydata_one_asArray.json --jsonArray')
 
 
-// exec('mongoimport --db snapmap-dev --collection placedetails NYDATA_ALL_asArray.json --jsonArray')
+exec('mongoimport --db snapmap-dev --collection placedetails NYDATA_ALL_asArray.json --jsonArray');
 
 // exec("mongoexport --db snapmap-dev --collection placedetails --out NYDATA_ALL_asArray.json --jsonArray"); 
 

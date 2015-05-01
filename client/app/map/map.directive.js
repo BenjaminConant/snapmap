@@ -43,6 +43,7 @@ angular.module('snapmapApp')
 
           store.getAllPlaces(data)
             .then(function (places) {
+              console.log("these are the places",places);
               scope.locations = [];
               places.forEach(function (place) {
                 scope.locations.push(place);
