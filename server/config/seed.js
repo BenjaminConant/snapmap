@@ -196,7 +196,8 @@ exec('mongoimport --db snapmap-dev --collection placedetails NYDATA_ALL_asArray.
 //   })
 // }
 
-
+// https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CmRfAAAA6taWANKD1RdF7wpo7J5QF9nKLvnFQYO9TfL9BFYo0n6HYiif6XA5mGTWLr3bTLM7KxorDpj44QK8Kmac7aVvWieWEgclL2qj7ZiQ1hkj-kew2UEYwd_CU4GtnQsf_aLiEhDbhVyMuNE3iAvDeA06UHbZGhRmKZaR7FlzK7pgjY0_u3FEY95QYA&key=AIzaSyAT__B68i6m_QFqf8pf2kCKGy5s2o20iG4
+// https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU&key=AIzaSyAT__B68i6m_QFqf8pf2kCKGy5s2o20iG4
 /////////////////////////////////////// PLACE DETAILS //////////////////////////////////////////////////////////////////////////////
 
 // 	var queryString, 
