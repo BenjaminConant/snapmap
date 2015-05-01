@@ -1,12 +1,22 @@
 'use strict';
 
+// angular.module('snapmapApp')
+//   .directive('direction', function(){
+//     return {
+//       restrict: 'EA',
+//       templateUrl: 'app/map/directions.html',
+//       link: function (scope, element, attrs, controllers){
+
+//       }
+//     }
+//   })
+
 angular.module('snapmapApp')
   .directive('map', function (uiGmapGoogleMapApi, GeolocationFactory, store, $state, $q, uiGmapIsReady, $rootScope) {
     return {
       templateUrl: 'app/map/map.html',
       restrict: 'EA',
       link: function (scope, element, attrs) {
-        
         
         //init the map
       	GeolocationFactory.getGeo().then(function (){
@@ -31,6 +41,8 @@ angular.module('snapmapApp')
   	      }
   	    });
 
+        scope.transportModes = [{name: 'Driving' ,type:'DRIVING'}, {name: 'Walking' ,type:'WALKING'}, {name: 'Bicycling' ,type:'BICYCLING'}, {name: 'Transit' ,type:'TRANSIT'}];
+        scope.selectedMode = 'TRANSIT';
         // this function builds the arrays that the markers go into
         var loadMarkers = function (maps) {     
           var j = [maps.getBounds().va.j, maps.getBounds().Ea.j]; 
@@ -66,8 +78,9 @@ angular.module('snapmapApp')
         scope.markerClose = function(marker) {
             marker.show = false;
         }; 
-
+        scope.locate={};
         scope.$root.route = function (location){
+            if(location) scope.locate = location;
             if(GeolocationFactory.latitude && GeolocationFactory.longitude){
               uiGmapIsReady.promise(1).then(function (instance){
                 var request = {
@@ -76,14 +89,14 @@ angular.module('snapmapApp')
                     GeolocationFactory.longitude
                   ),
                   destination: new scope.maps.LatLng(
-                    location.latitude, 
-                    location.longitude
+                    scope.locate.latitude, 
+                    scope.locate.longitude
                   ),
-                  travelMode: scope.maps.TravelMode['WALKING'],
+                  travelMode: scope.maps.TravelMode[scope.selectedMode],
                   optimizeWaypoints: true
                 };
-                console.log(request);
                 scope.directionsDisplay.setMap(instance[0].map);
+                scope.directionsDisplay.setPanel(document.getElementById('direction-panel'));
                 scope.directionsService.route(request, function(response, status) {
                   if (status == google.maps.DirectionsStatus.OK) {
                     console.log('finished directions with ', response, status);

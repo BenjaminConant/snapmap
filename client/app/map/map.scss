@@ -5,3 +5,16 @@
 		}
 	}
 }
+
+#direction-panel {
+	position: absolute;
+	z-index: 10;
+	top: 50px;
+	height: 90%;
+	background: white;
+	width: 30%;
+	.selector {
+		margin-left: 15px;
+		margin-top: 15px;
+	}
+}

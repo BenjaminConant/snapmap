@@ -1,3 +1,9 @@
+<div id='direction-panel' class='test'>
+	<div class='selector'>
+		<b>Mode of Travel: </b>
+	    <select ng-model='selectedMode' ng-options='mode.type as mode.name for mode in transportModes' ng-change='$root.route()'></select>
+	</div>
+</div>
 <ui-gmap-google-map center="map.center" zoom="map.zoom" events="mapChanged">
 	<ui-gmap-marker ng-repeat="location in locations"
 	click="{ click: markerClick(location) }"
@@ -15,9 +21,8 @@
 				<a ng-click= "$root.route(this.coords)"  >Directions</a>
 			</div>
 		</ui-gmap-window>
-
 	</ui-gmap-marker>
-	<ui-gmap-marker ng-repeat="grocery in groceries"
+	<!-- <ui-gmap-marker ng-repeat="grocery in groceries"
 	click="{ click: hitMarker(grocery._id) }"
 	idKey= "{ id: grocery._id }"
 	icon="{ url: 'assets/images/snapmap_pin_GREEN.png' }"
@@ -27,5 +32,5 @@
 		'<span>' + grocery.address + '</span><br><span>' + grocery.addressLineTwo + '</span><br><span>' + 
 		grocery.city + ', ' + grocery.state + ' ' + grocery.zip5 + '</span><br><a href=\'/store/' + grocery._id  + '\'>See more info</a><br><span>Directions</span></div>' }">
 		</ui-gmap-window>
-	</ui-gmap-marker>
+	</ui-gmap-marker> -->
 </ui-gmap-google-map>
