@@ -66,6 +66,7 @@ angular.module('snapmapApp')
       //Get single place
       getPlace: function (storeId) {
         return $http.get('/api/placeDetails/' + storeId).then(function success (place) {
+          console.log("this is the place", place);
           return place.data;
         }, function failed (err) {
             return err;

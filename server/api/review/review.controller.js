@@ -41,19 +41,23 @@ Creates a new review in the DB.
 */ 
 exports.create = function(req, res) {
   req.body.user = req.user._id; 
+  console.log(req.body);
   var finalReview, finalStore; 
   return Review.create(req.body)
   .then(function fulfilled (review) {
+   console.log("got to fufilled", review);  
   return review.populateAsync('user')
   })  
   .then(function(popReview){
+    console.log("This is the pop review", popReview);
     finalReview = popReview; 
-    return Store.findByIdAndUpdate(req.body.store, {$push: {reviews: popReview._id}}).execAsync();
+    return Places.findByIdAndUpdate(req.body.store, {$push: {reviewsInternal: popReview._id}}).exec();
   })
-  .then(function (store){
-    store.numReviews += 1; 
-    store.rating += Number(req.body.stars);
-    return store.saveAsync()
+  .then(function (place){
+    console.log("This is the place", place);
+    place.numReviews += 1; 
+    place.ratingInternal += Number(req.body.stars);
+    return place.saveAsync()
     .spread(function(ratedStore){
       // finalStore = ratedStore[0] bc saveAsync returns promise
       finalStore = ratedStore;           
@@ -65,6 +69,7 @@ exports.create = function(req, res) {
     return res.json(201, {finalReview: finalReview, finalStore: finalStore})
   })
   .then(null, function(err){
+    console.log(err);
     return handleError(res, err);
   })   
 };

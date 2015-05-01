@@ -2,7 +2,7 @@
 	<h2 class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>Reviews</h2>
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bump-top">
 		<div class="row">
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 reviewer">
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 reviewer">
 				<img class='img-responsive' ng-src='{{currentUser.avatar}}'/>
 			</div>
 			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-9 blurb create-padding">
@@ -25,15 +25,29 @@
 	<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
 		<div class='row' ng-repeat='review in store.reviews'>
 			<div class='bump-10px'>
-				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 reviewer">
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 reviewer">
 					<img class='img-responsive' ng-if='review.user' ng-src='{{review.user.avatar}}' title='{{review.user.name}}'/>
-					<img class='img-responsive' ng-if='!review.user' ng-src='http://lorempixel.com/100/100/' title='{{review.author_name}}'/>
+					<img class='img-responsive' ng-if='!review.user' ng-src='{{randomFace()}}' title='{{review.author_name}}'/>
 				</div>
 				<div class="col-lg-10 col-md-10 col-sm-10 col-xs-9 blurb">
 					<h5>{{review.time | date}}</h5>
-					<h4>{{review.author_name}}</h4>
 					<h4>{{review.text}}</h4>
 					<p><span ng-repeat='i in review.staricons' class="fa fa-star"></span></p>
+					<p>{{review.author_name}}</p>
+				</div>
+			</div>
+		</div>
+		<div class='row' ng-repeat='review in reviews'>
+			<div class='bump-10px'>
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 reviewer">
+					<img class='img-responsive' ng-if='review.user' ng-src='{{review.user.avatar}}' title='{{review.user.name}}'/>
+					<img class='img-responsive' ng-if='!review.user' ng-src='{{randomFace()}}' title='{{review.author_name}}'/>
+				</div>
+				<div class="col-lg-10 col-md-10 col-sm-10 col-xs-9 blurb">
+					<h5>{{review.date | date}}</h5> 					
+					<h4>{{review.text}}</h4>
+					<p><span ng-repeat='i in review.staricons' class="fa fa-star"></span></p>
+					<p>{{review.user.name}}</p> 
 				</div>
 			</div>
 		</div>

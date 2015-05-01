@@ -1,19 +1,20 @@
 @for $i from 150px through 2000px {
-	@media (max-height: ($i)) and (min-height: ($i - 0.5)) {
+	@media screen and (max-height: ($i)) and (min-height: ($i - 0.5)) {
 		.angular-google-map-container {
 			height: ($i - 50);
 		}
 	}
 }
 
-@media (max-width: 650px){
+@media screen and (max-width: 650px){
 	#direction-panel{
-		height: 35%;
+		height: 35% !important;
 		width: 100%;
 		bottom: 0%;
+		overflow: auto;
 	}
 }
-@media (min-width: 650px) {
+@media screen and (min-width: 650px) {
 	#direction-panel{
 		min-height: 50%;
 		width: 30%;
@@ -29,7 +30,11 @@ ui-gmap-google-map ui-gmap-marker .google-box {
 	position: absolute;
 	z-index: 10;
 	background: white;
-	right: 0px;
+	top: 56px;
+	right: 5px;
+	border: 1px solid grey;
+	padding: 5px;
+	height: auto;
 	.selector {
 		margin-left: 15px;
 		margin-top: 15px;

@@ -31,8 +31,10 @@ exports.index = function(req, res) {
 // Get a single store
 exports.show = function(req, res) {
   console.log(req.params.id);
-  Places.findById(req.params.id).exec()
+  Places.findById(req.params.id).populate('reviewsInternal').exec()
   .then(function (store) {
+    console.log('store: ', store)
+    // store.populateAsync('reviewsInternal');
     if(!store) { throw new Error('store not found') }
     return res.json(store);
   })
