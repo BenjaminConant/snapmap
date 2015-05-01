@@ -33,10 +33,22 @@ Promise.promisifyAll(mongoose);
 
 // exec('mongoimport --db snapmap-dev --collection placedetails nydata_one_asArray.json --jsonArray')
 
+// PlaceDetails.find({}).remove().exec()
+// .then(function(){
+// 	console.log('removed')
+// })
 
-exec('mongoimport --db snapmap-dev --collection placedetails NYDATA_ALL_asArray.json --jsonArray');
+// exec('mongoimport --db snapmap-dev --collection placedetails NewYorkData_asArray.json --jsonArray');
 
+
+/* ny data one has the first 1600 or so */
+// exec('mongoimport --db snapmap-dev --collection placedetails nydata_one_asArray.json --jsonArray');
+
+/* NewYorkData as array has the other 13,000 */
 // exec("mongoexport --db snapmap-dev --collection placedetails --out NYDATA_ALL_asArray.json --jsonArray"); 
+
+
+
 
 // exec("mongoexport --db snapmap-dev --collection placedetails --out placedetails_1_8988_nonArray.json"); 
 
