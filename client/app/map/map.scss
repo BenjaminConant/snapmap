@@ -15,12 +15,15 @@
 }
 @media (min-width: 650px) {
 	#direction-panel{
-		height: 90%;
+		min-height: 50%;
 		width: 30%;
+		min-width: 300px;
 		top: 50px;
 	}
 }
-
+ui-gmap-google-map ui-gmap-marker .google-box {
+	min-width: 180px;
+}
 
 #direction-panel {
 	position: absolute;

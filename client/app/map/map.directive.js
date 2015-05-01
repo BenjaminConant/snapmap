@@ -1,20 +1,20 @@
 'use strict';
 
 angular.module('snapmapApp')
-  .directive('map', function (uiGmapGoogleMapApi, GeolocationFactory, store, $state, $q, uiGmapIsReady, $rootScope) {
+  .directive('map', function (uiGmapGoogleMapApi, GeolocationFactory, store, $q, uiGmapIsReady, $rootScope) {
     return {
       templateUrl: 'app/map/map.html',
       restrict: 'EA',
       link: function (scope, element, attrs) {
         
         //init the map
-      	GeolocationFactory.getGeo().then(function (){
-  	      if (GeolocationFactory.latitude && GeolocationFactory.longitude){
-  	      	uiGmapGoogleMapApi.then(function (maps){
+        GeolocationFactory.getGeo().then(function (){
+          if (GeolocationFactory.latitude && GeolocationFactory.longitude){
+            uiGmapGoogleMapApi.then(function (maps){
               scope.maps = maps;
               scope.map = { 
-  							center: { latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude}, 
-  							zoom: 17,
+                center: { latitude: GeolocationFactory.latitude, longitude: GeolocationFactory.longitude}, 
+                zoom: 17,
                 windowTemplate: "popup.html",
                 windowParameter: {
                   options: {
@@ -23,12 +23,12 @@ angular.module('snapmapApp')
                   },
                   parent: scope
                 }
-  						};
+              };
               scope.directionsService = new maps.DirectionsService();
               scope.directionsDisplay = new maps.DirectionsRenderer();
-  					})
-  	      }
-  	    });
+            })
+          }
+        });
 
         scope.transportModes = [{name: 'Driving' ,type:'DRIVING'}, {name: 'Walking' ,type:'WALKING'}, {name: 'Bicycling' ,type:'BICYCLING'}, {name: 'Transit' ,type:'TRANSIT'}];
         scope.selectedMode = 'TRANSIT';
@@ -91,7 +91,7 @@ angular.module('snapmapApp')
               });
             }
             else{
-              alert('You need to allow tracking to receive Direction information');
+              console.log('You need to allow tracking to receive Direction information');
             }
         }
 
@@ -108,5 +108,5 @@ angular.module('snapmapApp')
                 tilesloaded: loadMarkers
         }; 
     }
-	}
+  }
 });
