@@ -11,14 +11,14 @@
 	idKey= "{ id: location._id }"
 	icon="{ url: 'assets/images/snapmap_pin.png' }"
 	options= "{ title: location.name }" 
-	coords="{ latitude: location.location[1], longitude: location.location[0] }">
+	coords="{ latitude: location.geometry.location.lat, longitude: location.geometry.location.lng }">
 		<ui-gmap-window show='location.show' templateParamter='map.windowParameter' coords='{ latitude: location.location[1], longitude: location.location[0] }' options='map.windowParamter.options'ng-cloak='ng-cloak'>
-			<div style='height: 120px; min-width: 120px;'>
+			<div style='height: 150px; min-width: 120px;'>
 				<span><b> {{location.name}} </b></span><br> 
-				<span> {{location.address}} </span><br>
-				<span>{{location.addressLineTwo}} </span><br>
-				<span>{{location.city}}, {{location.state}} {{location.zip5}}</span><br>
-				<a href='/store/'+location._id >See more info</a><br>
+				<span> {{location.address_components[0].short_name}} </span><br>
+				<span>{{location.address_components[1].short_name}} </span><br>
+				<span>{{location.address_components[2].long_name}}, {{location.address_components[3].short_name}} {{location.address_components[5].short_name}}</span><br>
+				<a href='{{"/store/" + location._id}}'>See more info</a><br>
 				<a ng-click= "$root.route(this.coords)"  >Directions</a>
 			</div>
 		</ui-gmap-window>

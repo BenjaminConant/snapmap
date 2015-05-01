@@ -9,14 +9,22 @@ Promise.promisifyAll(mongoose)
 // Get stores for the map
 exports.index = function(req, res) {
   var j, k;
-  j = [Number(req.query.j[0]), Number(req.query.j[1]) ];
+  j = [Number(req.query.j[0]), Number(req.query.j[1])];
   k = [Number(req.query.k[0]), Number(req.query.k[1])];
-  Places.find({'geometry.location': { $geoWithin: { $box: [ j, k] } }}).exec()
+  console.log(j, k);
+  Places.find({'formattedCoordinates': { $geoWithin: { $box: [ j, k] } }}).exec()
   .then(function (stores) {
       console.log('stores: ', stores)
       return res.json(stores);
   })
-  .then(null, handleError(res));
+  //
+  //Places front end route calls this at present.  We can change back to the commented out call once geometry.location is converted to an array
+  // Places.find({'geometry.location.lat': '37.808895'}).exec()
+  // .then(function (stores) {
+  //   console.log('stores: ', stores);
+  //   return res.json(stores);
+  // })
+  // .then(null, handleError(res));
 };
 
 // Get a single store

@@ -21,6 +21,10 @@ angular.module('snapmapApp')
       templateUrl: 'app/reviews/reviews.html',
       restrict: 'EA',
       link: function (scope, element, attrs) {
+        scope.currentUser = Auth.getCurrentUser();
+        if (!scope.currentUser.avatar) {
+          scope.currentUser.avatar = 'http://lorempixel.com/100/101/abstract/';
+        }
         scope.submitReview = function (review){
           var obj = {
             stars: review.rating,
@@ -31,8 +35,10 @@ angular.module('snapmapApp')
           scope.review = {}
           ReviewFactory.submitReview(obj).then(function (data){
             console.log('data: ', data)
-            scope.store.averageRating = data.finalStore.averageRating; 
-            
+            scope.store.averageRating = [];
+            for (var i = 0; i < data.finalStore.averageRating; i++){
+              scope.store.averageRating.push(i);
+            }
             // must reassign to create new object as mongoose object is immuatable
             // unless you call .toObject() on it, but if you call .toObject() on it
             // you lose any virtual fields, which are toJSON-ed

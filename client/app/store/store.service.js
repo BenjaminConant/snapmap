@@ -54,6 +54,22 @@ angular.module('snapmapApp')
         }).then(function success(data){
           return data.response.venues; 
         });
+      },
+      //Place details ajax request
+      getAllPlaces: function (data){
+        return $http.get('/api/placeDetails', {params: data}).then(function success(places) {
+          return places.data;
+        }, function failed (err){
+            return err;
+        });
+      },
+      //Get single place
+      getPlace: function (storeId) {
+        return $http.get('/api/placeDetails/' + storeId).then(function success (place) {
+          return place.data;
+        }, function failed (err) {
+            return err;
+        });
       }
     };
   });
