@@ -371,6 +371,16 @@ Promise.promisifyAll(mongoose);
 
 // user2.save();
 
+User.findOne({email: 'test@test.com'}).exec()
+.then(function(user){
+	user.firstName = 'Test';
+	user.lastName = 'User';
+	return user.saveAsync()
+})
+.then(function(user){
+	console.log('user: ', user)
+})
+
 
 ////////////////////////
 
