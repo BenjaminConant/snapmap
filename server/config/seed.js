@@ -62,7 +62,7 @@ Promise.promisifyAll(mongoose);
 
 // })
 
-// exec("mongoexport --db snapmap-dev --collection placedetails --out REAL_NYDATA_ALL_asArray.json --jsonArray"); 
+exec("mongoimport --db snapmap-dev --collection placedetails REAL_NYDATA_ALL_asArray.json --jsonArray"); 
 
 
 // exec('mongoimport --db snapmap-dev --collection placedetails NYDATA_ALL_asArray.json --jsonArray');
@@ -335,14 +335,14 @@ Promise.promisifyAll(mongoose);
 // }
 
 
-// var user2 = new User({
-//   provider: 'local',
-//   firstName: 'Ben',
-//   lastName: 'Conant',
-//   email: 'conantbenjamin@gmail.com',
-//   password: 'test',
-//   avatar: 'http://www.fullstackacademy.com/img/team/ben_conant@2x.jpg'
-// });
+var user2 = new User({
+  provider: 'local',
+  firstName: 'Ben',
+  lastName: 'Conant',
+  email: 'conantbenjamin@gmail.com',
+  password: 'test',
+  avatar: 'http://www.fullstackacademy.com/img/team/ben_conant@2x.jpg'
+});
 
-// user2.save();
+user2.save();
 
