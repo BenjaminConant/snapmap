@@ -265,7 +265,7 @@ Promise.promisifyAll(mongoose);
 // }
 PlaceDetails.find({}).remove().exec()
 .then(function(){
-	return readFile(_dirname + '../../REAL_NYDATA_ALL_asArray.json')
+	return readFile(_dirname + '/../../REAL_NYDATA_ALL_asArray.json')
 })
 .then(function(places){
 	places = JSON.parse(places)
