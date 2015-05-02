@@ -62,7 +62,7 @@ Promise.promisifyAll(mongoose);
 
 // })
 
-exec("mongoimport --db snapmap-dev --collection placedetails REAL_NYDATA_ALL_asArray.json --jsonArray"); 
+// exec("mongoimport --db  --collection placedetails REAL_NYDATA_ALL_asArray.json --jsonArray"); 
 
 
 // exec('mongoimport --db snapmap-dev --collection placedetails NYDATA_ALL_asArray.json --jsonArray');
@@ -263,6 +263,26 @@ exec("mongoimport --db snapmap-dev --collection placedetails REAL_NYDATA_ALL_asA
 //      return makeApiCallToPlaceSearch(index + 1, array)
 //   })
 // }
+PlaceDetails.find({}).remove().exec()
+.then(function(){
+	return readFile(_dirname + '../../REAL_NYDATA_ALL_asArray.json')
+})
+.then(function(places){
+	places = JSON.parse(places)
+	return db(0, places)
+})
+
+function db(index, array){
+	if (index === array.length){
+		return;
+	}
+	return PlaceDetails.create(array[index])
+	.then(function(created){
+		console.log('created: ', created)
+		return db(index + 1, array)
+	})
+}
+
 
 /////////////////////////////////////// PLACE DETAILS //////////////////////////////////////////////////////////////////////////////
 
@@ -335,14 +355,19 @@ exec("mongoimport --db snapmap-dev --collection placedetails REAL_NYDATA_ALL_asA
 // }
 
 
-var user2 = new User({
-  provider: 'local',
-  firstName: 'Ben',
-  lastName: 'Conant',
-  email: 'conantbenjamin@gmail.com',
-  password: 'test',
-  avatar: 'http://www.fullstackacademy.com/img/team/ben_conant@2x.jpg'
-});
+// var user2 = new User({
+//   provider: 'local',
+//   firstName: 'Ben',
+//   lastName: 'Conant',
+//   email: 'conantbenjamin@gmail.com',
+//   password: 'test',
+//   avatar: 'http://www.fullstackacademy.com/img/team/ben_conant@2x.jpg'
+// });
 
-user2.save();
+// user2.save();
+
+
+////////////////////////
+
+
 
