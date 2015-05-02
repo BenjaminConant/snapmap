@@ -62,7 +62,7 @@ Promise.promisifyAll(mongoose);
 
 // })
 
-// exec("mongoimport --db  --collection placedetails REAL_NYDATA_ALL_asArray.json --jsonArray"); 
+// exec("mongoexport --db snapmap-dev --collection placedetails --out REAL_NYDATA_ALL_asArray.json --jsonArray"); 
 
 
 // exec('mongoimport --db snapmap-dev --collection placedetails NYDATA_ALL_asArray.json --jsonArray');
@@ -263,25 +263,30 @@ Promise.promisifyAll(mongoose);
 //      return makeApiCallToPlaceSearch(index + 1, array)
 //   })
 // }
-PlaceDetails.find({}).remove().exec()
-.then(function(){
-	return readFile(_dirname + '/../../REAL_NYDATA_ALL_asArray.json')
-})
-.then(function(places){
-	places = JSON.parse(places)
-	return db(0, places)
-})
+// PlaceDetails.find({}).remove().exec()
+// .then(function(){
+// 	console.log('in here')
+// 	return readFile(__dirname + '/../../REAL_NYDATA_ALL_asArray.json')
+// })
+// .then(function(places){
+// 	places = JSON.parse(places)
+// 	console.log('length: ', places.length)
+// 	return db(0, places)
+// })
+// .then(null, function(err){
+// 	console.log('err: ', err)
+// })
 
-function db(index, array){
-	if (index === array.length){
-		return;
-	}
-	return PlaceDetails.create(array[index])
-	.then(function(created){
-		console.log('created: ', created)
-		return db(index + 1, array)
-	})
-}
+// function db(index, array){
+// 	if (index === array.length){
+// 		return;
+// 	}
+// 	return PlaceDetails.create(array[index])
+// 	.then(function(created){
+// 		console.log('created: ', created)
+// 		return db(index + 1, array)
+// 	})
+// }
 
 
 /////////////////////////////////////// PLACE DETAILS //////////////////////////////////////////////////////////////////////////////
