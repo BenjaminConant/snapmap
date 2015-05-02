@@ -79,6 +79,7 @@ angular.module('snapmapApp')
             })
             .catch(function(err){
               console.log('err: ', err)
+              console.log('commit!')
             })
          };
 
