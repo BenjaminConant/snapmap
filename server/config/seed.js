@@ -26,6 +26,15 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 var mongoose = require('mongoose'); 
 Promise.promisifyAll(mongoose);
 
+// PlaceDetails.find({}).exec()
+// .then(function(objs){
+// 	objs = objs.filter(function(obj){
+// 		return obj.photos.length > 1
+// 	})
+
+// 	console.log('obj: ', objs[0])
+// })
+
 // var promisify = require("promisify-node");
 
 // function dbSeedString(collection) {
