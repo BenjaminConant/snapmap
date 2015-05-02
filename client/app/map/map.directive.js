@@ -43,6 +43,10 @@ angular.module('snapmapApp')
 
           /*
             TYPES: restaurant, store, health, pharmacy, grocery_or_supermarket
+
+            If 'health' is at any index in the place's types array, this for loop 
+            will assign a green dot to the marker, push it into the locations array 
+            and then continue on to the next index 
     
           */
        
@@ -79,7 +83,6 @@ angular.module('snapmapApp')
             })
             .catch(function(err){
               console.log('err: ', err)
-              console.log('commit!')
             })
          };
 
