@@ -3,7 +3,8 @@
 	<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12 center-block'>
 		<section class='row well'>
 			<div id='storeImage' class='col-lg-4 col-md-4 col-sm-12 col-xs-12' style='padding-left: 0%;'>
-				<img ng-src='{{store.icon}}' class='img-responsive img-fill'/>
+				<img ng-if="store.photos.length === 0" ng-src="{{store.icon}}" class='img-responsive img-fill'/>
+				<img ng-if="store.photos.length > 0" ng-src='https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference={{store.photos[0].photo_reference}}&key=AIzaSyAT__B68i6m_QFqf8pf2kCKGy5s2o20iG4' class='img-responsive img-fill'/>
 			</div>
 			<div id='storeInfo' class='col-lg-8 col-md-8 col-sm-12 col-xs-12'>
 				<div class='row'>

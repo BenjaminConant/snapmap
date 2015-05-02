@@ -26,6 +26,15 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 var mongoose = require('mongoose'); 
 Promise.promisifyAll(mongoose);
 
+// PlaceDetails.find({}).exec()
+// .then(function(objs){
+// 	objs = objs.filter(function(obj){
+// 		return obj.photos.length > 1
+// 	})
+
+// 	console.log('obj: ', objs[0])
+// })
+
 // var promisify = require("promisify-node");
 
 // function dbSeedString(collection) {
@@ -254,6 +263,31 @@ Promise.promisifyAll(mongoose);
 //      return makeApiCallToPlaceSearch(index + 1, array)
 //   })
 // }
+// PlaceDetails.find({}).remove().exec()
+// .then(function(){
+// 	console.log('in here')
+// 	return readFile(__dirname + '/../../REAL_NYDATA_ALL_asArray.json')
+// })
+// .then(function(places){
+// 	places = JSON.parse(places)
+// 	console.log('length: ', places.length)
+// 	return db(0, places)
+// })
+// .then(null, function(err){
+// 	console.log('err: ', err)
+// })
+
+// function db(index, array){
+// 	if (index === array.length){
+// 		return;
+// 	}
+// 	return PlaceDetails.create(array[index])
+// 	.then(function(created){
+// 		console.log('created: ', created)
+// 		return db(index + 1, array)
+// 	})
+// }
+
 
 /////////////////////////////////////// PLACE DETAILS //////////////////////////////////////////////////////////////////////////////
 
@@ -336,4 +370,9 @@ Promise.promisifyAll(mongoose);
 // });
 
 // user2.save();
+
+
+////////////////////////
+
+
 

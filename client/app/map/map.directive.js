@@ -45,40 +45,42 @@ angular.module('snapmapApp')
             TYPES: restaurant, store, health, pharmacy, grocery_or_supermarket
     
           */
-
+       
           store.getAllPlaces(data)
             .then(function (places) {
               console.log("these are the places",places);
               scope.locations = [];
-              places.forEach(function (place) {
-                for (var i = 0, len = place.types.length; i < len; i++){
-                  if (place.types[i] === 'health'){
-                    place.marker = 'assets/images/green-dot.png'; 
-                    break;
-                  }
-                  else if (place.types[i] === 'pharmacy'){
-                    place.marker = 'assets/images/purple-dot.png';
-                    break;
-                  }
-                  else if (place.types[i] === 'restaurant'){
-                    place.marker = 'assets/images/blue-dot.png';
-                    break;
-                  }
-                  else if (place.types[i] === 'grocery_or_supermarket'){
-                    place.marker = 'assets/images/yellow-dot.png';
-                    break;
-                  }
-                  else if (place.types[i] === 'store'){
-                    place.marker = 'assets/images/red-dot.png';
-                  }
+              for (var i = 0, len = places.length; i < len; i++){
+                if (places[i].types.indexOf('health') > - 1){
+                  places[i].marker = 'assets/images/green-dot.png'; 
+                  scope.locations.push(places[i])
+                  continue;
                 }
-                scope.locations.push(place);
-              });
+                else if (places[i].types.indexOf('pharmacy') > -1){
+                  places[i].marker = 'assets/images/purple-dot.png';
+                  scope.locations.push(places[i])
+                  continue;
+                }
+                else if (places[i].types.indexOf('restaurant') > -1){
+                  places[i].marker = 'assets/images/blue-dot.png';
+                  scope.locations.push(places[i])
+                  continue;
+                }
+                else if (places[i].types.indexOf('grocery_or_supermarket') > -1){
+                  places[i].marker = 'assets/images/yellow-dot.png';
+                  scope.locations.push(places[i])
+                  continue;
+                }
+                else if (places[i].types.indexOf('store') > -1){
+                  places[i].marker = 'assets/images/red-dot.png';
+                  scope.locations.push(places[i])
+                }
+              }
             })
             .catch(function(err){
               console.log('err: ', err)
+              console.log('commit!')
             })
-
          };
 
 
