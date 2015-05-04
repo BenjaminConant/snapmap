@@ -1,4 +1,5 @@
-Snapmap is a game changing, mobile optimized, geolocation website that empowers New York State families and individuals to get the most out of their SNAP Benefits. Log in and Explore Snapmap for yourself!
+Snapmap is a game changing, mobile optimized, Yelp-like, geolocation web app that empowers New York State families and individuals to get the most out of their SNAP Benefits. Log in and Explore Snapmap for yourself!
+snapmapper.herokuapp.com
 
 KEY SNAPMAP FEATURES:
 
@@ -13,6 +14,7 @@ KEY SNAPMAP FEATURES:
 5 - Key information about SNAP-accepting stores: icons, websites, hours of operation, pictures
 
 GOOGLE PINS KEY:
+
 1 - Purple: Pharmacy
 2 - Blue: Restaurant
 3 - Yellow: Supermarket or Grocery Store 
