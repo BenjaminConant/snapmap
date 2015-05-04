@@ -80,6 +80,32 @@ angular.module('snapmapApp')
                   scope.locations.push(places[i])
                 }
               }
+              /*
+                DRYER:
+              */
+
+              // for (var i = 0, len = places.length; i < len; i++){
+              //   scope.locations.push(places[i])
+              //   if (places[i].types.indexOf('health') > - 1){
+              //     places[i].marker = 'assets/images/green-dot.png'; 
+              //     continue;
+              //   }
+              //   else if (places[i].types.indexOf('pharmacy') > -1){
+              //     places[i].marker = 'assets/images/purple-dot.png';
+              //     continue;
+              //   }
+              //   else if (places[i].types.indexOf('restaurant') > -1){
+              //     places[i].marker = 'assets/images/blue-dot.png';
+              //     continue;
+              //   }
+              //   else if (places[i].types.indexOf('grocery_or_supermarket') > -1){
+              //     places[i].marker = 'assets/images/yellow-dot.png';
+              //     scope.locations.push(places[i])
+              //   }
+              //   else if (places[i].types.indexOf('store') > -1){
+              //     places[i].marker = 'assets/images/red-dot.png';
+              //   }
+              // }
             })
             .catch(function(err){
               console.log('err: ', err)
