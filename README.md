@@ -21,3 +21,5 @@ GOOGLE PINS KEY:
 4 - Red: Store 
 5 - Green: Health
 *categories supplied by the Google Place Details API
+
+https://www.youtube.com/watch?v=fJytsepuIVI
