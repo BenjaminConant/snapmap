@@ -5,7 +5,9 @@ angular.module('snapmapApp')
     $scope.user = {};
     $scope.errors = {};
 
-
+      /*
+        do something here
+      */
     $scope.login = function(form) {
       $scope.submitted = true;
 
