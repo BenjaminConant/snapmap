@@ -26,6 +26,10 @@ var LineReader = Promise.promisify(require('node-line-reader').LineReader);
 var mongoose = require('mongoose'); 
 Promise.promisifyAll(mongoose);
 
+/*
+find a way to add validation
+*/
+
 // PlaceDetails.find({}).exec()
 // .then(function(objs){
 // 	objs = objs.filter(function(obj){
